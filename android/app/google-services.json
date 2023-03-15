@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "957181762313",
+    "project_id": "sleepproject-62ec2",
+    "storage_bucket": "sleepproject-62ec2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957181762313:android:a83a3bf2b3ba77dff091d8",
+        "android_client_info": {
+          "package_name": "com.example.sweetdreams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957181762313-5kueehct5subqhueu5cq47gaa9vogup3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVPwyEtgtuGUJ3KfoUBDEh8Nn480IOm58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957181762313-5kueehct5subqhueu5cq47gaa9vogup3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
