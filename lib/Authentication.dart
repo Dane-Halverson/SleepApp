@@ -3,28 +3,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class Authentication {
 
-  Future<UserCredential> createUser(String email, String password) async {
-    final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email, password: password);
-    return credential;
+  final FirebaseAuth _authentication = FirebaseAuth.instance;
+  get user => _authentication.currentUser;
+
+
+  Future createUser({required String email, required String password}) async {
+    await _authentication.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return null;
+
   }
 
-  void signIn(String email, String password) async {
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
+  Future signIn({required String email, required String password}) async {
+    await _authentication.signInWithEmailAndPassword(email: email, password: password);
+    return null;
   }
 
-  void signOut() async {
+  Future signOut() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  void deleteAccount() async {
+    await FirebaseAuth.instance.currentUser?.delete();
   }
 }
