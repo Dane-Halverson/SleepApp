@@ -5,13 +5,16 @@ import 'package:units/firebase_options.dart';
 
 import 'dreams/views/dreams_component.dart';
 import 'dreams/presenter/dreams_presenter.dart';
+import 'Authentication.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  // final db = FirebaseFirestore.instance;
+  await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  final db = FirebaseFirestore.instance;
+  //Authentication auth = Authentication();
+  //auth.createUser(email: "test@testemail.com", password: "TestPass1234");
   runApp(MyApp());
 }
 
