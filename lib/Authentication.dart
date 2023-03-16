@@ -13,7 +13,6 @@ class Authentication {
       password: password,
     );
     return null;
-
   }
 
   Future signIn({required String email, required String password}) async {
@@ -28,4 +27,9 @@ class Authentication {
   void deleteAccount() async {
     await FirebaseAuth.instance.currentUser?.delete();
   }
+
+  String? getUser() {
+    return _authentication.currentUser?.uid;
+  }
+
 }
