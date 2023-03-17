@@ -8,15 +8,26 @@ class Authentication {
 
 
   Future createUser({required String email, required String password}) async {
-    await _authentication.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _authentication.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
     return null;
   }
 
   Future signIn({required String email, required String password}) async {
-    await _authentication.signInWithEmailAndPassword(email: email, password: password);
+    try {
+      await _authentication.signInWithEmailAndPassword(
+          email: email, password: password);
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
     return null;
   }
 
@@ -24,12 +35,16 @@ class Authentication {
     await FirebaseAuth.instance.signOut();
   }
 
-  void deleteAccount() async {
-    await FirebaseAuth.instance.currentUser?.delete();
+  Future deleteAccount() async {
+    try {
+      await FirebaseAuth.instance.currentUser?.delete();
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
+    return null;
   }
 
-  String? getUser() {
-    return _authentication.currentUser?.uid;
-  }
+  String? getUserUID() => _authentication.currentUser?.uid;
 
 }

@@ -13,8 +13,10 @@ void main() async {
      options: DefaultFirebaseOptions.currentPlatform,
   );
   final db = FirebaseFirestore.instance;
-  //Authentication auth = Authentication();
+  Authentication auth = Authentication();
   //auth.createUser(email: "test@testemail.com", password: "TestPass1234");
+  print(auth.getUserUID());
+  auth.deleteAccount();
   runApp(MyApp());
 }
 
