@@ -51,4 +51,14 @@ class Authentication {
   ///returns logged in user's UID, otherwise returns null if not logged in.
   String? getUserUID() => _authentication.currentUser?.uid;
 
+  Future resetPassword(String email) async {
+    try {
+      _authentication.sendPasswordResetEmail(email: email);
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
+    return null;
+  }
+
 }

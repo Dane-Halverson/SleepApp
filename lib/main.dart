@@ -14,9 +14,9 @@ void main() async {
   );
   final db = FirebaseFirestore.instance;
   Authentication auth = Authentication();
-  //auth.createUser(email: "test@testemail.com", password: "TestPass1234");
-  print(auth.getUserUID());
-  auth.deleteAccount();
+  //auth.signOut();
+  //auth.createUser(email: "halve564@d.umn.edu", password: "12345678qwertyuASDFGH");
+  //auth.resetPassword("halve564@d.umn.edu");
   runApp(MyApp());
 }
 
