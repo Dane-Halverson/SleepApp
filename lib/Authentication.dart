@@ -6,30 +6,61 @@ class Authentication {
   final FirebaseAuth _authentication = FirebaseAuth.instance;
   get user => _authentication.currentUser;
 
-
+  ///Returns null if successful otherwise an error message.
   Future createUser({required String email, required String password}) async {
-    await _authentication.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _authentication.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
     return null;
   }
 
+  ///Returns null if successful otherwise an error message.
   Future signIn({required String email, required String password}) async {
-    await _authentication.signInWithEmailAndPassword(email: email, password: password);
+    try {
+      await _authentication.signInWithEmailAndPassword(
+          email: email, password: password);
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
     return null;
   }
 
-  Future signOut() async {
+  ///signs out the current user.
+  void  signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
-  void deleteAccount() async {
-    await FirebaseAuth.instance.currentUser?.delete();
+  ///Returns null if successful otherwise an error message.
+  Future deleteAccount() async {
+    try {
+      await FirebaseAuth.instance.currentUser?.delete();
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
+    return null;
   }
 
-  String? getUser() {
-    return _authentication.currentUser?.uid;
+  ///returns logged in user's UID, otherwise returns null if not logged in.
+  String? getUserUID() => _authentication.currentUser?.uid;
+
+  ///sends email to user to reset password for the account
+  ///returns null if successful, or message if not
+  Future resetPassword(String email) async {
+    try {
+      _authentication.sendPasswordResetEmail(email: email);
+    }
+    on FirebaseAuthException catch(e) {
+      return e.message;
+    }
+    return null;
   }
 
 }
