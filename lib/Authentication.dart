@@ -1,9 +1,15 @@
 //class for authenticating user logins
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
 class Authentication {
 
-  final FirebaseAuth _authentication = FirebaseAuth.instance;
+  Authentication({bool useMockAuthentication = false})
+      : _authentication = useMockAuthentication ?
+       MockFirebaseAuth() : FirebaseAuth.instance;
+
+
+  final FirebaseAuth _authentication;
   get user => _authentication.currentUser;
 
   ///Returns null if successful otherwise an error message.

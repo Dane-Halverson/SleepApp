@@ -3,19 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import '../lib/Authentication.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:units/firebase_options.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
 
-
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
-  final auth = Authentication();
+  var auth = new Authentication(useMockAuthentication: true);
+
   test('Tests create user function', () {
     auth.createUser(email: "test@example.com", password: "TestPass1234");
   });
