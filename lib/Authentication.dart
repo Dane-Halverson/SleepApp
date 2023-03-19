@@ -34,13 +34,13 @@ class Authentication {
 
   ///signs out the current user.
   void  signOut() async {
-    await FirebaseAuth.instance.signOut();
+    await _authentication.signOut();
   }
 
   ///Returns null if successful otherwise an error message.
   Future deleteAccount() async {
     try {
-      await FirebaseAuth.instance.currentUser?.delete();
+      await _authentication.currentUser?.delete();
     }
     on FirebaseAuthException catch(e) {
       return e.message;
