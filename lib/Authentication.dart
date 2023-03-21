@@ -57,6 +57,9 @@ class Authentication {
   ///returns logged in user's UID, otherwise returns null if not logged in.
   String? getUserUID() => _authentication.currentUser?.uid;
 
+  String? getUserEmail() => _authentication.currentUser?.email;
+
+
   ///sends email to user to reset password for the account
   ///returns null if successful, or message if not
   Future resetPassword(String email) async {
