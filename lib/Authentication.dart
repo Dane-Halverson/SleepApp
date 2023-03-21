@@ -10,7 +10,11 @@ class Authentication {
 
 
   final FirebaseAuth _authentication;
-  get user => _authentication.currentUser;
+
+  Future<bool> loggedIn() async {
+    var user = _authentication.currentUser;
+    return user != null;
+  }
 
   ///Returns null if successful otherwise an error message.
   Future createUser({required String email, required String password}) async {
