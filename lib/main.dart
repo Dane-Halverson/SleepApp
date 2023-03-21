@@ -39,9 +39,13 @@ class MyApp extends StatelessWidget {
                       return SplashScreen();
                     }));
                   },
-                )
+                ),
+                MyCustomForm(),
     ])))));}}
-
+    // ignore: slash_for_doc_comments
+    /**
+     * Rename the form names to better fit purpose
+     * */
 class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
 
@@ -68,6 +72,12 @@ class MyCustomFormState extends State<MyCustomForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
+          /**
+           * Still need to flesh out validators;
+           * - check if valid email
+           * - check if REGISTERED email
+           * - check if password is correct
+           * */
           TextFormField(
             decoration: const InputDecoration(
               labelText: "E-mail"
@@ -91,6 +101,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
 
+            /** NEEDS VALIDATION */
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent
