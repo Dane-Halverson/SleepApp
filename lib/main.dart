@@ -84,6 +84,7 @@ class LogInFormState extends State<LogInForm> {
   // Note: This is a `GlobalKey<FormState>`,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  bool passwordVis = true;
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +111,17 @@ class LogInFormState extends State<LogInForm> {
             },
           ),
           TextFormField(
-            decoration: const InputDecoration(
-              labelText: "Password"
+            obscureText: passwordVis,
+            decoration: InputDecoration(
+              labelText: "Password",
+              suffixIcon: IconButton(
+                icon: Icon(passwordVis
+                ? Icons.visibility
+                : Icons.visibility_off),
+              onPressed: (){
+                  setState((){passwordVis = !passwordVis;},);
+              },
+              ),
             ),
             validator: (value){
                 if (value == null || value.isEmpty){
