@@ -75,14 +75,8 @@ class LogInForm extends StatefulWidget {
   }
 }
 
-// Define a corresponding State class.
 // This class holds data related to the form.
 class LogInFormState extends State<LogInForm> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a `GlobalKey<FormState>`,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
   bool passwordVis = true;
 
@@ -94,17 +88,14 @@ class LogInFormState extends State<LogInForm> {
       child: Column(
         children: <Widget>[
           /**
-           * Still need to flesh out validators;
-           * - check if valid email
-           * - check if REGISTERED email
-           * - check if password is correct
+           * Need to add Dane's validator function
            * */
           TextFormField(
             decoration: const InputDecoration(
               labelText: "E-mail"
       ),
             validator: (value) {
-              if (value == null || value.isEmpty) {
+              if (value == null || value.isEmpty || (!value.contains('@') && !value.contains('.com'))) {
                 return 'Please enter a valid email';
               }
               return null;
@@ -131,7 +122,7 @@ class LogInFormState extends State<LogInForm> {
             },
           ),
 
-            /** NEEDS VALIDATION */
+            /** NEEDS Dane's VALIDATION */
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent
