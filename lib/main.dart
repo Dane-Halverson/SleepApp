@@ -40,24 +40,24 @@ class MyApp extends StatelessWidget {
                     }));
                   },
                 ),
-                MyCustomForm(),
+                LogInForm(),
     ])))));}}
     // ignore: slash_for_doc_comments
     /**
      * Rename the form names to better fit purpose
      * */
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+class LogInForm extends StatefulWidget {
+  const LogInForm({super.key});
 
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  LogInFormState createState() {
+    return LogInFormState();
   }
 }
 
 // Define a corresponding State class.
 // This class holds data related to the form.
-class MyCustomFormState extends State<MyCustomForm> {
+class LogInFormState extends State<LogInForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -108,9 +108,12 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             child: Text('Log In'),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                return SplashScreen();
-              }));
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                            return SplashScreen();
+                          }));
+                    }
             },
           )
         ],
