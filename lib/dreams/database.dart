@@ -1,10 +1,11 @@
 import 'package:path/path.dart';
-import 'package:Danes_Group/lib/dreams/sleep.dart';
+import 'package:lib/dreams/sleep.dart';
 import 'package:sqflite/sqflite.dart';
 
 /*
   Singleton for database access.
  */
+
 class MyDatabase {
   // make this a singleton class
   MyDatabase._privateConstructor();
