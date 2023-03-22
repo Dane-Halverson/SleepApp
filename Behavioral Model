@@ -1,7 +1,22 @@
+import 'package:cs3541groupproject/models.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-DocumentReference<UserModel> behavior_model(CollectionReference ref, String date) => ref.doc(userId).withConverter(
-  fromFirestore: UserModel.fromDB,
-  toFirestore: (UserModel user, _) => user.save()
+class BehaviorModel extends DocumentModel {
+  @override
+  Map<String, dynamic> save() {
+  return {
+    if(sleeptime != null) "sleeptime": sleeptime,
+    if(timeFellAsleep != null) "timeFellAsleep": timeFellAsleep,
+    if(riseTime != null) "riseTime": riseTime,
+    if(sleepQuality != null) "sleepQuality": sleepQuality,
+    if(dreamLog != null) "dreamLog": dreamLog,
+    if(date != null) "date": date,
+  };
+  }
+}
+
+DocumentReference<BehaviorModel> behavior_model(CollectionReference ref, String date) => ref.doc(date).withConverter(
+  fromFirestore: BehaviorModel.fromDB,
+  toFirestore: (BehaviorModel user, _) => user.save()
 );
