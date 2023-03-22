@@ -7,6 +7,7 @@ abstract class CreateAccountViewContract {
   void onSubmit();
   void showError(String error);
   void toHomePage();
+  void toRegister();
 }
 
 abstract class CreateAccountModelContract {
