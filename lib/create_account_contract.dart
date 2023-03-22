@@ -3,9 +3,9 @@ abstract class CreateAccountViewContract {
   String getEmail();
   String getPasswordOne();
   String getPasswordTwo();
+  void clearPasswords();
   void onSubmit();
   void showError(String error);
-  void toLogin();
   void toHomePage();
 }
 
