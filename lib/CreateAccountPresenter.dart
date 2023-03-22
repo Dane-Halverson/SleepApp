@@ -29,4 +29,8 @@ class CreateAccountPresenter {
       
   }
 
+  void onToRegister() {
+    view.toRegister();
+  }
+
 }
