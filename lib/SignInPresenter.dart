@@ -7,8 +7,8 @@ class SignInPresenter {
 
   SignInPresenter(SignInViewContract view) : view = view;
 
-  void onSubmit() {
-    model.signIn(email: view.getEmail(), password: view.getPassword()).then((value) {
+  void onSubmit() async {
+    await model.signIn(email: view.getEmail(), password: view.getPassword()).then((value) {
       if (value != null) {
         view.showError(value);
       }

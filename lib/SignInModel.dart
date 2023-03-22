@@ -6,7 +6,9 @@ class SignInModel extends SignInModelContract {
 
   @override
   Future signIn({required String email, required String password}) async {
-    return await auth.signIn(email: email, password: password);
+    return await auth.signIn(email: email, password: password).then((value) {
+      return value;
+    });
   }
 
 }

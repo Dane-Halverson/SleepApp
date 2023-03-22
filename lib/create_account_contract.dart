@@ -4,7 +4,6 @@ abstract class CreateAccountViewContract {
   String getPasswordOne();
   String getPasswordTwo();
   void clearPasswords();
-  void onSubmit();
   void showError(String error);
   void toHomePage();
   void toRegister();

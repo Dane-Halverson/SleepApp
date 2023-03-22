@@ -8,9 +8,9 @@ class CreateAccountPresenter {
   CreateAccountPresenter (CreateAccountViewContract view) :
       view = view;
   
-  void onSubmit() {
+  void onSubmit() async {
     if (view.getPasswordOne() == view.getPasswordTwo()) {
-      model.createAccount(email: view.getEmail(), password: view.getPasswordOne())
+      await model.createAccount(email: view.getEmail(), password: view.getPasswordOne())
           .then((value) {
             if (value != null) {
               view.showError(value);
