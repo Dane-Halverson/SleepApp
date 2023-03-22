@@ -13,10 +13,9 @@ void main() async {
      options: DefaultFirebaseOptions.currentPlatform,
   );
   final db = FirebaseFirestore.instance;
+
   Authentication auth = Authentication();
-  //auth.signOut();
-  //auth.createUser(email: "halve564@d.umn.edu", password: "12345678qwertyuASDFGH");
-  //auth.resetPassword("halve564@d.umn.edu");
+
   runApp(MyApp());
 }
 

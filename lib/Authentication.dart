@@ -18,6 +18,9 @@ class Authentication {
 
   ///Returns null if successful otherwise an error message.
   Future createUser({required String email, required String password}) async {
+    if (email == "" || password == "") {
+      return "Please enter both an email and password";
+    }
     try {
       await _authentication.createUserWithEmailAndPassword(
         email: email,
@@ -43,7 +46,7 @@ class Authentication {
   }
 
   ///signs out the current user.
-  void  signOut() async {
+  Future<void> signOut() async {
     await _authentication.signOut();
   }
 
@@ -75,5 +78,4 @@ class Authentication {
     }
     return null;
   }
-
 }
