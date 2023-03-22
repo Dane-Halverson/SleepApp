@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:units/HomePageView.dart';
 import 'package:units/firebase_options.dart';
 
 import 'dreams/views/dreams_component.dart';
@@ -15,8 +16,12 @@ void main() async {
   final db = FirebaseFirestore.instance;
 
   Authentication auth = Authentication();
-
-  runApp(MyApp());
+  //if (await auth.isSignedIn().then((value) {return value;})) {
+    runApp(HomePageView());
+  //}
+  //else {
+  //  runApp(SignInView);
+  //}
 }
 
 class MyApp extends StatelessWidget {

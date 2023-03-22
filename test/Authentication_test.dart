@@ -7,13 +7,13 @@ void main() async{
   var auth = new Authentication(useMockAuthentication: true);
 
   test('user not logged in to start', () async {
-    assert(! await auth.loggedIn());
+    assert(! await auth.isSignedIn());
   });
   test('Tests create user function', () async {
     await auth.createUser(email: "test@example.com", password: "TestPass1234");
     print("email: ${auth.getUserEmail()}");
     print("UID: ${auth.getUserUID()}");
-    assert(await auth.loggedIn());
+    assert(await auth.isSignedIn());
     assert(auth.getUserEmail() == "test@example.com");
     auth.signOut();
   });
@@ -41,7 +41,7 @@ void main() async{
         print('good');
     });
     print(auth.getUserEmail());
-    var loggedIn = await auth.loggedIn();
+    var loggedIn = await auth.isSignedIn();
     //assert(!loggedIn);
     auth.signOut();
   });
@@ -50,16 +50,16 @@ void main() async{
     await auth.createUser(email: "test@example.com", password: "TestPass1234");
     auth.signOut();
     await auth.signIn(email: "test@example.com", password: "TestPass1234");
-    assert(await auth.loggedIn());
+    assert(await auth.isSignedIn());
     print(auth.getUserEmail());
     assert(auth.getUserEmail() == "test@example.com");
     auth.signOut();
-    assert(! await auth.loggedIn());
+    assert(! await auth.isSignedIn());
     await auth.createUser(email: "test2@example.com", password: "TestPass1234");
     await auth.signIn(email: "test@example.com", password: "TestPass1234");
-    assert(await auth.loggedIn());
+    assert(await auth.isSignedIn());
     await auth.signIn(email: "test2@example.com", password: "TestPass1234");
-    assert(await auth.loggedIn());
+    assert(await auth.isSignedIn());
     assert(auth.getUserEmail() == "test2@example.com");
     auth.signOut();
   });
@@ -72,7 +72,7 @@ void main() async{
     //assert(! await auth.loggedIn());
     //not signed in
     auth.signOut();
-    assert(! await auth.loggedIn());
+    assert(! await auth.isSignedIn());
   });
 
   test('Delete User', () async {
