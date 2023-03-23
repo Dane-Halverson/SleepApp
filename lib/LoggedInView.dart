@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 
-class HomePageView extends StatelessWidget {
+class LoggedInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePageStatefulWidget(key: super.key),
+      home: LoggedInStatefulWidget(key: super.key),
     );
   }
 
 }
 
-class HomePageStatefulWidget extends StatefulWidget {
-  HomePageStatefulWidget({required Key? key}) : super(key: key);
+class LoggedInStatefulWidget extends StatefulWidget {
+  LoggedInStatefulWidget({required Key? key}) : super(key: key);
 
   @override
-  State<HomePageStatefulWidget> createState() => _HomePageStatefulWidgetState();
+  State<LoggedInStatefulWidget> createState() => _LoggedInStatefulWidgetState();
 }
 
-class _HomePageStatefulWidgetState extends State<HomePageStatefulWidget> {
+class _LoggedInStatefulWidgetState extends State<LoggedInStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+  List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    //Log page
     Text(
       'Index 1: Log Activity',
       style: optionStyle,
     ),
+    //Videos page
     Text(
       'Index 2: Videos',
       style: optionStyle,
     ),
+    //Settings Page
     Text(
       'Index 3: Settings',
       style: optionStyle,
@@ -47,13 +47,17 @@ class _HomePageStatefulWidgetState extends State<HomePageStatefulWidget> {
     });
   }
 
+
+  static const _navColor = Colors.deepPurple;
+  static const _selectedColor = Colors.amber;
+
+
+
   @override
   Widget build(BuildContext context) {
+    //_page = _homePage;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
-      body: Center(
+      body: Center (
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -61,28 +65,49 @@ class _HomePageStatefulWidgetState extends State<HomePageStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.blue,
+            backgroundColor: _navColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.save),
+            icon: Icon(Icons.addchart),
             label: 'Log Activity',
-            backgroundColor: Colors.blue,
+            backgroundColor: _navColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.play_arrow),
             label: 'Videos',
-            backgroundColor: Colors.blue,
+            backgroundColor: _navColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
-            backgroundColor: Colors.blue,
+            backgroundColor: _navColor,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: _selectedColor,
         onTap: _onItemTapped,
       ),
     );
   }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  HomePageState createState() {
+    return HomePageState();
+  }
+}
+
+class HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+         child: Text("HomePage widget"),
+      ),
+    );
+  }
+
 }

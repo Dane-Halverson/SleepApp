@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:units/HomePageView.dart';
+import 'package:units/LoggedInView.dart';
 import 'package:units/firebase_options.dart';
 
 import 'dreams/views/dreams_component.dart';
@@ -17,7 +17,7 @@ void main() async {
 
   Authentication auth = Authentication();
   //if (await auth.isSignedIn().then((value) {return value;})) {
-    runApp(HomePageView());
+    runApp(LoggedInView());
   //}
   //else {
   //  runApp(SignInView);
@@ -68,6 +68,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreen extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return new HomePage(new BasicPresenter(), title: 'Sweet Dreams', key: Key("UNITS"),);
+    return new Text('temp'); //HomePage(new BasicPresenter(), title: 'Sweet Dreams', key: Key("UNITS"),);
   }
 }
