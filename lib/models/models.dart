@@ -33,6 +33,14 @@ Future<List<QueryDocumentSnapshot<Object?>>> getDocsByKeyQuery(CollectionReferen
   return snapshot.docs;
 }
 
+/// Queries the user behaviors to get recent behavior data on the homepage for the last 10 days
+Future<List<QuerySnapshot<Object?>>> getRecentBehaviors(CollectionReference behaviors) async {
+  final query = behaviors.orderBy("date", descending: true).limit(10);
+  // TODO query.withConverter(fromFirestore: fromFirestore, toFirestore: toFirestore)
+  final snapshots = await query.snapshots().toList();
+  return snapshots;
+}
+
 class ModelPool {
   late final Map<String, DocumentSnapshot<DocumentModel>> _models;
 
@@ -58,18 +66,30 @@ class UserModel extends DocumentModel {
   String? _lastname;
   String? _email;
   int? _age;
+  late CollectionReference _behaviors;
 
   UserModel(String? firstname, String? lastname, String? email, int? age) {
     this._firstname = firstname;
     this._lastname = lastname;
     this._email = email;
     this._age = age;
+    final id = this._email?.split('@')[0];
+    this._behaviors = FirebaseFirestore.instance.collection('users/$id/behaviors');
   }
 
   String? get firstname => this._firstname;
   String? get lastname => this._lastname;
   String? get email => this._email;
   int? get age => this._age;
+
+  /// Queries the user behaviors to get recent behavior data on the homepage for the last 10 days
+  // TODO have this return a list of the user models
+  Future<List<QuerySnapshot<Object?>>> getRecentBehaviors() async {
+    final query = this._behaviors.orderBy("date", descending: true).limit(10);
+    // TODO query.withConverter(fromFirestore: fromFirestore, toFirestore: toFirestore)
+    final snapshots = await query.snapshots().toList();
+    return snapshots;
+  }
 
   static UserModel fromDB(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
     final data = snapshot.data();
