@@ -1,5 +1,5 @@
-import 'forgot_password_contract.dart';
-import 'ForgotPasswordModel.dart';
+import '../contracts/forgot_password_contract.dart';
+import '../models/ForgotPasswordModel.dart';
 
 class ForgotPasswordPresenter {
   final model = new ForgotPasswordModel();

@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
+                      backgroundColor: Colors.blueAccent
                   ),
                   child: Text('Begin'),
                   onPressed: () {

@@ -22,7 +22,7 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  List<Widget> _widgetOptions = <Widget>[
+  List<Widget> _pages = <Widget>[
     //HomePage(),
     Text(
       'Index 0: HomePage',
@@ -55,14 +55,12 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
   static const _navColor = Colors.deepPurple;
   static const _selectedColor = Colors.amber;
 
-
-
   @override
   Widget build(BuildContext context) {
     //_page = _homePage;
     return Scaffold(
       body: Center (
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

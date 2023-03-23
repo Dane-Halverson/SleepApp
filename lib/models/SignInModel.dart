@@ -1,5 +1,5 @@
-import 'sign_in_contract.dart';
-import 'Authentication.dart';
+import '../contracts/sign_in_contract.dart';
+import '../Authentication.dart';
 
 class SignInModel extends SignInModelContract {
   Authentication auth = new Authentication();
