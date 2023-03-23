@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:units/SettingsView.dart';
 
 class SignedInView extends StatelessWidget {
 
@@ -39,10 +40,7 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
       style: optionStyle,
     ),
     //Settings Page
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
+    SettingsView(),
   ];
 
   void _onItemTapped(int index) {
