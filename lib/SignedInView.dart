@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
 
-class LoggedInView extends StatelessWidget {
+class SignedInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoggedInStatefulWidget(key: super.key),
+      home: SignedInStatefulWidget(key: super.key),
     );
   }
 
 }
 
-class LoggedInStatefulWidget extends StatefulWidget {
-  LoggedInStatefulWidget({required Key? key}) : super(key: key);
+class SignedInStatefulWidget extends StatefulWidget {
+  SignedInStatefulWidget({required Key? key}) : super(key: key);
 
   @override
-  State<LoggedInStatefulWidget> createState() => _LoggedInStatefulWidgetState();
+  State<SignedInStatefulWidget> createState() => _SignedInStatefulWidgetState();
 }
 
-class _LoggedInStatefulWidgetState extends State<LoggedInStatefulWidget> {
+class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+    //HomePage(),
+    Text(
+      'Index 0: HomePage',
+      style: optionStyle,
+    ),
     //Log page
     Text(
       'Index 1: Log Activity',
@@ -89,25 +93,4 @@ class _LoggedInStatefulWidgetState extends State<LoggedInStatefulWidget> {
       ),
     );
   }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  HomePageState createState() {
-    return HomePageState();
-  }
-}
-
-class HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-         child: Text("HomePage widget"),
-      ),
-    );
-  }
-
 }

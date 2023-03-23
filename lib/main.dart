@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:units/LoggedInView.dart';
+import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
 
 import 'dreams/views/dreams_component.dart';
@@ -16,8 +16,12 @@ void main() async {
   final db = FirebaseFirestore.instance;
 
   Authentication auth = Authentication();
-  //if (await auth.isSignedIn().then((value) {return value;})) {
-    runApp(LoggedInView());
+
+  //await auth.createUser(email: 'halve564@d.umn.edu', password: 'TestPass1234');
+
+
+  //if (await auth.isSignedIn()) {
+  runApp(SignedInView());
   //}
   //else {
   //  runApp(SignInView);
