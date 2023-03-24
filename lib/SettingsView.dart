@@ -67,8 +67,12 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
                   },
               ),
               SettingsTile(
-                leading: Icon(Icons.password),
-                title: Text('Delete Account'),
+                leading: Icon(Icons.delete),
+                title: Text('Delete Account',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
                 onPressed: (_) {
                   _onDeleteAccount();
                   },
