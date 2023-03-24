@@ -9,6 +9,7 @@ void main() async {
   final userCollection = database.collection('users');
   final docRef = getUserDocRef(userCollection, 'ryanaldo34');
   await docRef.set(new UserModel(
+    docRef,
     'Ryan',
     'Monahan',
     'ryanaldo34@gmail.com',

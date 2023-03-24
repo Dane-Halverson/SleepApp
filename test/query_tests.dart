@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../lib/models/models.dart';
 
@@ -8,24 +7,24 @@ void main() async {
   final database = FakeFirebaseFirestore();
   final userCollection = database.collection('users');
   final docRef = getUserDocRef(userCollection, 'ryanaldo34');
-  await docRef.set(new UserModel(
+  final model = new UserModel(
+    docRef,
     'Ryan',
     'Monahan',
     'ryanaldo34@gmail.com',
     21,
-  )); // create the doc data, calls the save() method on the model class
-  final behaviorCollection = database.collection('users/ryanaldo34/behaviors');
-  var doc1 = behaviorCollection.doc("12-01-2022");
-  var doc2 = behaviorCollection.doc("12-02-2022");
-  doc1.set({"date": "12-01-2022"});
-  doc2.set({"date": "12-02-2022"});
+  );
+  await docRef.set(model);
+  final now = DateTime.now();
+
+  model.addNewBehaviorData(now.subtract(new Duration(hours: 32)), now.subtract(new Duration(hours: 24)), now.subtract(new Duration(hours: 33)), 3);
+  model.addNewBehaviorData(now.subtract(new Duration(hours: 8)), now, now.subtract(new Duration(hours: 9)), 4);
 
   test('Gettings recent user behaviors from the db', () async {
-    var query = await getRecentBehaviors(behaviorCollection);
-    query.forEach((snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        print(doc.toString())
-      })
-    });
+    await for (var value in model.getRecentBehaviors()) {
+      final int time = value.timeFellAsleep;
+      print(DateTime.fromMillisecondsSinceEpoch(time).toString());
+      expect(value.sleepTime, 8);
+    }
   });
 }
