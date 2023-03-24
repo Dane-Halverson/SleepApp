@@ -17,7 +17,7 @@ void main() async {
 
   Authentication auth = Authentication();
 
-  //await auth.createUser(email: 'halve564@d.umn.edu', password: 'TestPass1234');
+  await auth.signIn(email: 'halve564@d.umn.edu', password: 'TestPass1234');
 
 
   //if (await auth.isSignedIn()) {
