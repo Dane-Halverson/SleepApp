@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
 
 import 'dreams/views/dreams_component.dart';
@@ -16,7 +17,15 @@ void main() async {
 
   Authentication auth = Authentication();
 
-  runApp(MyApp());
+  //await auth.createUser(email: 'halve564@d.umn.edu', password: 'TestPass1234');
+
+
+  //if (await auth.isSignedIn()) {
+  runApp(SignedInView());
+  //}
+  //else {
+  //  runApp(SignInView);
+  //}
 }
 
 class MyApp extends StatelessWidget {
@@ -142,6 +151,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreen extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return new HomePage(new BasicPresenter(), title: 'Sweet Dreams', key: Key("UNITS"),);
+    return new Text('temp'); //HomePage(new BasicPresenter(), title: 'Sweet Dreams', key: Key("UNITS"),);
   }
 }

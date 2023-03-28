@@ -11,7 +11,7 @@ class Authentication {
 
   final FirebaseAuth _authentication;
 
-  Future<bool> loggedIn() async {
+  Future<bool> isSignedIn() async {
     var user = _authentication.currentUser;
     return user != null;
   }

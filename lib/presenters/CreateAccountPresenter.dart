@@ -1,5 +1,5 @@
-import 'create_account_contract.dart';
-import 'CreateAccountModel.dart';
+import '../contracts/create_account_contract.dart';
+import '../models/CreateAccountModel.dart';
 
 class CreateAccountPresenter {
   final model = new CreateAccountModel();

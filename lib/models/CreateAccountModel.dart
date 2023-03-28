@@ -1,5 +1,5 @@
-import 'create_account_contract.dart';
-import 'Authentication.dart';
+import '../contracts/create_account_contract.dart';
+import '../Authentication.dart';
 
 class CreateAccountModel extends CreateAccountModelContract {
   Authentication auth = new Authentication();

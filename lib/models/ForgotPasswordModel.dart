@@ -1,6 +1,6 @@
 import 'package:units/Authentication.dart';
 
-import 'forgot_password_contract.dart';
+import '../contracts/forgot_password_contract.dart';
 
 class ForgotPasswordModel extends ForgotPasswordModelContract {
   final auth = new Authentication();

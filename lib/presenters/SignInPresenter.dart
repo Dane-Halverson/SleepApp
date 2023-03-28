@@ -1,5 +1,5 @@
-import 'sign_in_contract.dart';
-import 'SignInModel.dart';
+import '../contracts/sign_in_contract.dart';
+import '../models/SignInModel.dart';
 
 class SignInPresenter {
   final model = new SignInModel();
