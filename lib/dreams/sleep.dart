@@ -1,7 +1,7 @@
 /*
   Represents a sleep.
  */
-class Sleep {
+/*class Sleep {
   final int id;
   final int start;
   final int end;
@@ -18,5 +18,6 @@ class Sleep {
   get duration => end - start;
 }
 
-//This code is form the github project https://github.com/LihanZhuH/Sleep-Organized/blob/master/lib/models/sleep.dart
+//This code is from the github project https://github.com/LihanZhuH/Sleep-Organized/blob/master/lib/models/sleep.dart
 //You can look at it
+*/
