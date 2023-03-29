@@ -59,10 +59,7 @@ class LogInPage extends StatelessWidget{
                 ),
                 LogInForm(),
     ])))));}}
-    // ignore: slash_for_doc_comments
-    /**
-     * Rename the form names to better fit purpose
-     * */
+
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
 
@@ -72,7 +69,6 @@ class LogInForm extends StatefulWidget {
   }
 }
 
-// This class holds data related to the form.
 class LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVis = true;
