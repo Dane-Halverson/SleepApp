@@ -3,9 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
-
-import 'dreams/views/dreams_component.dart';
-import 'dreams/presenter/dreams_presenter.dart';
+import 'package:units/presenters/SignInPresenter.dart';
+import 'contracts/sign_in_contract.dart';
 import 'Authentication.dart';
 
 void main() async {
@@ -20,15 +19,15 @@ void main() async {
   //await auth.createUser(email: 'halve564@d.umn.edu', password: 'TestPass1234');
 
 
-  //if (await auth.isSignedIn()) {
+  if (await auth.isSignedIn()) {
   runApp(SignedInView());
-  //}
-  //else {
-  //  runApp(SignInView);
-  //}
+  }
+  else {
+    runApp(LogInPage());
+  }
 }
 
-class MyApp extends StatelessWidget {
+class LogInPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,9 +54,7 @@ class MyApp extends StatelessWidget {
                   ),
                   child: Text('Create Account'),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return SplashScreen();
-                    }));
+                    //runApp(CreateAccount()); NEEDS THIS PAGE
                   },
                 ),
                 LogInForm(),
@@ -80,6 +77,18 @@ class LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVis = true;
 
+  Authentication auth = Authentication();
+  String _email = '';
+  String _pass = '';
+
+  //submits data for app
+  void submitData() async{
+    String? result = await auth.signIn(email: _email, password: _pass);
+    if (result == null)
+      runApp(SignedInView());
+    else print(result); //does not display error on screen, only in terminal. NEEDS FIXING
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -87,20 +96,14 @@ class LogInFormState extends State<LogInForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
-          /**
-           * Need to add Dane's validator function
-           * */
           TextFormField(
             decoration: const InputDecoration(
               labelText: "E-mail"
-      ),
-            validator: (value) {
-              if (value == null || value.isEmpty || (!value.contains('@') && !value.contains('.com'))) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
-          ),
+               ),
+            onChanged: (value){
+              _email = value.toString();
+            }
+            ),
           TextFormField(
             obscureText: passwordVis,
             decoration: InputDecoration(
@@ -114,27 +117,17 @@ class LogInFormState extends State<LogInForm> {
               },
               ),
             ),
-            validator: (value){
-                if (value == null || value.isEmpty){
-                  return 'Please enter a valid password';
-                }
-                return null;
+            onChanged: (value){
+              _pass = value.toString();
             },
           ),
-
-            /** NEEDS Dane's VALIDATION */
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent
             ),
             child: Text('Log In'),
             onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                            return SplashScreen();
-                          }));
-                    }
+              submitData();
             },
           )
         ],
