@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:units/models/behaviors.dart';
 import 'package:uuid/uuid.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:units/models/behaviors.dart';
 
 /// change to take in the auth class and get the uuid of the user for the db
 DocumentReference<UserModel> getUserDocRef(CollectionReference ref, String userId) => ref.doc(userId).withConverter(
@@ -10,8 +12,12 @@ DocumentReference<UserModel> getUserDocRef(CollectionReference ref, String userI
 );
 
 /// converts the current date to a timestamp type for the database
-int getCurrentDateForDB() {
-  return DateTime.now().millisecondsSinceEpoch;
+int getCurrentDateForDB({
+    required int month,
+    required int day,
+    required int year
+  }) {
+  return new DateTime(year, month, day).millisecondsSinceEpoch;
 }
 
 /// returns a datetime object from a database field that is a timestamp
@@ -69,6 +75,7 @@ abstract class DocumentModel {
 /// UserModel the model for the user
 class UserModel extends DocumentModel {
   late DocumentReference<UserModel> _ref;
+  String? _id;
   String? _firstname;
   String? _lastname;
   String? _email;
@@ -81,12 +88,10 @@ class UserModel extends DocumentModel {
     this._lastname = lastname;
     this._email = email;
     this._age = age;
-    final id = this._email?.split('@')[0];
-    final db = ref.firestore;
-    this._behaviors = db.collection('users/$id/behaviors');
+    this._behaviors = this._ref.collection('behaviors');
   }
 
-  DocumentReference get ref => this._ref;
+  DocumentReference<UserModel> get ref => this._ref;
   String? get firstname => this._firstname;
   String? get lastname => this._lastname;
   String? get email => this._email;
@@ -104,16 +109,42 @@ class UserModel extends DocumentModel {
     }
   }
 
+  Stream<DreamDiary> getDreamsForDate(DateTime date) async* {
+    final query = await this._behaviors.where('date', isEqualTo: date.millisecondsSinceEpoch).withConverter(
+      fromFirestore: BehaviorModel.fromDB,
+      toFirestore: (BehaviorModel behavior, _) => behavior.save()
+    ).get();
+    final behaviorData = query.docs[0].data();
+    await for (var dream in behaviorData.getDreams()) {
+      yield dream;
+    }
+  }
+
   /// adds new behavior data for a day to the database
-  Future<void> addNewBehaviorData(DateTime timeFellAsleep, DateTime riseTime, DateTime timeWentToBed, int sleepQuality) async {
+  Future<void> addNewBehaviorData({
+      required DateTime timeFellAsleep,
+      required DateTime riseTime,
+      required DateTime timeWentToBed,
+      required int sleepQuality,
+      List<Map<String, dynamic>>? dreams
+    }) async {
     final id = Uuid().v1();
-    await this._behaviors.doc(id).set({
+    final docRef = this._behaviors.doc(id);
+    await docRef.set({
       "timeFellAsleep": timeFellAsleep.millisecondsSinceEpoch,
       "riseTime": riseTime.millisecondsSinceEpoch,
       "sleepQuality": sleepQuality,
-      "date": getCurrentDateForDB(),
+      "date": getCurrentDateForDB(year: riseTime.year, month: riseTime.month, day: riseTime.day),
       "timeWentToBed": timeWentToBed.millisecondsSinceEpoch
     });
+
+    if (dreams != null) {
+      final collection = docRef.collection("dreams");
+      for (final dream in dreams) {
+        final id = Uuid().v1();
+        await collection.doc(id).set(dream);
+      }
+    }
   }
 
   /// updates the db for this model
