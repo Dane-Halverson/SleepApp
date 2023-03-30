@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:units/models/behaviors.dart';
+import 'package:uuid/uuid.dart';
 
-import './models.dart';
-
+/// change to take in the auth class and get the uuid of the user for the db
 DocumentReference<UserModel> getUserDocRef(CollectionReference ref, String userId) => ref.doc(userId).withConverter(
     fromFirestore: UserModel.fromDB,
     toFirestore: (UserModel user, _) => user.save()
@@ -104,8 +104,9 @@ class UserModel extends DocumentModel {
     }
   }
 
+  /// adds new behavior data for a day to the database
   Future<void> addNewBehaviorData(DateTime timeFellAsleep, DateTime riseTime, DateTime timeWentToBed, int sleepQuality) async {
-    final id = riseTime.millisecondsSinceEpoch.toString();
+    final id = Uuid().v1();
     await this._behaviors.doc(id).set({
       "timeFellAsleep": timeFellAsleep.millisecondsSinceEpoch,
       "riseTime": riseTime.millisecondsSinceEpoch,
