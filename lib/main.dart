@@ -76,15 +76,19 @@ class LogInFormState extends State<LogInForm> {
   Authentication auth = Authentication();
   String _email = '';
   String _pass = '';
+  String _error = '';
 
   //submits data for app
-  void submitData() async{
+  void submitData() async {
     String? result = await auth.signIn(email: _email, password: _pass);
     if (result == null)
       runApp(SignedInView());
-    else print(result); //does not display error on screen, only in terminal. NEEDS FIXING
+    else {
+      setState(() {
+        _error = result.toString();
+      });
+    }
   }
-
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -117,6 +121,10 @@ class LogInFormState extends State<LogInForm> {
               _pass = value.toString();
             },
           ),
+          Text(_error,
+          style: TextStyle(
+            color: Colors.red[800]
+    )),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent
@@ -125,12 +133,13 @@ class LogInFormState extends State<LogInForm> {
             onPressed: () {
               submitData();
             },
-          )
+          ),
         ],
       ),
     );
   }
 }
+
 
 class SplashScreen extends StatefulWidget {
   @override
