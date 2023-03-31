@@ -22,7 +22,13 @@ class BehaviorModel extends DocumentModel {
     required this.timeWentToBed,
   });
 
-  int get sleepTime => DateTime.fromMillisecondsSinceEpoch(riseTime).difference(DateTime.fromMillisecondsSinceEpoch(timeFellAsleep)).inHours;
+  int get totalTimeInBed => DateTime.fromMillisecondsSinceEpoch(riseTime)
+    .difference(DateTime.fromMillisecondsSinceEpoch(timeWentToBed))
+    .inHours;
+
+  int get sleepTime => DateTime.fromMillisecondsSinceEpoch(riseTime)
+    .difference(DateTime.fromMillisecondsSinceEpoch(timeFellAsleep))
+    .inHours;
 
   Stream<DreamDiary> getDreams() async* {
     final dreamDiaries = this.ref.collection("dreams").withConverter(

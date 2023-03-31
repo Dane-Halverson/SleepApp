@@ -98,11 +98,14 @@ class UserModel extends DocumentModel {
   int? get age => this._age;
 
   /// Queries the user behaviors to get recent behavior data on the homepage for the last 10 days
-  Stream<BehaviorModel> getRecentBehaviors() async* {
-    final query = this._behaviors.where("date", isGreaterThan: DateTime.now().subtract(new Duration(days: 10)).millisecondsSinceEpoch).orderBy("date", descending: true).limit(10).withConverter(
-        fromFirestore: BehaviorModel.fromDB,
-        toFirestore: ((BehaviorModel behavior, _) => behavior.save())
-    );
+  Stream<BehaviorModel> getRecentBehaviors({int limit = 7}) async* {
+    final query = this._behaviors.where("date", isGreaterThan: DateTime.now().subtract(new Duration(days: 10)).millisecondsSinceEpoch)
+      .orderBy("date", descending: true)
+      .limit(limit)
+      .withConverter(
+          fromFirestore: BehaviorModel.fromDB,
+          toFirestore: ((BehaviorModel behavior, _) => behavior.save())
+      );
     var snapshot = await query.get();
     for (var doc in snapshot.docs) {
       yield doc.data();
