@@ -121,19 +121,26 @@ class LogInFormState extends State<LogInForm> {
               _pass = value.toString();
             },
           ),
-          Text(_error,
-          style: TextStyle(
-            color: Colors.red[800]
-    )),
+          OutlinedButton(
+              child: Text('Forgot Password'),
+              onPressed: () async{
+                await auth.resetPassword(_email);
+              }
+          ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent
             ),
+
             child: Text('Log In'),
             onPressed: () {
               submitData();
             },
           ),
+          Text(_error,
+              style: TextStyle(
+                  color: Colors.red[800]
+              )),
         ],
       ),
     );
