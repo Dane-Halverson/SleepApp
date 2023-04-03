@@ -35,13 +35,14 @@ class LogInPage extends StatelessWidget{
         builder: (context) => Scaffold(
           appBar: AppBar(
             title: Text("Sweet Dreams!"),
+            backgroundColor: Colors.deepPurple
           ),
           body: Center(
             child: Column(
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  child: Text("Sweet Dreams!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+                  child: Text("Sweet Dreams!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
                   ,),
 
                 /**
@@ -50,7 +51,7 @@ class LogInPage extends StatelessWidget{
                 **/
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent
+                      backgroundColor: Colors.deepPurple
                   ),
                   child: Text('Create Account'),
                   onPressed: () {
@@ -122,6 +123,9 @@ class LogInFormState extends State<LogInForm> {
             },
           ),
           OutlinedButton(
+            style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.amber
+            ),
               child: Text('Forgot Password'),
               onPressed: () async{
                 await auth.resetPassword(_email);
@@ -129,7 +133,7 @@ class LogInFormState extends State<LogInForm> {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent
+                backgroundColor: Colors.deepPurple
             ),
 
             child: Text('Log In'),
