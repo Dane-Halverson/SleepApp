@@ -4,8 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
 
-import 'dreams/views/dreams_component.dart';
-import 'dreams/presenter/dreams_presenter.dart';
+import 'calculator/views/dreams_component.dart';
+import 'calculator/presenter/dreams_presenter.dart';
 import 'Authentication.dart';
 
 void main() async {
