@@ -14,26 +14,17 @@ class CreateAccountPage extends StatefulWidget{
 
 
 class _CreateAccountState extends State<CreateAccountPage> implements CreateAccountViewContract{
-  var _emailController = new TextEditingController();
-  var _pass1Controller = new TextEditingController();
-  var _pass2Controller = new TextEditingController();
-
   String _email = "";
   String _pass1 = "";
   String _pass2 = "";
   String _error = "";
+  String _name = "";
+  var _date;
+
+  final firstDate = DateTime.utc(1900, 1, 1);
+  final lastDate = DateTime.now();
 
   late CreateAccountPresenter presenter;
-
-  @override
-  void initState(){
-    super.initState();
-    //this.widget.presenter.view = this;
-  }
-
-  void handleRadioValueChanged(int value){
-    // needs to be implemented
-  }
 
   @override
   String getEmail(){
@@ -96,7 +87,54 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
               onPressed: (){
                 runApp(LogInPage());
               },
-            ))
+            )),
+            Padding(padding: EdgeInsets.all(20),
+            child: Form(
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                      decoration: const InputDecoration(
+                          labelText: "Name"
+                      ),
+                      onChanged: (value){
+                        _name = value.toString();
+                      }
+                  ),
+                  InputDatePickerFormField(
+                      firstDate: firstDate, lastDate: lastDate,
+                    onDateSubmitted: (value){
+                    _date = value;
+                    },
+                    fieldLabelText: 'Birthday',
+                  ),
+                  TextFormField(
+                      decoration: const InputDecoration(
+                          labelText: "E-mail"
+                      ),
+                      onChanged: (value){
+                        _email = value.toString();
+                      }
+                  ),
+                  TextFormField(
+                      decoration: const InputDecoration(
+                          labelText: "Enter password"
+                      ),
+                      onChanged: (value){
+                        _pass1 = value.toString();
+                      }
+                  ),
+                  TextFormField(
+                      decoration: const InputDecoration(
+                          labelText: "Re-enter password"
+                      ),
+                      onChanged: (value){
+                        _pass2 = value.toString();
+                      }
+                  ),
+                ]
+              )
+            )
+            )
           ],
         )
     )
