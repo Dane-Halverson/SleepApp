@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:units/calculator/presenter/dreams_presenter.dart';
-import 'calculator/views/dreams_component.dart';
+import 'package:units/presenters/CalculatorPresenter.dart';
+import 'CalculatorView.dart';
 
 class HomePageView extends StatelessWidget {
   @override

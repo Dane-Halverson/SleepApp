@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../views/dreams_view.dart';
-import '../presenter/dreams_presenter.dart';
+import 'contracts/calculator_view_contract.dart';
+import 'presenters/CalculatorPresenter.dart';
 
 class Calculator extends StatefulWidget {
   final UNITSPresenter presenter;

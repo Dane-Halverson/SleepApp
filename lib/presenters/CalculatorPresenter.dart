@@ -1,7 +1,7 @@
-import '../views/dreams_view.dart';
-import '../viewmodel/dreams_viewmodel.dart';
-import '../utils/dreams_constant.dart';
-import '../utils/dreams_utils.dart';
+import '../contracts/calculator_view_contract.dart';
+import '../models/calculator_viewmodel.dart';
+import '../calculator_utils/calculator_constant.dart';
+import '../calculator_utils/calculator_utils.dart';
 
 class UNITSPresenter {
   void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString){
