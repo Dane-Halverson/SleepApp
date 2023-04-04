@@ -17,8 +17,6 @@ void main() async {
 
   Authentication auth = Authentication();
 
-  await auth.signIn(email: 'halve564@d.umn.edu', password: 'TestPass1234');
-
 
   if (await auth.isSignedIn()) {
   runApp(SignedInView());
@@ -126,6 +124,19 @@ class LogInFormState extends State<LogInForm> {
           ButtonBar(
             children: <Widget>[
               OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.amber
+                ),
+                child: Text('Debug sign in'),
+                onPressed: () {
+                  setState(() {
+                    _email = 'halve564@d.umn.edu';
+                    _pass = 'TestPass1234';
+                  });
+                  submitData();
+                }
+              ),
+              OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.deepPurpleAccent
                   ),
@@ -149,18 +160,5 @@ class LogInFormState extends State<LogInForm> {
         ],
       ),
     );
-  }
-}
-
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreen createState() => _SplashScreen();
-}
-
-class _SplashScreen extends State<SplashScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new Text('temp'); //HomePage(new BasicPresenter(), title: 'Sweet Dreams', key: Key("UNITS"),);
   }
 }
