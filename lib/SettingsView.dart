@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:units/presenters/SettingsPresenter.dart';
 import 'contracts/settings_contract.dart';
 import 'Authentication.dart';
+import 'main.dart';
 
 
 class SettingsView extends StatelessWidget {
@@ -99,8 +100,7 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
 
   @override
   toSignIn() {
-    // TODO: implement toSignIn
-    throw UnimplementedError();
+    runApp(LogInPage());
   }
 
 }
