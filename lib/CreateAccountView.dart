@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:units/SignedInView.dart';
 import 'presenters/CreateAccountPresenter.dart';
 import 'contracts/create_account_contract.dart';
+import 'main.dart';
 
 class CreateAccountPage extends StatefulWidget{
   CreateAccountPage({required Key? key}) : super(key: key);
@@ -77,7 +78,9 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
+    return MaterialApp(
+      home: Builder(
+        builder: (context) => Scaffold(
         appBar: AppBar(
           title: Text('Create Account'),
           centerTitle: true,
@@ -86,9 +89,18 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
         backgroundColor: Colors.white,
         body: ListView(
           children: <Widget>[
-            Padding(padding: EdgeInsets.all(5.0))
+            Padding(padding: EdgeInsets.all(5.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
+              child: Text('Override to main page'),
+              onPressed: (){
+                runApp(LogInPage());
+              },
+            ))
           ],
         )
+    )
+      )
     );
   }
 }
