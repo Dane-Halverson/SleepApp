@@ -35,26 +35,17 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
   }
 
   @override
-  String getEmail(String email){
-    setState((){
-      _email = email;
-    });
+  String getEmail(){
     return _email;
   }
 
   @override
-  String getPasswordOne(String pass1){
-    setState((){
-      _pass1 = pass1;
-    });
+  String getPasswordOne(){
     return _pass1;
   }
 
   @override
-  String getPasswordTwo(String pass2){
-    setState(() {
-      _pass2 = pass2;
-    });
+  String getPasswordTwo(){
     return _pass2;
   }
 
