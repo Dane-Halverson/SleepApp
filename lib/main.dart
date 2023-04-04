@@ -5,6 +5,7 @@ import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
 import 'package:units/presenters/SignInPresenter.dart';
 import 'contracts/sign_in_contract.dart';
+import 'CreateAccountView.dart';
 import 'Authentication.dart';
 
 void main() async {
@@ -45,17 +46,13 @@ class LogInPage extends StatelessWidget{
                   child: Text("Sweet Dreams!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
                   ,),
 
-                /**
-                    Create account button
-                    - NEEDS NAV TO CORRECT SCREEN
-                **/
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple
                   ),
                   child: Text('Create Account'),
                   onPressed: () {
-                    //runApp(CreateAccount()); NEEDS THIS PAGE
+                    runApp(CreateAccountPage(key: super.key));
                   },
                 ),
                 LogInForm(),
