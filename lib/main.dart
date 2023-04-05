@@ -3,15 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
-<<<<<<< HEAD
 
 import 'CalculatorView.dart';
 import 'presenters/CalculatorPresenter.dart';
-=======
 import 'package:units/presenters/SignInPresenter.dart';
 import 'contracts/sign_in_contract.dart';
 import 'CreateAccountView.dart';
->>>>>>> 427f4e62e84533dcc0379697ea9d7dce99556710
 import 'Authentication.dart';
 
 void main() async {
