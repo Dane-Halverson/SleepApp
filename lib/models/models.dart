@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:units/models/behaviors.dart';
+import './PreferencesModel.dart';
 
 /// change to take in the auth class and get the uuid of the user for the db
 DocumentReference<UserModel> getUserDocRef(CollectionReference ref, String userId) => ref.doc(userId).withConverter(
@@ -80,15 +81,17 @@ class UserModel extends DocumentModel {
   String? _lastname;
   String? _email;
   int? _age;
+  late PreferencesModel _preferences;
   late CollectionReference _behaviors;
 
-  UserModel(DocumentReference<UserModel> ref, String? firstname, String? lastname, String? email, int? age) {
+  UserModel(DocumentReference<UserModel> ref, String? firstname, String? lastname, String? email, int? age, PreferencesModel preferences) {
     this._ref = ref;
     this._firstname = firstname;
     this._lastname = lastname;
     this._email = email;
     this._age = age;
     this._behaviors = this._ref.collection('behaviors');
+    this._preferences = preferences;
   }
 
   DocumentReference<UserModel> get ref => this._ref;
@@ -96,6 +99,7 @@ class UserModel extends DocumentModel {
   String? get lastname => this._lastname;
   String? get email => this._email;
   int? get age => this._age;
+  PreferencesModel get preferences => this._preferences;
 
   /// Queries the user behaviors to get recent behavior data on the homepage for the last 10 days
   Stream<BehaviorModel> getRecentBehaviors({int limit = 7}) async* {
@@ -162,6 +166,7 @@ class UserModel extends DocumentModel {
       if (lastname != null) "lastname": lastname,
       if (email != null) "email": email,
       if (age != null) "age": age,
+      "preferences": _preferences.asMap(),
     };
   }
 
@@ -171,12 +176,18 @@ class UserModel extends DocumentModel {
         fromFirestore: UserModel.fromDB,
         toFirestore: (UserModel user, _) => user.save()
     );
+    Map<String, dynamic>? preferences = data?['preferences'];
+    final preferencesModel = preferences != null ? new PreferencesModel(
+      sleepGraphType: preferences['sleepGraphType'], 
+      numDaysToDisplay: preferences['numDaysToDisplay'],
+    ) : new PreferencesModel();
     return UserModel(
       ref,
       data?['firstname'],
       data?['lastname'],
       data?['email'],
       data?['age'],
+      preferencesModel
     );
   }
 }

@@ -1,37 +1,26 @@
 /// Preferences model stores a map in the user document of the database
 /// Each variable will have a value assigned to it, this value will be used
 /// to present the user with the desirable information
+import "charts.dart";
 
-// ignore: camel_case_types
-class Preferences_Model {
+class PreferencesModel {
   // each setting will have a variable in the preference model
-  int? graphModel;
-  int? numDaysToDisplay;
-  late Map<String, dynamic> preferences = {
-  'Graph Model' : graphModel,
-  'Number of Days to Display' : numDaysToDisplay,
-};
+  String sleepGraphType;
+  int numDaysToDisplay;
 
-  Preferences_Model({
-    required this.graphModel,
-    required this.numDaysToDisplay,
+  PreferencesModel({
+    this.sleepGraphType = "bar",
+    this.numDaysToDisplay = 7,
   });
-
-  int? getGraphModel() {
-    return graphModel;
-  }
-
-  void setGraphModel(int graphModel) {
-    this.graphModel = graphModel;
-    preferences['Graph Model'] = graphModel;
-  }
 
   int? getNumDays() {
     return numDaysToDisplay;
   }
 
-  void setNumDays(int numDaysToDisplay) {
-    this.numDaysToDisplay = numDaysToDisplay;
-    preferences['Number of Days to Display'] = numDaysToDisplay;
+  Map<String, dynamic> asMap() {
+    return {
+      "sleepGraphType": sleepGraphType,
+      "numDaysToDisplay": numDaysToDisplay
+    };
   }
 }

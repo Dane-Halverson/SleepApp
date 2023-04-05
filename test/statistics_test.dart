@@ -3,6 +3,7 @@ import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
 import '../lib/models/models.dart';
 import '../lib/models/statistics.dart';
+import '../lib/models/PreferencesModel.dart';
 
 void main() async {
   final database = FakeFirebaseFirestore();
@@ -14,6 +15,7 @@ void main() async {
     'Monahan',
     'ryanaldo34@gmail.com',
     21,
+    new PreferencesModel()
   );
   await docRef.set(model);
   final now = DateTime.now();
