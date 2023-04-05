@@ -19,10 +19,10 @@ void main() async {
   final db = FirebaseFirestore.instance;
 
   Authentication auth = Authentication();
-
+  await auth.signOut();
 
   if (await auth.isSignedIn()) {
-  runApp(SignedInView());
+    runApp(SignedInView());
   }
   else {
     runApp(LogInPage());

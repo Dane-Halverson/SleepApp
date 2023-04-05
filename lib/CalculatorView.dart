@@ -118,20 +118,20 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.deepPurpleAccent,
           value: 0, groupValue: _value, onChanged: handleRadioValueChanged,
         ),
         Text(
           'Wake up at',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.deepPurpleAccent),
         ),
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.deepPurpleAccent,
           value: 1, groupValue: _value, onChanged: handleRadioValueChanged,
         ),
         Text(
           'Go to bed at',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.deepPurpleAccent),
         ),
       ],
     );
@@ -140,20 +140,20 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.deepPurpleAccent,
           value: 0, groupValue: _valueTime, onChanged: handleRadioValueChangedTime,
         ),
         Text(
           'AM',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.deepPurpleAccent),
         ),
         Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
+          activeColor: Colors.deepPurpleAccent,
           value: 1, groupValue: _valueTime, onChanged: handleRadioValueChangedTime,
         ),
         Text(
           'PM',
-          style: TextStyle(color: Colors.blueAccent.shade700),
+          style: TextStyle(color: Colors.deepPurpleAccent),
         ),
       ],
     );
@@ -213,7 +213,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
           child: Text(
             '$_message $_resultString $_timeString',
             style: TextStyle(
-                color: Colors.blueAccent.shade700,
+                color: Colors.deepPurpleAccent,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic
@@ -240,7 +240,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
     return ElevatedButton(
       onPressed: _calculator,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.deepPurpleAccent,
         textStyle: TextStyle(color: Colors.white70)
       ),
       child: Text(
@@ -252,6 +252,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   TextFormField sleepMinuteFormField() {
     return TextFormField(
+      cursorColor: Colors.deepPurpleAccent,
       controller: _sleepMinuteController,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.done,
@@ -278,6 +279,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   TextFormField sleepHourFormField(BuildContext context) {
     return TextFormField(
+      cursorColor: Colors.deepPurpleAccent,
       controller: _sleepHourController,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
@@ -304,6 +306,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   TextFormField hourFormField(BuildContext context) {
     return TextFormField(
+      cursorColor: Colors.deepPurpleAccent,
       controller: _hourController,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
@@ -330,6 +333,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   TextFormField minFormField(BuildContext context) {
     return TextFormField(
+      cursorColor: Colors.deepPurpleAccent,
       controller: _minuteController,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
