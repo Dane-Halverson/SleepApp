@@ -42,17 +42,17 @@ void main() async {
     sleepQuality: 4,
     dreams: dreams
   );
-  final stats = new StatisticsModel(model);
+  final stats = await StatisticsModel.create(model);
   test('Test the average weekly sleep time calculations', () async {
-    final avg = await stats.getWeeklyAvgSleepTime();
+    final avg = stats.weeklyAvgSleepTime;
     expect(avg, 8);
   });
   test('Test the average weekly sleep quality calculations', () async {
-    final avg = await stats.getWeeklyAvgSleepQuality();
+    final avg = stats.weeklyAvgSleepQuality;
     expect(avg, 3);
   });
   test('Test the average weekly time in bed calculations', () async {
-    final avg = await stats.getWeeklyAvgTimeInBed();
+    final avg = stats.weeklyAvgTimeInBed;
     expect(avg, 9);
   });
 }
