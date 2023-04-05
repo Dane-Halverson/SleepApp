@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 
 import './statistics.dart';
 
-enum ChartType {
-  bar,
-  line,
-}
-
 /// TODO implement a presenter method to get the widget from 
 abstract class ChartModel<T extends StatefulWidget, D extends ChartSeries> {
   T createView({
@@ -33,9 +28,9 @@ ChartModel<SfCartesianChart, XyDataSeries> {
   }
 }
 
-List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(ChartType type, List<List<ChartData<X>>> data) {
+List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(String type, List<List<ChartData<X>>> data) {
   switch(type) {
-    case ChartType.bar:
+    case 'bar':
       List<BarSeries<ChartData<X>, X>> series = [];
       for (var dataSeries in data) {
           series.add(new BarSeries<ChartData<X>, X>(
@@ -45,7 +40,7 @@ List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(ChartType typ
         ));
       }
       return series;
-    case ChartType.line:
+    case 'line':
       List<LineSeries<ChartData<X>, X>> series = [];
       for (var dataSeries in data) {
         series.add(new LineSeries<ChartData<X>, X>(
@@ -60,14 +55,14 @@ List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(ChartType typ
   }
 }
 
-CartesianChartModel cartesianChartModelFactory<X>(ChartType type, List<List<ChartData<X>>> data) {
+CartesianChartModel cartesianChartModelFactory<X>(String type, List<List<ChartData<X>>> data) {
   final series = _cartesianDataSeriesFactory<X>(type, data);
   switch(type) {
-    case ChartType.bar:
+    case 'bar':
       return new CartesianChartModel<BarSeries>(
         series as List<BarSeries<ChartData<X>, X>>
       );
-    case ChartType.line:
+    case 'line':
       return new CartesianChartModel<LineSeries>(
         series as List<LineSeries<ChartData<X>, X>>
       );
