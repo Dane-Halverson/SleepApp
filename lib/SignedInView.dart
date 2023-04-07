@@ -1,40 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:units/SettingsView.dart';
 import 'package:units/views/home.dart';
 
 import 'models/models.dart';
+import 'package:units/VideosView.dart';
 
+
+import 'package:units/views/home.dart';
+import 'models/models.dart';
+import 'package:units/VideosView.dart';
 class SignedInView extends StatelessWidget {
-  UserModel userData;
-
-  SignedInView({
-    required this.userData
-  });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SignedInStatefulWidget(userData: userData, key: super.key),
+      home: SignedInStatefulWidget(key: super.key),
     );
   }
 
 }
 
 class SignedInStatefulWidget extends StatefulWidget {
-  UserModel userData;
-  SignedInStatefulWidget({required Key? key, required this.userData}) : super(key: key);
+  SignedInStatefulWidget({required Key? key}) : super(key: key);
 
   @override
-  State<SignedInStatefulWidget> createState() => _SignedInStatefulWidgetState(userData: userData);
+  State<SignedInStatefulWidget> createState() => _SignedInStatefulWidgetState();
 }
 
 class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
-  UserModel userData;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  _SignedInStatefulWidgetState({required this.userData});
 
   void _onItemTapped(int index) {
     setState(() {
@@ -42,25 +40,51 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
     });
   }
 
+  Future<UserModel> _getUserData() async {
+    final db = FirebaseFirestore.instance;
+    final auth = FirebaseAuth.instance;
+    final userId = auth.currentUser?.uid;
+    if (userId == null) 
+      throw new ErrorDescription(
+        "The user is not signed in when the home page is rendered!"
+      );
+    final userDoc = await getUserDocRef(db.collection('users'), userId).get();
+    final data = userDoc.data();
+    if (data == null) 
+      throw new ErrorDescription(
+        "The sign up page needs to store the user information in the database and it has apparently not done that!"
+      );
+
+    return data;
+  }
 
   static const _navColor = Colors.deepPurple;
   static const _selectedColor = Colors.amber;
 
   @override
   Widget build(BuildContext context) {
+    UserModel model;
     List<Widget> _pages = <Widget>[
-      //HomePage(),
-      HomeView(userData: userData),
+      FutureBuilder<UserModel>(
+        future: _getUserData(),
+        builder: (BuildContext ctx, AsyncSnapshot<UserModel> snapshot) {
+          if (snapshot.hasData) {
+            var data = snapshot.data;
+            if (data != null) return HomeView(userData: data);
+            else return const CircularProgressIndicator();
+          }
+          else {
+            return const CircularProgressIndicator();
+          }
+        }
+      ),
       //Log page
       Text(
         'Index 1: Log Activity',
         style: optionStyle,
       ),
       //Videos page
-      Text(
-        'Index 2: Videos',
-        style: optionStyle,
-      ),
+      VideosView(),
       //Settings Page
       SettingsView(),
     ];

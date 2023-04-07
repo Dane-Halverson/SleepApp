@@ -5,6 +5,8 @@ import 'package:units/presenters/home_presenters.dart';
 import 'package:units/views/statistics.dart';
 
 import '../models/statistics.dart';
+import 'package:units/presenters/CalculatorPresenter.dart';
+import 'CalculatorView.dart';
 
 class HomeView extends StatelessWidget {
   final UserModel userData;
@@ -21,7 +23,7 @@ class HomeView extends StatelessWidget {
 }
 
 class _HomeStatefulWidget extends StatefulWidget {
-  UserModel model;
+  final UserModel model;
   _HomeStatefulWidget({
     required this.model,
     super.key
@@ -33,20 +35,23 @@ class _HomeStatefulWidget extends StatefulWidget {
 
 class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
   late final HomePresenter _presenter;
-  
+
   HomeStatefulWidgetState(UserModel model) {
     this._presenter = new HomePresenter(this, model);
   }
   @override
   Widget build(BuildContext ctx) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-        backgroundColor: Colors.deepPurple,
-      ),
-      body: Container(
-        child: Column(
+    return new LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
+      return  Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text("Home"),
+          backgroundColor: Colors.deepPurple,
+        ),
+        body: ListView(
+          scrollDirection: Axis.vertical,
           children: <Widget>[
+            Calculator(new BasicPresenter()),
             FutureBuilder<StatisticsModel>(
               future: _presenter.getStatisticsData(),
               builder: (BuildContext ctx, AsyncSnapshot<StatisticsModel> snapshot) {
@@ -60,13 +65,9 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
                 }
               }
             ),
-            Row(
-              children: <Widget>[
-              ],
-            )
           ]
         ),
-      )
-    );
+      );
+    });
   }
 }
