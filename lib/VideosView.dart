@@ -35,6 +35,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
           flags: YoutubePlayerFlags(
             autoPlay: false,
             mute: false,
+
           ),
         ),
       );
@@ -45,18 +46,26 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
       players.add(new YoutubePlayer(
         controller: c,
         showVideoProgressIndicator: true,
-      ));
+      )
+      );
     }
 
     List<Widget> videosPage = [];
     for (int i = 0; i < players.length; ++i) {
-      videosPage.add(new Text(
-        VideosModel.videoIds[i].item1,
-        style: TextStyle(fontSize: 30),
-      ));
+      videosPage.add(
+        new Container(
+          color: Color.fromARGB(100, 79, 38, 123),
+            child: new Text(
+          VideosModel.videoIds[i].item1 + ':',
+          style: TextStyle(fontSize: 30),
+        )),
+      );
+
       videosPage.add(players[i]);
       if (i < players.length - 1) {
-        videosPage.add(SizedBox(height: 15,));
+        videosPage.add(SizedBox(
+          height: 30,
+        ));
       }
     }
 
