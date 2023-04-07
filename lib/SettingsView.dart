@@ -5,7 +5,6 @@ import 'contracts/settings_contract.dart';
 import 'Authentication.dart';
 import 'main.dart';
 
-
 class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,6 @@ class SettingsStatefulWidget extends StatefulWidget {
 
 class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
     implements SettingsViewContract {
-
   Authentication auth = new Authentication();
 
   late SettingsPresenter presenter;
@@ -35,14 +33,15 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
 
   @override
   Widget build(BuildContext context) {
-    print(auth.isSignedIn().then((value) {return value;}));
+    print(auth.isSignedIn().then((value) {
+      return value;
+    }));
     late String email = auth.getUserEmail() != null ? auth.getUserEmail()! : "";
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
         backgroundColor: Colors.deepPurple,
-      )
-      ,
+      ),
       body: SettingsList(
         sections: [
           SettingsSection(
@@ -65,18 +64,19 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
                 title: Text('Reset Password'),
                 onPressed: (_) {
                   _onResetPassword();
-                  },
+                },
               ),
               SettingsTile(
                 leading: Icon(Icons.delete),
-                title: Text('Delete Account',
+                title: Text(
+                  'Delete Account',
                   style: TextStyle(
                     color: Colors.red,
                   ),
                 ),
                 onPressed: (_) {
                   _onDeleteAccount();
-                  },
+                },
               ),
             ],
           ),
@@ -103,5 +103,6 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
     runApp(LogInPage());
   }
 
-}
 
+
+}

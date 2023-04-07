@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
+import 'package:units/notification_service.dart';
 
 import 'CalculatorView.dart';
 import 'presenters/CalculatorPresenter.dart';

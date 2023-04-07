@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:units/HomePageView.dart';
 import 'package:units/SettingsView.dart';
+import 'package:units/VideosView.dart';
+
 
 class SignedInView extends StatelessWidget {
 
@@ -33,10 +35,7 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
       style: optionStyle,
     ),
     //Videos page
-    Text(
-      'Index 2: Videos',
-      style: optionStyle,
-    ),
+    VideosView(),
     //Settings Page
     SettingsView(),
   ];
