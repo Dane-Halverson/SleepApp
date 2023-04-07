@@ -8,10 +8,6 @@ class PreferencesModel {
     this.numDaysToDisplay = 7,
   });
 
-  int? getNumDays() {
-    return numDaysToDisplay;
-  }
-
   Map<String, dynamic> asMap() {
     return {
       "sleepGraphType": sleepGraphType,

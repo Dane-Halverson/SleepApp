@@ -1,47 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:units/SettingsView.dart';
+import 'package:units/views/home.dart';
+
+import 'models/models.dart';
 
 class SignedInView extends StatelessWidget {
+  UserModel userData;
+
+  SignedInView({
+    required this.userData
+  });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SignedInStatefulWidget(key: super.key),
+      home: SignedInStatefulWidget(userData: userData, key: super.key),
     );
   }
 
 }
 
 class SignedInStatefulWidget extends StatefulWidget {
-  SignedInStatefulWidget({required Key? key}) : super(key: key);
+  UserModel userData;
+  SignedInStatefulWidget({required Key? key, required this.userData}) : super(key: key);
 
   @override
-  State<SignedInStatefulWidget> createState() => _SignedInStatefulWidgetState();
+  State<SignedInStatefulWidget> createState() => _SignedInStatefulWidgetState(userData: userData);
 }
 
 class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
+  UserModel userData;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  List<Widget> _pages = <Widget>[
-    //HomePage(),
-    Text(
-      'Index 0: HomePage',
-      style: optionStyle,
-    ),
-    //Log page
-    Text(
-      'Index 1: Log Activity',
-      style: optionStyle,
-    ),
-    //Videos page
-    Text(
-      'Index 2: Videos',
-      style: optionStyle,
-    ),
-    //Settings Page
-    SettingsView(),
-  ];
+
+  _SignedInStatefulWidgetState({required this.userData});
 
   void _onItemTapped(int index) {
     setState(() {
@@ -55,6 +48,22 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _pages = <Widget>[
+      //HomePage(),
+      HomeView(userData: userData),
+      //Log page
+      Text(
+        'Index 1: Log Activity',
+        style: optionStyle,
+      ),
+      //Videos page
+      Text(
+        'Index 2: Videos',
+        style: optionStyle,
+      ),
+      //Settings Page
+      SettingsView(),
+    ];
     //_page = _homePage;
     return Scaffold(
       body: Center (

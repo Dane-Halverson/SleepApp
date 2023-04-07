@@ -7,7 +7,7 @@ import 'package:units/models/behaviors.dart';
 import './PreferencesModel.dart';
 
 /// change to take in the auth class and get the uuid of the user for the db
-DocumentReference<UserModel> getUserDocRef(CollectionReference ref, String userId) => ref.doc(userId).withConverter(
+DocumentReference<UserModel> getUserDocRef(CollectionReference ref, String? userId) => ref.doc(userId).withConverter(
     fromFirestore: UserModel.fromDB,
     toFirestore: (UserModel user, _) => user.save()
 );
