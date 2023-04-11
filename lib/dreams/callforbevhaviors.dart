@@ -1,4 +1,84 @@
-import 'dart:async';
+import 'package:flutter/material.dart';
+
+void main() => runApp(const Behaviorwidget());
+
+class Behaviorwidget extends StatelessWidget {
+  const Behaviorwidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Behaviorwidget'),
+        ),
+        body: const Center(
+          child: Behaviorwidget(),
+        ),
+      ),
+    );
+  }
+}
+
+@immutable
+class User {
+  const User({
+    required this.behavior,
+    required this.quality,
+  });
+
+  final String behavior;
+  final String quality;
+
+  @override
+  String toString() {
+    return '$quality, $behavior';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != runtimeType) {
+      return false;
+    }
+    return other is User && other.quality == quality && other.behavior == behavior;
+  }
+
+  @override
+  int get hashCode => Object.hash(behavior, quality);
+}
+
+class Behaviorinput extends StatelessWidget {
+  const Behaviorinput({super.key});
+
+  static const List<User> _userOptions = <User>[
+    User(quality: '1''2''3''4''5', behavior: 'sleep quality'),
+    User(quality: '1''2''3''4''5', behavior: 'bob@example.com'),
+    User(quality: '1''2''3''4''5', behavior: 'charlie123@gmail.com'),
+  ];
+
+  static String _displayStringForOption(User option) => option.quality;
+
+  @override
+  Widget build(BuildContext context) {
+    return Autocomplete<User>(
+      displayStringForOption: _displayStringForOption,
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text == '') {
+          return const Iterable<User>.empty();
+        }
+        return _userOptions.where((User option) {
+          return option
+              .toString()
+              .contains(textEditingValue.text.toLowerCase());
+        });
+      },
+      onSelected: (User selection) {
+        debugPrint('You just selected ${_displayStringForOption(selection)}');
+      },
+    );
+  }
+}
+/*import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
@@ -118,5 +198,7 @@ Future<void> deleteSleep(String email) async {
     whereArgs: [email],
   );
 }
-
+*/
+//This code may not be the most simple so it is commented to not loose it.
 //code is dervived from the tutorial https://www.educative.io/answers/how-to-use-flutter-to-read-and-write-data-to-sqflite-database
+
