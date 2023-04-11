@@ -21,10 +21,19 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
   String _name = "";
   var _date;
 
+  final pass1Controller = new TextEditingController();
+  final pass2Controller = new TextEditingController();
+
   final firstDate = DateTime.utc(1900, 1, 1);
   final lastDate = DateTime.now();
 
-  late CreateAccountPresenter presenter;
+  late CreateAccountPresenter presenter; //This doesnt initialize, likely due to the way the presenter is set up
+
+  @override
+  void initState(){
+    super.initState();
+    //this.widget.presenter.view = this;
+  }
 
   @override
   String getEmail(){
@@ -47,6 +56,8 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
       _pass1 = "";
       _pass2 = "";
     });
+    pass1Controller.clear();
+    pass2Controller.clear();
   }
 
   @override
@@ -60,10 +71,12 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
   void toHomePage(){
     runApp(SignedInView());
   }
-
+/**
+ * This function does not work as it should
+ * */
   @override
   void toRegister() async {
-    presenter.onSubmit();
+      presenter.onSubmit();
   }
 
 
@@ -83,7 +96,7 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
             Padding(padding: EdgeInsets.all(5.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
-              child: Text('Override to main page'),
+              child: Text('Back to sign in'),
               onPressed: (){
                 runApp(LogInPage());
               },
@@ -121,7 +134,8 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
                       ),
                       onChanged: (value){
                         _pass1 = value.toString();
-                      }
+                      },
+                      controller: pass1Controller
                   ),
                   TextFormField(
                       decoration: const InputDecoration(
@@ -129,12 +143,38 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
                       ),
                       onChanged: (value){
                         _pass2 = value.toString();
-                      }
+                      },
+                      controller: pass2Controller
                   ),
+                  Text('\n' + _error,
+                    style: TextStyle(
+                      color: Colors.red
+                    )),
+                  ButtonBar(
+                    children: <Widget>[
+                      OutlinedButton(
+                          onPressed: clearPasswords,
+                          child:
+                            Text('Clear passwords'),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.deepPurple
+                      ),),
+                      ElevatedButton(
+                        /**  THIS DOES NOT WORK! Data does not get submitted */
+                          onPressed: () {
+                            presenter.onSubmit();
+                            },
+                          child: Text('Create Account'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurple
+                      )
+                      )
+                    ],
+                  )
                 ]
               )
             )
-            )
+            ),
           ],
         )
     )
