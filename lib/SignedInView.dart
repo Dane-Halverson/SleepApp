@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:units/HomePageView.dart';
+import 'package:units/SettingsView.dart';
+import 'package:units/VideosView.dart';
+
 
 class SignedInView extends StatelessWidget {
 
@@ -24,25 +28,16 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _pages = <Widget>[
     //HomePage(),
-    Text(
-      'Index 0: HomePage',
-      style: optionStyle,
-    ),
+    HomePageView(),
     //Log page
     Text(
       'Index 1: Log Activity',
       style: optionStyle,
     ),
     //Videos page
-    Text(
-      'Index 2: Videos',
-      style: optionStyle,
-    ),
+    VideosView(),
     //Settings Page
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
+    SettingsView(),
   ];
 
   void _onItemTapped(int index) {

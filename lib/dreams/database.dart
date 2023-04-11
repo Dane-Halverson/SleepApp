@@ -48,6 +48,7 @@ class MyDatabase {
   /*
     Gets all sleeps.
    */
+
   Future<List<Sleep>> sleeps() async {
     final List<Map<String, dynamic>> maps = await _database.query('sleeps');
 
@@ -65,6 +66,7 @@ class MyDatabase {
   /*
     Gets all sleeps within a week.
    */
+
   Future<List<Sleep>> sleepsThisWeek() async {
     int currentTimestamp = DateTime.now().millisecondsSinceEpoch;
     int weekLength = 1000 * 60 * 60 * 24 * 7;
@@ -81,8 +83,7 @@ class MyDatabase {
     });
   }
 }
-
+*/
 //This code is from the github project https://github.com/LihanZhuH/Sleep-Organized/blob/master/lib/models/database.dart
 //You can look at it
 
-*/
