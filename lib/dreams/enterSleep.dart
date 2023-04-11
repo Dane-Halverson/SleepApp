@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+//Widget that creates the text input for sleep quality
 class TextStore extends StatefulWidget {
   const TextStore({Key? key}) : super(key: key);
 
@@ -44,6 +46,142 @@ class _TextStoreState extends State<TextStore> {
   }
 }
 
+//Widget that tells time went to bed
+class TimeforBed extends StatefulWidget {
+  const TimeforBed({Key? key}) : super(key: key);
+
+  @override
+  _TimeforBedState createState() => _TimeforBedState();
+}
+
+class _TimeforBedState extends State<TimeforBed> {
+
+  final _textController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Padding(
+        padding: const EdgeInsets.all(20.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.end,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+    TextField(
+    controller: _textController,
+    decoration: const InputDecoration(
+    hintText: 'What time did you go to bed?',
+    border: OutlineInputBorder(),
+    suffixIcon: IconButton(
+    onPressed: () {
+    _textController.clear();
+    },
+    icon: const Icon(Icons.clear),
+    ),
+    ),
+    ),
+    MaterialButton(
+    onPressed: () {},
+    color: Colors.blue,
+    child: Text('Post', style: TextStyle(color: Colors.white)),
+    ),
+    ],
+    ),
+    );
+  }
+}
+
+//Widget that records when the person fell asleep
+class fellAsleep extends StatefulWidget {
+  const fellAsleep({Key? key}) : super(key: key);
+
+  @override
+  _fellAsleepState createState() => _fellAsleepState();
+}
+
+class _fellAsleepState extends State<fellAsleep> {
+
+  final _textController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Padding(
+        padding: const EdgeInsets.all(20.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.end,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+    TextField(
+    controller: _textController,
+    decoration: const InputDecoration(
+    hintText: 'What time did you fall to sleep?',
+    border: OutlineInputBorder(),
+    suffixIcon: IconButton(
+    onPressed: () {
+    _textController.clear();
+    },
+    icon: const Icon(Icons.clear),
+    ),
+    ),
+    ),
+    MaterialButton(
+    onPressed: () {},
+    color: Colors.blue,
+    child: Text('Post', style: TextStyle(color: Colors.white)),
+    ),
+    ],
+    ),
+    );
+  }
+}
+
+//Widget that tells time when the user woke up
+class Wokeup extends StatefulWidget {
+  const Wokeup({Key? key}) : super(key: key);
+
+  @override
+  _WokeupState createState() => _WokeupState();
+}
+
+class _WokeupState extends State<Wokeup> {
+
+  final _textController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Padding(
+        padding: const EdgeInsets.all(20.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.end,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+    TextField(
+    controller: _textController,
+    decoration: const InputDecoration(
+    hintText: 'What time did you wake up?',
+    border: OutlineInputBorder(),
+    suffixIcon: IconButton(
+    onPressed: () {
+    _textController.clear();
+    },
+    icon: const Icon(Icons.clear),
+    ),
+    ),
+    ),
+    MaterialButton(
+    onPressed: () {},
+    color: Colors.blue,
+    child: Text('Post', style: TextStyle(color: Colors.white)),
+    ),
+    ],
+    ),
+    );
+  }
+}
+
+//Widget that creates the datepicker
 class Datepicker extends StatefulWidget {
   const Datepicker({Key? key}) : super(key:);
 
@@ -97,6 +235,8 @@ class _Datepicker extends State<Datepicker>{
   }
 }
 
+//commented to save if needed
+/*
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -162,5 +302,5 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
-
+*/
 //Code from tutorial on form classes https://api.flutter.dev/flutter/widgets/Form-class.html
