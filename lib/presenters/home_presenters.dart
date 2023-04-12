@@ -15,6 +15,8 @@ class HomePresenter {
     this._alreadyQueried = false;
   }
 
+  String? get firstname => this._model.firstname;
+
   Future<StatisticsModel> getStatisticsData() async {
     if (!_alreadyQueried) {
       _alreadyQueried = true;

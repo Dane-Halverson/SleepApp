@@ -6,7 +6,7 @@ class Sleep {
   final int start;
   final int end;
 
-  Sleep({this.id, this.start, this.end});
+  Sleep({required this.id, required this.start, required this.end});
 
   Map<String, dynamic> toMap() {
     return {

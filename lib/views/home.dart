@@ -35,12 +35,21 @@ class _HomeStatefulWidget extends StatefulWidget {
 
 class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
   late final HomePresenter _presenter;
+  final headingStyle = new TextStyle(
+    inherit: false,
+    color: Colors.black,
+    fontSize: 28.0,
+    letterSpacing: 0.6,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w300
+  );
 
   HomeStatefulWidgetState(UserModel model) {
     this._presenter = new HomePresenter(this, model);
   }
   @override
   Widget build(BuildContext ctx) {
+    final String? firstname = this._presenter.firstname;
     return new LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
       return  Scaffold(
         resizeToAvoidBottomInset: false,
@@ -51,6 +60,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
         body: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget>[
+            Text('Welcome back, $firstname', style: headingStyle),
             Calculator(new BasicPresenter()),
             FutureBuilder<StatisticsModel>(
               future: _presenter.getStatisticsData(),

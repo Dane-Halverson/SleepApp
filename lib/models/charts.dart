@@ -5,7 +5,8 @@ import './statistics.dart';
 
 abstract class ChartModel<T extends StatefulWidget, D extends ChartSeries> {
   T createView({
-    required String title
+    required String title,
+    required ChartAxis xAxis
   });
 }
 
@@ -18,9 +19,9 @@ ChartModel<SfCartesianChart, XyDataSeries> {
   }
 
   @override
-  SfCartesianChart createView({required String title}) {
+  SfCartesianChart createView({required String title, required ChartAxis xAxis}) {
     return new SfCartesianChart(
-      primaryXAxis: CategoryAxis(),
+      primaryXAxis: xAxis,
       title: ChartTitle(text: title),
       series: this._series,
       

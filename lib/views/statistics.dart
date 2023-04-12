@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../models/statistics.dart';
 import '../models/charts.dart';
@@ -8,7 +9,7 @@ class StatisticsView extends StatelessWidget {
   late final StatisticsModel _data;
   final titleStyle = new TextStyle(
     inherit: false,
-    color: Color.fromARGB(31, 22, 22, 22),
+    color: Colors.black,
     fontSize: 18.0,
     letterSpacing: 0.5,
     fontFamily: 'Roboto',
@@ -37,7 +38,7 @@ class StatisticsView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               new Text(
-                'Monthly Average Total Sleep Time',
+                'Monthly Average Sleep Time',
                 style: titleStyle,
               ),
               new Text(
@@ -73,17 +74,17 @@ class StatisticsView extends StatelessWidget {
             'cartesian', 
             'bar', 
             <List<ChartData<DateTime>>>[_data.weeklySleepTimeData])
-              .createView(title: 'Weekly Sleep Time'),
+              .createView(title: 'Weekly Sleep Time', xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)),
           chartModelFactory<DateTime>(
             'cartesian',
             'bar',
             <List<ChartData<DateTime>>>[_data.weeklyTimeInBedData])
-              .createView(title: 'Weekly Total Time In Bed'),
+              .createView(title: 'Weekly Total Time In Bed', xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)),
           chartModelFactory<DateTime>(
             'cartesian',
             'bar',
             <List<ChartData<DateTime>>>[_data.weeklySleepQualityData])
-              .createView(title: 'Weekly Sleep Quality Rating')
+              .createView(title: 'Weekly Sleep Quality Rating', xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1))
         ],
       )
     );
