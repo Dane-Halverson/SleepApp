@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:units/SettingsView.dart';
+import 'package:units/dreams/callforbevhaviors.dart';
 import 'package:units/views/home.dart';
 import 'models/models.dart';
 import 'package:units/VideosView.dart';
@@ -75,10 +76,7 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
         }
       ),
       //Log page
-      Text(
-        'Index 1: Log Activity',
-        style: optionStyle,
-      ),
+      Behaviorwidget(),
       //Videos page
       VideosView(),
       //Settings Page

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'enterSleep.dart';
 
 void main() => runApp(const Behaviorwidget());
 
@@ -10,10 +11,16 @@ class Behaviorwidget extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Behaviorwidget'),
+          title: const Text('Sleep Logging'),
         ),
-        body: const Center(
-          child: Behaviorwidget(),
+        body: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            TimeforBed(),
+            fellAsleep(),
+            Wokeup(),
+            TextStore()
+          ],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 //Widget that creates the text input for sleep quality
 class TextStore extends StatefulWidget {
@@ -11,35 +12,23 @@ class TextStore extends StatefulWidget {
 
 class _TextStoreState extends State<TextStore> {
 
-  final _textController = TextEditingController();
+  int _currentValue = 1;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Container(
+      child: Padding(
         padding: const EdgeInsets.all(20.0),
           child: Column(
-             crossAxisAlignment: CrossAxisAlignment.end,
              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               TextField(
-                controller: _textController,
-                 decoration: InputDecoration(
-                   hintText: 'Sleep Quality, 1 through 5',
-                   border: OutlineInputBorder(),
-                   suffixIcon: IconButton(
-                   onPressed: () {
-                       _textController.clear();
-                     },
-                     icon: const Icon(Icons.clear),
+                Text('Rate Your Quality of Sleep'),
+                NumberPicker(
+                  value: _currentValue,
+                  minValue: 1,
+                  maxValue: 5,
+                  onChanged: (value) => setState(() => _currentValue = value),
                 ),
-              ),
-            ),
-                MaterialButton(
-                onPressed: () {},
-                color: Colors.blue,
-                child: Text('Post', style: TextStyle(color: Colors.white)),
-           ),
         ],
       ),
     ));
@@ -60,31 +49,23 @@ class _TimeforBedState extends State<TimeforBed> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(
+    return Container(
+        child: Padding(
         padding: const EdgeInsets.all(20.0),
     child: Column(
-    crossAxisAlignment: CrossAxisAlignment.end,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-    TextField(
-    controller: _textController,
-    decoration: InputDecoration(
-    hintText: 'What time did you go to bed?',
-    border: OutlineInputBorder(),
-    suffixIcon: IconButton(
-    onPressed: () {
-    _textController.clear();
-    },
-    icon: const Icon(Icons.clear),
-    ),
-    ),
-    ),
-    MaterialButton(
-    onPressed: () {},
-    color: Colors.blue,
-    child: Text('Post', style: TextStyle(color: Colors.white)),
-    ),
+      Text('What Time Did You Go To Bed?'),
+      TimePickerSpinner(
+        spacing: 20,
+        is24HourMode: false,
+        minutesInterval: 15,
+        onTimeChange: (time) {
+          setState(() {
+
+          });
+        },
+      ),
     ],
     ),
     ));
@@ -105,34 +86,26 @@ class _fellAsleepState extends State<fellAsleep> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(
-        padding: const EdgeInsets.all(20.0),
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.end,
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-    TextField(
-    controller: _textController,
-    decoration: InputDecoration(
-    hintText: 'What time did you fall to sleep?',
-    border: OutlineInputBorder(),
-    suffixIcon: IconButton(
-    onPressed: () {
-    _textController.clear();
-    },
-    icon: const Icon(Icons.clear),
-    ),
-    ),
-    ),
-    MaterialButton(
-    onPressed: () {},
-    color: Colors.blue,
-    child: Text('Post', style: TextStyle(color: Colors.white)),
-    ),
-    ],
-    ),
-    ));
+    return Container(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('What Time Did You Fall Asleep?', textAlign: TextAlign.center),
+              TimePickerSpinner(
+                spacing: 20,
+                is24HourMode: false,
+                minutesInterval: 15,
+                onTimeChange: (time) {
+                  setState(() {
+
+                  });
+                },
+              ),
+            ],
+          ),
+        ));
   }
 }
 
@@ -146,35 +119,25 @@ class Wokeup extends StatefulWidget {
 
 class _WokeupState extends State<Wokeup> {
 
-  final _textController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(
+    return Container(
+        child: Padding(
         padding: const EdgeInsets.all(20.0),
     child: Column(
-    crossAxisAlignment: CrossAxisAlignment.end,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-    TextField(
-    controller: _textController,
-    decoration: InputDecoration(
-    hintText: 'What time did you wake up?',
-    border: OutlineInputBorder(),
-    suffixIcon: IconButton(
-    onPressed: () {
-    _textController.clear();
-    },
-    icon: const Icon(Icons.clear),
-    ),
-    ),
-    ),
-    MaterialButton(
-    onPressed: () {},
-    color: Colors.blue,
-    child: Text('Post', style: TextStyle(color: Colors.white)),
-    ),
+      Text('What Time Did You Wake Up?', textAlign: TextAlign.center),
+      TimePickerSpinner(
+        spacing: 20,
+        is24HourMode: false,
+        minutesInterval: 15,
+        onTimeChange: (time) {
+          setState(() {
+
+          });
+        },
+      ),
     ],
     ),
     ));
@@ -209,8 +172,8 @@ class _Datepicker extends State<Datepicker>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Container(
+      child: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -234,73 +197,3 @@ class _Datepicker extends State<Datepicker>{
       ));
   }
 }
-
-//commented to save if needed
-/*
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  static const String _title = 'FlutterenterSleep';
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: const MyStatefulWidget(),
-      ),
-    );
-  }
-}
-
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
-
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Enter your sleep',
-            ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate will return true if the form is valid, or false if
-                // the form is invalid.
-                if (_formKey.currentState!.validate()) {
-                  // Process data.
-                }
-              },
-              child: const Text('Submit'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-*/
-//Code from tutorial on form classes https://api.flutter.dev/flutter/widgets/Form-class.html
