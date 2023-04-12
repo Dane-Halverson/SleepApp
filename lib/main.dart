@@ -5,10 +5,6 @@ import 'package:units/SignedInView.dart';
 import 'package:units/firebase_options.dart';
 import 'package:units/notification_service.dart';
 
-import 'CalculatorView.dart';
-import 'presenters/CalculatorPresenter.dart';
-import 'package:units/presenters/SignInPresenter.dart';
-import 'contracts/sign_in_contract.dart';
 import 'CreateAccountView.dart';
 import 'Authentication.dart';
 
@@ -20,7 +16,7 @@ void main() async {
   final db = FirebaseFirestore.instance;
 
   Authentication auth = Authentication();
-  await auth.signOut();
+  await auth.signIn(email: 'halve564@d.umn.edu', password: '12345678qwertyuASDFGH');
 
   if (await auth.isSignedIn()) {
     runApp(SignedInView());
