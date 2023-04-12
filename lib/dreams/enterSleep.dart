@@ -24,11 +24,11 @@ class _TextStoreState extends State<TextStore> {
               children: [
                TextField(
                 controller: _textController,
-                 decoration: const InputDecoration(
+                 decoration: InputDecoration(
                    hintText: 'Sleep Quality, 1 through 5',
                    border: OutlineInputBorder(),
                    suffixIcon: IconButton(
-                     onPressed: () {
+                   onPressed: () {
                        _textController.clear();
                      },
                      icon: const Icon(Icons.clear),
@@ -42,7 +42,7 @@ class _TextStoreState extends State<TextStore> {
            ),
         ],
       ),
-    );
+    ));
   }
 }
 
@@ -69,7 +69,7 @@ class _TimeforBedState extends State<TimeforBed> {
     children: [
     TextField(
     controller: _textController,
-    decoration: const InputDecoration(
+    decoration: InputDecoration(
     hintText: 'What time did you go to bed?',
     border: OutlineInputBorder(),
     suffixIcon: IconButton(
@@ -87,7 +87,7 @@ class _TimeforBedState extends State<TimeforBed> {
     ),
     ],
     ),
-    );
+    ));
   }
 }
 
@@ -114,7 +114,7 @@ class _fellAsleepState extends State<fellAsleep> {
     children: [
     TextField(
     controller: _textController,
-    decoration: const InputDecoration(
+    decoration: InputDecoration(
     hintText: 'What time did you fall to sleep?',
     border: OutlineInputBorder(),
     suffixIcon: IconButton(
@@ -132,7 +132,7 @@ class _fellAsleepState extends State<fellAsleep> {
     ),
     ],
     ),
-    );
+    ));
   }
 }
 
@@ -159,7 +159,7 @@ class _WokeupState extends State<Wokeup> {
     children: [
     TextField(
     controller: _textController,
-    decoration: const InputDecoration(
+    decoration: InputDecoration(
     hintText: 'What time did you wake up?',
     border: OutlineInputBorder(),
     suffixIcon: IconButton(
@@ -177,13 +177,13 @@ class _WokeupState extends State<Wokeup> {
     ),
     ],
     ),
-    );
+    ));
   }
 }
 
 //Widget that creates the datepicker
 class Datepicker extends StatefulWidget {
-  const Datepicker({Key? key}) : super(key:);
+  const Datepicker({Key? key}) : super(key: key);
 
   @override
   _Datepicker createState() => _Datepicker();
@@ -231,7 +231,7 @@ class _Datepicker extends State<Datepicker>{
             ),
           ],
         ),
-      );
+      ));
   }
 }
 
