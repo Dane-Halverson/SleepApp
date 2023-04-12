@@ -18,6 +18,9 @@ class StatisticsModel {
   final int weeklyAvgSleepTime;
   final int weeklyAvgSleepQuality;
   final int weeklyAvgTimeInBed;
+  final List<ChartData<DateTime>> weeklySleepQualityData;
+  final List<ChartData<DateTime>> weeklySleepTimeData;
+  final List<ChartData<DateTime>> weeklyTimeInBedData;
 
   StatisticsModel._create({
     required this.monthlyAvgSleepQuality,
@@ -25,7 +28,10 @@ class StatisticsModel {
     required this.monthlyAvgTimeInBed,
     required this.weeklyAvgSleepQuality,
     required this.weeklyAvgSleepTime,
-    required this.weeklyAvgTimeInBed
+    required this.weeklyAvgTimeInBed,
+    required this.weeklySleepQualityData,
+    required this.weeklySleepTimeData,
+    required this.weeklyTimeInBedData,
   });
 
   static Future<StatisticsModel> create(UserModel userData) async {
@@ -40,7 +46,12 @@ class StatisticsModel {
     int monthlyAvgSleepQuality = 0;
     int monthlyAvgSleepTime = 0;
     int monthlyAvgTimeInBed = 0;
+    // data vars
+    final List<ChartData<DateTime>> weeklySleepQualityData = [];
+    final List<ChartData<DateTime>> weeklySleepTimeData = [];
+    final List<ChartData<DateTime>> weeklyTimeInBedData = [];
     await for (final behavior in userData.getRecentBehaviors(limit: 30)) {
+      final datetime = DateTime.fromMillisecondsSinceEpoch(behavior.date);
       number += 1;
       totalSleepTime += behavior.sleepTime;
       totalSleepQuality += behavior.sleepQuality;
@@ -49,6 +60,9 @@ class StatisticsModel {
         weeklyAvgSleepTime = totalSleepTime ~/ number;
         weeklyAvgSleepQuality = totalSleepQuality ~/ number;
         weeklyAvgTimeInBed = totalTimeInBed ~/ number;
+        weeklySleepQualityData.add(new ChartData(x: datetime, y: behavior.sleepQuality));
+        weeklySleepTimeData.add(new ChartData(x: datetime, y: behavior.sleepTime));
+        weeklyTimeInBedData.add(new ChartData(x: datetime, y: behavior.totalTimeInBed));
       }
     }
     monthlyAvgSleepTime = totalSleepTime ~/ number;
@@ -60,7 +74,10 @@ class StatisticsModel {
       monthlyAvgTimeInBed: monthlyAvgTimeInBed,
       weeklyAvgSleepQuality: weeklyAvgSleepQuality,
       weeklyAvgSleepTime: weeklyAvgSleepTime,
-      weeklyAvgTimeInBed: weeklyAvgTimeInBed
+      weeklyAvgTimeInBed: weeklyAvgTimeInBed,
+      weeklySleepQualityData: weeklySleepQualityData,
+      weeklySleepTimeData: weeklySleepTimeData,
+      weeklyTimeInBedData: weeklyTimeInBedData
     );
   }
 }

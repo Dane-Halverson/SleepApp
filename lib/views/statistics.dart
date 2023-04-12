@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../models/statistics.dart';
+import '../models/charts.dart';
 
 class StatisticsView extends StatelessWidget {
   late final StatisticsModel _data;
@@ -67,7 +68,22 @@ class StatisticsView extends StatelessWidget {
                 this._data.monthlyAvgSleepQuality.toString()
               )
             ],
-          )
+          ),
+          chartModelFactory<DateTime>(
+            'cartesian', 
+            'bar', 
+            <List<ChartData<DateTime>>>[_data.weeklySleepTimeData])
+              .createView(title: 'Weekly Sleep Time'),
+          chartModelFactory<DateTime>(
+            'cartesian',
+            'bar',
+            <List<ChartData<DateTime>>>[_data.weeklyTimeInBedData])
+              .createView(title: 'Weekly Total Time In Bed'),
+          chartModelFactory<DateTime>(
+            'cartesian',
+            'bar',
+            <List<ChartData<DateTime>>>[_data.weeklySleepQualityData])
+              .createView(title: 'Weekly Sleep Quality Rating')
         ],
       )
     );

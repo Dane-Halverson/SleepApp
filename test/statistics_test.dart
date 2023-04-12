@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:test/test.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
 import '../lib/models/models.dart';
 import '../lib/models/statistics.dart';
 import '../lib/models/PreferencesModel.dart';
+import '../lib/models/charts.dart';
 
 void main() async {
   final database = FakeFirebaseFirestore();
@@ -56,5 +59,13 @@ void main() async {
   test('Test the average weekly time in bed calculations', () async {
     final avg = stats.weeklyAvgTimeInBed;
     expect(avg, 9);
+  });
+  test('Test the cartesian chart factory', () async {
+    List<List<ChartData<DateTime>>> data = [];
+    data.add(stats.weeklySleepTimeData);
+    final chartModel = chartModelFactory<DateTime>('cartesian', 'bar', data);
+    expect(chartModel is CartesianChartModel, true);
+    final chartWidget = chartModel.createView(title: 'Test Chart');
+    expect(chartWidget is SfCartesianChart, true);
   });
 }

@@ -1,16 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:units/SettingsView.dart';
 import 'package:units/views/home.dart';
-
 import 'models/models.dart';
 import 'package:units/VideosView.dart';
 
-
-import 'package:units/views/home.dart';
-import 'models/models.dart';
-import 'package:units/VideosView.dart';
 class SignedInView extends StatelessWidget {
 
   @override

@@ -16,6 +16,7 @@ void main() async {
   final db = FirebaseFirestore.instance;
 
   Authentication auth = Authentication();
+  await auth.signIn(email: 'halve564@d.umn.edu', password: '12345678qwertyuASDFGH');
 
   if (await auth.isSignedIn()) {
     runApp(SignedInView());

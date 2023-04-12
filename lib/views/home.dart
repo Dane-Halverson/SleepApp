@@ -57,14 +57,16 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
               builder: (BuildContext ctx, AsyncSnapshot<StatisticsModel> snapshot) {
                 if (snapshot.hasData) {
                   StatisticsModel? data = snapshot.data;
-                  if (data != null) return StatisticsView(data);
+                  if (data != null) {
+                    return StatisticsView(data);
+                  }
                   else return const CircularProgressIndicator();
                 }
                 else {
                   return const CircularProgressIndicator();
                 }
               }
-            ),
+            ),// FutureBuilder for stats view
           ]
         ),
       );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import './statistics.dart';
 
-/// TODO implement a presenter method to get the widget from 
 abstract class ChartModel<T extends StatefulWidget, D extends ChartSeries> {
   T createView({
     required String title
@@ -23,7 +22,8 @@ ChartModel<SfCartesianChart, XyDataSeries> {
     return new SfCartesianChart(
       primaryXAxis: CategoryAxis(),
       title: ChartTitle(text: title),
-      series: this._series
+      series: this._series,
+      
     );
   }
 }
@@ -55,7 +55,7 @@ List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(String type, 
   }
 }
 
-CartesianChartModel cartesianChartModelFactory<X>(String type, List<List<ChartData<X>>> data) {
+CartesianChartModel _cartesianChartModelFactory<X>(String type, List<List<ChartData<X>>> data) {
   final series = _cartesianDataSeriesFactory<X>(type, data);
   switch(type) {
     case 'bar':
@@ -68,5 +68,14 @@ CartesianChartModel cartesianChartModelFactory<X>(String type, List<List<ChartDa
       );
     default:
       throw new Error();
+  }
+}
+
+ChartModel chartModelFactory<X>(String type, String subType, List<List<ChartData<X>>> data) {
+  switch(type) {
+    case 'cartesian':
+      return _cartesianChartModelFactory(subType, data);
+    default:
+      throw new ErrorDescription('$type, is not a valid chart type!');
   }
 }
