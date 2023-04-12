@@ -1,10 +1,7 @@
-import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 import 'package:units/models/VideosModel.dart';
-import 'package:units/presenters/SettingsPresenter.dart';
-import 'contracts/settings_contract.dart';
-import 'Authentication.dart';
-import 'main.dart';
+
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideosView extends StatelessWidget {
@@ -24,54 +21,30 @@ class VideosStatefulWidget extends StatefulWidget {
 }
 
 class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
+  int? _value = 1;
+  List<Widget> _pages = <Widget>[];
+  YoutubePlayerController _controller = new YoutubePlayerController(
+      initialVideoId: VideosModel.techniqueVideoIds[0].item2,
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+      )
+  );
+
 
   @override
   Widget build(BuildContext context) {
-    final List<YoutubePlayerController> controllers = [];
-
-    for (var v in VideosModel.videoIds) {
-      controllers.add(
-        YoutubePlayerController(
-          initialVideoId: v.item2,
-          flags: YoutubePlayerFlags(
-            autoPlay: false,
-            mute: false,
-
-          ),
-        ),
-      );
-    }
-
-    late List<YoutubePlayer> players = <YoutubePlayer>[];
-    for (final c in controllers) {
-      players.add(new YoutubePlayer(
-        controller: c,
-        showVideoProgressIndicator: true,
-      )
-      );
-    }
-
-    List<Widget> videosPage = [];
-    for (int i = 0; i < players.length; ++i) {
-      videosPage.add(
-        new Container(
-          color: Color.fromARGB(100, 79, 38, 123),
-            child: new Text(
-          VideosModel.videoIds[i].item1 + ':',
-          style: TextStyle(fontSize: 30),
-        )),
-      );
-
-      videosPage.add(players[i]);
-      if (i < players.length - 1) {
-        videosPage.add(SizedBox(
-          height: 30,
-        ));
-      }
-    }
-
-    var videosListView = new ListView(
-      children: videosPage,
+    _pages.add(new ListView(
+        children: getVideos(VideosModel.techniqueVideoIds),
+      ),
+    );
+    _pages.add(new ListView(
+      children: getVideos(VideosModel.asmrVideoIds),
+    ),
+    );
+    _pages.add(new ListView(
+      children: getVideos(VideosModel.musicVideoIds),
+    ),
     );
 
     return Scaffold(
@@ -81,6 +54,87 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
           ),
           backgroundColor: Colors.deepPurple,
         ),
-        body: videosListView);
+        body: Column(
+          children: [
+            YoutubePlayer(
+              controller: _controller,
+            ),
+            Row(
+              children: [
+                Wrap(
+                  children: [
+                    ChoiceChip(
+                      label: Text('Sleep Techniques'),
+                      selected: _value == 1,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _value = selected ? 1 : null;
+                        });
+                      },
+                    ),
+                    ChoiceChip(
+                      label: Text('ASMR'),
+                      selected: _value == 2,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _value = selected ? 2 : null;
+                        });
+                      },
+                    ),
+                    ChoiceChip(
+                      label: Text('Sleep Music'),
+                      selected: _value == 3,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _value = selected ? 3 : null;
+                        });
+                      },
+                    ),
+                  ],
+                  spacing: 5.0,
+                ),
+              ],
+            ),
+            Expanded(child: _pages.elementAt(_value! - 1))
+          ],
+        ));
+  }
+
+  List<Widget> getVideos(List<Tuple2> ids) {
+    List<Widget> videos = [];
+
+    for (var video in ids) {
+      videos.add(
+          GestureDetector(
+        onTap: () {
+          _controller.load(video.item2);
+        },
+        child:
+        Card(
+          child:
+              Row(
+                children: [
+                  Icon(Icons.play_arrow,
+                  size: 50,),
+                  Expanded(
+                    child:
+                      Text(
+                        video.item1,
+                        style: TextStyle(
+                          fontFamily: "WorkSans",
+                          fontSize: 30,
+                        ),
+                      ),
+
+                  )
+
+                ],
+              )
+        ),
+      ));
+
+    }
+
+    return videos;
   }
 }
