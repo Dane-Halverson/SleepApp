@@ -29,10 +29,6 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
   List<Widget> _pages = <Widget>[];
 
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -95,7 +91,8 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
 
 
   List<Widget> getVideos(List<Tuple2> ids) {
-    final List<YoutubePlayerController> controllers = [];
+
+    List<YoutubePlayerController> controllers = [];
     for (var v in ids) {
       print(v.item1);
       print(v.item2);
@@ -110,7 +107,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
       );
     }
 
-    late List<YoutubePlayer> players = <YoutubePlayer>[];
+    List<YoutubePlayer> players = [];
     for (final c in controllers) {
       players.add(new YoutubePlayer(
         controller: c,
