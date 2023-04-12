@@ -17,7 +17,7 @@ class Authentication {
   }
 
   ///Returns null if successful otherwise an error message.
-  Future createUser({required String email, required String password}) async {
+  Future<String?> createUser({required String email, required String password}) async {
     if (email == "" || password == "") {
       return "Please enter both an email and password";
     }
@@ -34,7 +34,7 @@ class Authentication {
   }
 
   ///Returns null if successful otherwise an error message.
-  Future signIn({required String email, required String password}) async {
+  Future<String?> signIn({required String email, required String password}) async {
     try {
       await _authentication.signInWithEmailAndPassword(
           email: email, password: password);
@@ -51,7 +51,7 @@ class Authentication {
   }
 
   ///Returns null if successful otherwise an error message.
-  Future deleteAccount() async {
+  Future<String?> deleteAccount() async {
     try {
       await _authentication.currentUser?.delete();
     }
@@ -69,7 +69,7 @@ class Authentication {
 
   ///sends email to user to reset password for the account
   ///returns null if successful, or message if not
-  Future resetPassword(String email) async {
+  Future<String?> resetPassword(String email) async {
     try {
       _authentication.sendPasswordResetEmail(email: email);
     }

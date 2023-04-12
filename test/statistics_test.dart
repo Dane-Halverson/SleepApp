@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:test/test.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
 import '../lib/models/models.dart';
+import '../lib/models/statistics.dart';
 import '../lib/models/PreferencesModel.dart';
+import '../lib/models/charts.dart';
 
 void main() async {
   final database = FakeFirebaseFirestore();
@@ -43,22 +47,25 @@ void main() async {
     sleepQuality: 4,
     dreams: dreams
   );
-
-  test('Gettings recent user behaviors from the db', () async {
-    await for (var value in model.getRecentBehaviors()) {
-      final int time = value.timeFellAsleep;
-      expect(value.sleepTime, 8);
-    }
+  final stats = await StatisticsModel.create(model);
+  test('Test the average weekly sleep time calculations', () async {
+    final avg = stats.weeklyAvgSleepTime;
+    expect(avg, 8);
   });
-  // need to input date in mm/dd/yyyy format from user
-  test('Test retrieval of dreams from database', () async => {
-    await for (var value in model.getDreamsForDate(new DateTime(now.year, now.month, now.day))) {
-      if (value.isNightmare) {
-        expect(value.description, 'A Bad Dream')
-      }
-      else {
-        expect(value.description, 'A Good Dream')
-      }
-    }
+  test('Test the average weekly sleep quality calculations', () async {
+    final avg = stats.weeklyAvgSleepQuality;
+    expect(avg, 3);
+  });
+  test('Test the average weekly time in bed calculations', () async {
+    final avg = stats.weeklyAvgTimeInBed;
+    expect(avg, 9);
+  });
+  test('Test the cartesian chart factory', () async {
+    List<List<ChartData<DateTime>>> data = [];
+    data.add(stats.weeklySleepTimeData);
+    final chartModel = chartModelFactory<DateTime>('cartesian', 'bar', data);
+    expect(chartModel is CartesianChartModel, true);
+    final chartWidget = chartModel.createView(title: 'Test Chart');
+    expect(chartWidget is SfCartesianChart, true);
   });
 }
