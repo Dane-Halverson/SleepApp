@@ -51,6 +51,16 @@ List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(String type, 
         ));
       }
       return series;
+    case 'stacked column':
+        List<StackedColumnSeries<ChartData<X>, X>> series = [];
+        for (var dataSeries in data) {
+          series.add(new StackedColumnSeries<ChartData<X>, X>(
+            dataSource: dataSeries,
+            xValueMapper: (ChartData<X> data, _) => data.x,
+            yValueMapper: (ChartData<X> data, _) => data.y
+          ));
+        }
+        return series;
     default:
       throw new Error();
   }
@@ -66,6 +76,10 @@ CartesianChartModel _cartesianChartModelFactory<X>(String type, List<List<ChartD
     case 'line':
       return new CartesianChartModel<LineSeries>(
         series as List<LineSeries<ChartData<X>, X>>
+      );
+    case 'stacked column':
+      return new CartesianChartModel<StackedColumnSeries>(
+        series as List<StackedColumnSeries<ChartData<X>, X>>
       );
     default:
       throw new Error();

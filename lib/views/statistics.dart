@@ -73,18 +73,35 @@ class StatisticsView extends StatelessWidget {
           chartModelFactory<DateTime>(
             'cartesian', 
             'bar', 
-            <List<ChartData<DateTime>>>[_data.weeklySleepTimeData])
-              .createView(title: 'Weekly Sleep Time', xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)),
+            <List<ChartData<DateTime>>>[_data.weeklySleepTimeData]
+          ).createView(
+              title: 'Weekly Sleep Time',
+              xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)
+          ),
           chartModelFactory<DateTime>(
             'cartesian',
             'bar',
-            <List<ChartData<DateTime>>>[_data.weeklyTimeInBedData])
-              .createView(title: 'Weekly Total Time In Bed', xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)),
+            <List<ChartData<DateTime>>>[_data.weeklyTimeInBedData]
+          ).createView(
+              title: 'Weekly Total Time In Bed',
+              xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)
+          ),
           chartModelFactory<DateTime>(
             'cartesian',
             'bar',
-            <List<ChartData<DateTime>>>[_data.weeklySleepQualityData])
-              .createView(title: 'Weekly Sleep Quality Rating', xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1))
+            <List<ChartData<DateTime>>>[_data.weeklySleepQualityData]
+            ).createView(
+              title: 'Weekly Sleep Quality Rating',
+              xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)
+          ),
+          chartModelFactory<DateTime>(
+            'cartesian',
+            'stacked column',
+            <List<ChartData<DateTime>>>[_data.weeklySleepTimeData, _data.weeklySleepQualityData]
+          ).createView(
+              title: 'Sleep Quality vs Sleep Time',
+              xAxis: DateTimeAxis(intervalType: DateTimeIntervalType.days, interval: 1)
+          ),
         ],
       )
     );
