@@ -12,7 +12,7 @@ class TextStore extends StatefulWidget {
 
 class _TextStoreState extends State<TextStore> {
 
-  int _currentValue = 1;
+  double _currentValue = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +23,17 @@ class _TextStoreState extends State<TextStore> {
              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Rate Your Quality of Sleep'),
-                NumberPicker(
+                Slider(
+                  activeColor: Colors.deepPurple,
+                  secondaryActiveColor: Colors.deepPurpleAccent,
                   value: _currentValue,
-                  minValue: 1,
-                  maxValue: 5,
-                  onChanged: (value) => setState(() => _currentValue = value),
-                ),
+                  min: 1,
+                  max: 5,
+                  divisions: 5,
+                  label: _currentValue.round().toString(),
+                  onChanged: (value) => setState(() =>
+                    _currentValue = value)
+                )
         ],
       ),
     ));
