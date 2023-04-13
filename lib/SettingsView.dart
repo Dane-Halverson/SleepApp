@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:units/presenters/SettingsPresenter.dart';
 import 'contracts/settings_contract.dart';
 import 'Authentication.dart';
-import 'main.dart';
+import 'SignInView.dart';
 
 class SettingsView extends StatelessWidget {
   @override
@@ -100,7 +100,7 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
 
   @override
   toSignIn() {
-    runApp(LogInPage());
+    runApp(SignInView());
   }
 
 

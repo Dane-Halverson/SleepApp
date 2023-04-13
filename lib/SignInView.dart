@@ -1,0 +1,141 @@
+import 'CreateAccountView.dart';
+import 'package:flutter/material.dart';
+import 'Authentication.dart';
+import 'SignedInView.dart';
+
+class SignInView extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Builder(
+            builder: (context) => Scaffold(
+                appBar: AppBar(
+                    title: Text("Sweet Dreams!"),
+                    backgroundColor: Colors.deepPurple
+                ),
+                body: Center(
+                    child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            child: Text("Please Sign In",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple), textScaleFactor: 3,)
+                            ,),
+
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.deepPurple
+                            ),
+                            child: Text('Create Account'),
+                            onPressed: () {
+                              runApp(CreateAccountPage(key: super.key));
+                            },
+                          ),
+                          SignInForm(),
+                        ])))));}}
+
+class SignInForm extends StatefulWidget {
+  const SignInForm({super.key});
+
+  @override
+  SignInFormState createState() {
+    return SignInFormState();
+  }
+}
+
+class SignInFormState extends State<SignInForm> {
+  final _formKey = GlobalKey<FormState>();
+  bool passwordVis = true;
+
+  Authentication auth = Authentication();
+  String _email = '';
+  String _pass = '';
+  String _error = '';
+
+  //submits data for app
+  void submitData() async {
+    String? result = await auth.signIn(email: _email, password: _pass);
+    if (result == null)
+      runApp(SignedInView());
+    else {
+      setState(() {
+        _error = result.toString();
+      });
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    // Build a Form widget using the _formKey created above.
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+              decoration: const InputDecoration(
+                  labelText: "E-mail"
+              ),
+              onChanged: (value){
+                _email = value.toString();
+              }
+          ),
+          TextFormField(
+            obscureText: passwordVis,
+            decoration: InputDecoration(
+              labelText: "Password",
+              suffixIcon: IconButton(
+                icon: Icon(passwordVis
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+                onPressed: (){
+                  setState((){passwordVis = !passwordVis;},);
+                },
+              ),
+            ),
+            onChanged: (value){
+              _pass = value.toString();
+            },
+          ),
+          Text('\n' + _error,
+              style: TextStyle(
+                  color: Colors.red[800]
+              )),
+          ButtonBar(
+            children: <Widget>[
+              OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.amber
+                  ),
+                  child: Text('Debug sign in'),
+                  onPressed: () {
+                    setState(() {
+                      _email = 'halve564@d.umn.edu';
+                      _pass = 'TestPass1234';
+                    });
+                    submitData();
+                  }
+              ),
+              OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.deepPurpleAccent
+                  ),
+                  child: Text('Forgot Password'),
+                  onPressed: () async{
+                    await auth.resetPassword(_email);
+                  }
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple
+                ),
+
+                child: Text('Log In'),
+                onPressed: () {
+                  submitData();
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

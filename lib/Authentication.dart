@@ -35,6 +35,9 @@ class Authentication {
 
   ///Returns null if successful otherwise an error message.
   Future<String?> signIn({required String email, required String password}) async {
+    if (email == "" || password == "") {
+      return "Please enter both an email and password";
+    }
     try {
       await _authentication.signInWithEmailAndPassword(
           email: email, password: password);

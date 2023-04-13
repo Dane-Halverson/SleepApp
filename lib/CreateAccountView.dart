@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:units/SignedInView.dart';
 import 'presenters/CreateAccountPresenter.dart';
 import 'contracts/create_account_contract.dart';
+import 'SignInView.dart';
 
 import 'main.dart';
 import 'models/models.dart';
@@ -30,12 +31,12 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
   final firstDate = DateTime.utc(1900, 1, 1);
   final lastDate = DateTime.now();
 
-  late CreateAccountPresenter presenter; //This doesnt initialize, likely due to the way the presenter is set up
+  late CreateAccountPresenter presenter;
 
   @override
   void initState(){
     super.initState();
-    //this.widget.presenter.view = this;
+    presenter = new CreateAccountPresenter(this);
   }
 
   @override
@@ -101,7 +102,7 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
               style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
               child: Text('Back to sign in'),
               onPressed: (){
-                runApp(LogInPage());
+                runApp(SignInView());
               },
             )),
             Padding(padding: EdgeInsets.all(20),
@@ -110,6 +111,7 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
                 children: <Widget>[
                   TextFormField(
                       decoration: const InputDecoration(
+
                           labelText: "Name"
                       ),
                       onChanged: (value){
@@ -165,6 +167,7 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
                       ElevatedButton(
                         /**  THIS DOES NOT WORK! Data does not get submitted */
                           onPressed: () {
+                          print("test");
                             presenter.onSubmit();
                             },
                           child: Text('Create Account'),
