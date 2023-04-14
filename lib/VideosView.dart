@@ -123,7 +123,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
               borderRadius: BorderRadius.circular(20.0), //<-- SEE HERE
             ),
 
-          child: Container(/*
+          child: Container(
 
             child: Row(
               children: [

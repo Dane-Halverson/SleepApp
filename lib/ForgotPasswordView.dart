@@ -55,11 +55,10 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
             Padding(
               padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
               child: Card(
-                color: Colors.blueGrey,
                 child: Padding(padding: EdgeInsets.all(20),
                   child: Text(
                     "Enter Email for Password Reset:",
-                    style: TextStyle(fontSize: 30, fontFamily: "WorkSans"),
+                    style: TextStyle(fontSize: 25, fontFamily: "WorkSans"),
                   ),
                 ),
 
@@ -67,7 +66,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
             ),
             TextButton(onPressed: (){runApp(SignInView());},
                 child: Text("Back to SignIn")),
-            SizedBox(height: 20,),
+            SizedBox(height: 150,),
 
             Padding(
               padding: EdgeInsets.all(20),
@@ -85,9 +84,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
               errorMsg,
               style: display,
             ),
-            SizedBox(
-              height: 40,
-            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

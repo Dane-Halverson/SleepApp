@@ -156,7 +156,7 @@ class SignInFormState extends State<SignInForm> {
                     child: Text(
                       'SIGN IN',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 15,
                         fontFamily: "WorkSans",
                       ),
                     ),
