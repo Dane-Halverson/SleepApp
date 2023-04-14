@@ -65,8 +65,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
               padding: EdgeInsets.symmetric(vertical: 40, horizontal: 50),
               child: Image.asset(
                 "assets/images/app_icon.png",
-                width: 150,
-                height: 150,
+                width: 120,
+                height: 120,
               ),
             ),
             Padding(
