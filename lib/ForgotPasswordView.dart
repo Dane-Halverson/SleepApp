@@ -1,3 +1,4 @@
+import 'package:units/CreateAccountView.dart';
 import 'package:units/SignInView.dart';
 import 'package:units/contracts/forgot_password_contract.dart';
 
@@ -50,26 +51,31 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
           ),
           backgroundColor: Colors.deepPurple,
         ),
-        body: Column(
+        body: ListView(
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-              child: Card(
-                child: Padding(padding: EdgeInsets.all(20),
-                  child: Text(
-                    "Enter Email for Password Reset:",
-                    style: TextStyle(fontSize: 25, fontFamily: "WorkSans"),
-                  ),
-                ),
-
+              child: TextButton(
+                  onPressed: () {
+                    runApp(SignInView());
+                  },
+                  child: Text("Back to SignIn")),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 40, horizontal: 50),
+              child: Image.asset(
+                "assets/images/app_icon.png",
+                width: 150,
+                height: 150,
               ),
             ),
-            TextButton(onPressed: (){runApp(SignInView());},
-                child: Text("Back to SignIn")),
-            SizedBox(height: 150,),
-
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(40),
+              child: Text(
+                  "Enter the email connected to your account to get a password reset email"),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: email,
                 decoration: InputDecoration(
@@ -80,24 +86,38 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
                 ),
               ),
             ),
-            Text(
-              errorMsg,
-              style: display,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                errorMsg,
+                style: display,
+              ),
             ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    presenter.onSubmit();
-                  },
+            Container(
+              height: 80,
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                onPressed: () {
+                  presenter.onSubmit();
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(8),
                   child: Text("Send Password Reset Email"),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurpleAccent),
                 ),
-              ],
-            )
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  backgroundColor: Colors.deepPurple,
+                ),
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Don't have an account?"),
+                    TextButton(onPressed: (){runApp(CreateAccountPage(key: Key("")));}, child: Text("Create One"))
+                  ],
+                ))
           ],
         ));
   }

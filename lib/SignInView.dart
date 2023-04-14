@@ -12,45 +12,42 @@ class SignInView extends StatelessWidget {
         home: Builder(
             builder: (context) => Scaffold(
                 appBar: AppBar(
-                    title: Text("Sign In"),
-                    backgroundColor: Colors.deepPurple),
+                    title: Text("Sign In"), backgroundColor: Colors.deepPurple),
                 body: Center(
-                    child: Column(children: <Widget>[
-                      SizedBox(height: 100,),
-                  Image.asset("assets/images/app_icon.png",
-                  scale: 5,),
-
-
+                    child: ListView(children: <Widget>[
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Image.asset(
+                    "assets/images/app_icon.png",
+                    width: 120,
+                    height: 120,
+                  ),
                   SignInForm(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 50),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "New?",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            TextButton(
-
-                              child: Text(
-                                'Create Account',
-                                style: TextStyle(
-                                  //fontFamily: "WorkSans",
-                                  fontSize: 15
-
-                                ),
-                              ),
-                              onPressed: () {
-                                runApp(CreateAccountPage(key: super.key));
-                              },
-                            ),
-                          ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 10,),
+                        Text(
+                          "New?",
                         ),
-                      ),
+                        TextButton(
+                          child: Text(
+                            'Create Account',
+                            style: TextStyle(
+                                //fontFamily: "WorkSans",
+                                ),
+                          ),
+                          onPressed: () {
+                            runApp(CreateAccountPage(key: super.key));
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ])))));
   }
 }
@@ -92,7 +89,9 @@ class SignInFormState extends State<SignInForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
-          SizedBox(height: 80,),
+          SizedBox(
+            height: 80,
+          ),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextFormField(
@@ -138,12 +137,10 @@ class SignInFormState extends State<SignInForm> {
               },
               child: Text("Forgot Password?")),
           Text('\n' + _error, style: TextStyle(color: Colors.red[800])),
-
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-
               Container(
                 height: 80,
                 padding: const EdgeInsets.all(20),
@@ -166,13 +163,10 @@ class SignInFormState extends State<SignInForm> {
                   },
                 ),
               ),
-
             ],
           ),
-
           OutlinedButton(
-              style:
-              OutlinedButton.styleFrom(foregroundColor: Colors.amber),
+              style: OutlinedButton.styleFrom(foregroundColor: Colors.amber),
               child: Text('Debug sign in'),
               onPressed: () {
                 setState(() {
@@ -181,7 +175,6 @@ class SignInFormState extends State<SignInForm> {
                 });
                 submitData();
               }),
-
         ],
       ),
     );
