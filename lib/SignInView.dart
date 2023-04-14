@@ -4,6 +4,7 @@ import 'CreateAccountView.dart';
 import 'package:flutter/material.dart';
 import 'Authentication.dart';
 import 'SignedInView.dart';
+import 'AppColors.dart';
 
 class SignInView extends StatelessWidget {
   @override
