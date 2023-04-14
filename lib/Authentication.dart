@@ -73,6 +73,9 @@ class Authentication {
   ///sends email to user to reset password for the account
   ///returns null if successful, or message if not
   Future<String?> resetPassword(String email) async {
+    if (email == "") {
+      return "Please enter an email";
+    }
     try {
       _authentication.sendPasswordResetEmail(email: email);
     }

@@ -1,3 +1,5 @@
+import 'package:units/ForgotPasswordView.dart';
+
 import 'CreateAccountView.dart';
 import 'package:flutter/material.dart';
 import 'Authentication.dart';
@@ -19,7 +21,7 @@ class SignInView extends StatelessWidget {
                     child: Text(
                       "Please Sign In",
                       style: const TextStyle(
-                        fontFamily: "WorkSans",
+                          fontFamily: "WorkSans",
                           fontWeight: FontWeight.bold,
                           color: Colors.deepPurple),
                       textScaleFactor: 3,
@@ -30,10 +32,9 @@ class SignInView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("New?",
-                        style: TextStyle(
-                          fontSize: 20
-                        ),
+                        Text(
+                          "New?",
+                          style: TextStyle(fontSize: 20),
                         ),
                         SizedBox(
                           width: 20,
@@ -41,10 +42,11 @@ class SignInView extends StatelessWidget {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurple),
-                          child: Text('Create Account',
-                          style: TextStyle(
-                            fontFamily: "WorkSans",
-                          ),
+                          child: Text(
+                            'Create Account',
+                            style: TextStyle(
+                              fontFamily: "WorkSans",
+                            ),
                           ),
                           onPressed: () {
                             runApp(CreateAccountPage(key: super.key));
@@ -98,8 +100,12 @@ class SignInFormState extends State<SignInForm> {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "E-mail", border: OutlineInputBorder()),
+                decoration: InputDecoration(
+                  labelText: "E-mail",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90.0),
+                  ),
+                ),
                 onChanged: (value) {
                   _email = value.toString();
                 }),
@@ -109,7 +115,9 @@ class SignInFormState extends State<SignInForm> {
             child: TextFormField(
               obscureText: passwordVis,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(90.0),
+                ),
                 labelText: "Password",
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -128,7 +136,11 @@ class SignInFormState extends State<SignInForm> {
               },
             ),
           ),
-          TextButton(onPressed: () {}, child: Text("Forgot Password?")),
+          TextButton(
+              onPressed: () {
+                runApp(ForgotPasswordView());
+              },
+              child: Text("Forgot Password?")),
           Text('\n' + _error, style: TextStyle(color: Colors.red[800])),
           SizedBox(
             height: 30,
@@ -136,7 +148,6 @@ class SignInFormState extends State<SignInForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               OutlinedButton(
                   style:
                       OutlinedButton.styleFrom(foregroundColor: Colors.amber),
@@ -148,9 +159,7 @@ class SignInFormState extends State<SignInForm> {
                     });
                     submitData();
                   }),
-
-
-              FilledButton(
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple),
                 child: Padding(

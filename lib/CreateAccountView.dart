@@ -3,6 +3,8 @@ import 'package:units/SignedInView.dart';
 import 'presenters/CreateAccountPresenter.dart';
 import 'contracts/create_account_contract.dart';
 import 'SignInView.dart';
+import 'package:intl/intl.dart';
+
 
 import 'main.dart';
 import 'models/models.dart';
@@ -25,6 +27,9 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
   String _name = "";
   var _date;
 
+  TextEditingController dateinput = TextEditingController();
+
+
   final pass1Controller = new TextEditingController();
   final pass2Controller = new TextEditingController();
 
@@ -37,6 +42,7 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
   void initState(){
     super.initState();
     presenter = new CreateAccountPresenter(this);
+    dateinput.text = "";
   }
 
   @override
@@ -75,9 +81,7 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
   void toHomePage(){
     runApp(SignedInView());
   }
-/**
- * This function does not work as it should
- * */
+
   @override
   void toRegister() async {
       presenter.onSubmit();
@@ -106,79 +110,123 @@ class _CreateAccountState extends State<CreateAccountPage> implements CreateAcco
               },
             )),
             Padding(padding: EdgeInsets.all(20),
-            child: Form(
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                      decoration: const InputDecoration(
+            child: Card(
+              child: Form(
+                  child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(90.0),
+                                ),
+                                labelText: "Name"
+                            ),
+                            onChanged: (value){
+                              _name = value.toString();
+                            }
+                        ),
+                        SizedBox(height: 20,),
 
-                          labelText: "Name"
-                      ),
-                      onChanged: (value){
-                        _name = value.toString();
-                      }
-                  ),
-                  InputDatePickerFormField(
-                      firstDate: firstDate, lastDate: lastDate,
-                    onDateSubmitted: (value){
-                    _date = value;
-                    },
-                    fieldLabelText: 'Birthday',
-                  ),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: "E-mail"
-                      ),
-                      onChanged: (value){
-                        _email = value.toString();
-                      }
-                  ),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: "Enter password"
-                      ),
-                      onChanged: (value){
-                        _pass1 = value.toString();
-                      },
-                      controller: pass1Controller
-                  ),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: "Re-enter password"
-                      ),
-                      onChanged: (value){
-                        _pass2 = value.toString();
-                      },
-                      controller: pass2Controller
-                  ),
-                  Text('\n' + _error,
-                    style: TextStyle(
-                      color: Colors.red
-                    )),
-                  ButtonBar(
-                    children: <Widget>[
-                      OutlinedButton(
-                          onPressed: clearPasswords,
-                          child:
-                            Text('Clear passwords'),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.deepPurple
-                      ),),
-                      ElevatedButton(
-                        /**  THIS DOES NOT WORK! Data does not get submitted */
-                          onPressed: () {
-                          print("test");
-                            presenter.onSubmit();
+                        TextField(
+                          controller: dateinput, //editing controller of this TextField
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(90.0),
+                              ),
+                              labelText: "Enter Birthday" //label text of field
+                          ),
+                          readOnly: true,  //set it true, so that user will not able to edit text
+                          onTap: () async {
+                            print("test");
+                            DateTime? pickedDate = await showDatePicker(
+                                context: context, initialDate: DateTime.now(),
+                                firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
+                                lastDate: DateTime.now()
+                            );
+
+                            if(pickedDate != null ){
+                              print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                              String formattedDate = DateFormat('MM/dd/yyyy').format(pickedDate);
+                              print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                              //you can implement different kind of Date Format here according to your requirement
+
+                              setState(() {
+                                dateinput.text = formattedDate; //set output date to TextField value.
+                              });
+                            }else{
+                              print("Date is not selected");
+                            }
+                          },
+                        ),
+                        SizedBox(height: 20,),
+                        TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(90.0),
+                                ),
+                                labelText: "E-mail"
+                            ),
+                            onChanged: (value){
+                              _email = value.toString();
+                            }
+                        ),
+                        SizedBox(height: 20,),
+
+                        TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(90.0),
+                                ),
+                                labelText: "Enter password"
+                            ),
+                            onChanged: (value){
+                              _pass1 = value.toString();
                             },
-                          child: Text('Create Account'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple
-                      )
-                      )
-                    ],
+                            controller: pass1Controller
+                        ),
+                        SizedBox(height: 20,),
+
+                        TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(90.0),
+                                ),
+                                labelText: "Re-enter password"
+                            ),
+                            onChanged: (value){
+                              _pass2 = value.toString();
+                            },
+                            controller: pass2Controller
+                        ),
+                        Text('\n' + _error,
+                            style: TextStyle(
+                                color: Colors.red
+                            )),
+                        ButtonBar(
+                          children: <Widget>[
+                            OutlinedButton(
+                              onPressed: clearPasswords,
+                              child:
+                              Text('Clear passwords'),
+                              style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.deepPurple
+                              ),),
+                            ElevatedButton(
+                              /**  THIS DOES NOT WORK! Data does not get submitted */
+                                onPressed: () {
+                                  print("test");
+                                  presenter.onSubmit();
+                                },
+                                child: Text('Create Account'),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.deepPurple
+                                )
+                            )
+                          ],
+                        )
+                      ]
                   )
-                ]
-              )
+              ),
             )
             ),
           ],
