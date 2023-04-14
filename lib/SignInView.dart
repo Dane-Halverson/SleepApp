@@ -12,50 +12,45 @@ class SignInView extends StatelessWidget {
         home: Builder(
             builder: (context) => Scaffold(
                 appBar: AppBar(
-                    title: Text("Sweet Dreams!"),
+                    title: Text("Sign In"),
                     backgroundColor: Colors.deepPurple),
                 body: Center(
                     child: Column(children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                    child: Text(
-                      "Please Sign In",
-                      style: const TextStyle(
-                          fontFamily: "WorkSans",
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple),
-                      textScaleFactor: 3,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "New?",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepPurple),
-                          child: Text(
-                            'Create Account',
-                            style: TextStyle(
-                              fontFamily: "WorkSans",
-                            ),
-                          ),
-                          onPressed: () {
-                            runApp(CreateAccountPage(key: super.key));
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                      SizedBox(height: 100,),
+                  Image.asset("assets/images/app_icon.png",
+                  scale: 5,),
+
+
                   SignInForm(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 50),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "New?",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            TextButton(
+
+                              child: Text(
+                                'Create Account',
+                                style: TextStyle(
+                                  //fontFamily: "WorkSans",
+                                  fontSize: 15
+
+                                ),
+                              ),
+                              onPressed: () {
+                                runApp(CreateAccountPage(key: super.key));
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                 ])))));
   }
 }
@@ -97,6 +92,7 @@ class SignInFormState extends State<SignInForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
+          SizedBox(height: 80,),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextFormField(
@@ -142,42 +138,48 @@ class SignInFormState extends State<SignInForm> {
               },
               child: Text("Forgot Password?")),
           Text('\n' + _error, style: TextStyle(color: Colors.red[800])),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
+
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              OutlinedButton(
-                  style:
-                      OutlinedButton.styleFrom(foregroundColor: Colors.amber),
-                  child: Text('Debug sign in'),
-                  onPressed: () {
-                    setState(() {
-                      _email = 'halve564@d.umn.edu';
-                      _pass = 'TestPass1234';
-                    });
-                    submitData();
-                  }),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple),
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    'LOG IN',
-                    style: TextStyle(
-                      fontFamily: "WorkSans",
-                      fontSize: 40,
+
+              Container(
+                height: 80,
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      backgroundColor: Colors.deepPurple),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'LOG IN',
+                      style: TextStyle(
+                        fontFamily: "WorkSans",
+                      ),
                     ),
                   ),
+                  onPressed: () {
+                    submitData();
+                  },
                 ),
-                onPressed: () {
-                  submitData();
-                },
               ),
+
             ],
           ),
+          OutlinedButton(
+              style:
+              OutlinedButton.styleFrom(foregroundColor: Colors.amber),
+              child: Text('Debug sign in'),
+              onPressed: () {
+                setState(() {
+                  _email = 'halve564@d.umn.edu';
+                  _pass = 'TestPass1234';
+                });
+                submitData();
+              }),
+
         ],
       ),
     );

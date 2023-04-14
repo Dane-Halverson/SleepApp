@@ -62,7 +62,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/images/app_icon.png
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -80,7 +82,7 @@ flutter:
   fonts:
      - family: WorkSans
        fonts:
-         - asset: fonts/WorkSans-VariableFont_wght.ttf
+         - asset: assets/fonts/WorkSans-VariableFont_wght.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
