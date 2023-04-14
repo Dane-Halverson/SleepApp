@@ -154,8 +154,9 @@ class SignInFormState extends State<SignInForm> {
                   child: Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
-                      'LOG IN',
+                      'SIGN IN',
                       style: TextStyle(
+                        fontSize: 20,
                         fontFamily: "WorkSans",
                       ),
                     ),
@@ -168,6 +169,7 @@ class SignInFormState extends State<SignInForm> {
 
             ],
           ),
+
           OutlinedButton(
               style:
               OutlinedButton.styleFrom(foregroundColor: Colors.amber),
