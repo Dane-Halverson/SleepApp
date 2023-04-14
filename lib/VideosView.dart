@@ -65,6 +65,8 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
                   children: [
                     ChoiceChip(
                       label: Text('Sleep Techniques'),
+                      selectedColor: Colors.deepPurpleAccent.shade100,
+
                       selected: _value == 1,
                       onSelected: (bool selected) {
                         setState(() {
@@ -74,6 +76,8 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
                     ),
                     ChoiceChip(
                       label: Text('ASMR'),
+                      selectedColor: Colors.deepPurpleAccent.shade100,
+
                       selected: _value == 2,
                       onSelected: (bool selected) {
                         setState(() {
@@ -83,6 +87,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
                     ),
                     ChoiceChip(
                       label: Text('Sleep Music'),
+                      selectedColor: Colors.deepPurpleAccent.shade100,
                       selected: _value == 3,
                       onSelected: (bool selected) {
                         setState(() {
@@ -111,25 +116,37 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
         },
         child:
         Card(
-          child:
-              Row(
-                children: [
-                  Icon(Icons.play_arrow,
-                  size: 50,),
-                  Expanded(
-                    child:
-                      Text(
-                        video.item1,
-                        style: TextStyle(
-                          fontFamily: "WorkSans",
-                          fontSize: 30,
-                        ),
-                      ),
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Colors.black,
+              ),
+              borderRadius: BorderRadius.circular(20.0), //<-- SEE HERE
+            ),
 
-                  )
+          child: Container(
 
-                ],
-              )
+            child: Row(
+              children: [
+                Icon(Icons.play_arrow_outlined,
+                  size: 40,
+                  ),
+                Expanded(
+                  child:
+                  Text(
+                    video.item1,
+                    style: TextStyle(
+                      //color: Colors.white,
+                      fontFamily: "WorkSans",
+                      fontSize: 25,
+                    ),
+                  ),
+
+                )
+
+              ],
+            ),
+          )
+
         ),
       ));
 
