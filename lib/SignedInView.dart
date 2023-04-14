@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 
 import 'package:units/SettingsView.dart';
 import 'package:units/dreams/callforbevhaviors.dart';
@@ -57,8 +58,8 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
     return data;
   }
 
-  static const _navColor = Colors.deepPurple;
-  static const _selectedColor = Colors.amber;
+  static const _navColor = AppColors.darkAccent;
+  var _selectedColor = Colors.deepPurpleAccent.shade100;
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +87,15 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
     ];
     //_page = _homePage;
     return Scaffold(
+      backgroundColor: AppColors.dark,
       body: Center (
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home,
+            ),
             label: 'Home',
             backgroundColor: _navColor,
           ),
@@ -114,6 +117,7 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: _selectedColor,
+        unselectedItemColor: AppColors.primary,
         onTap: _onItemTapped,
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:units/CreateAccountView.dart';
 import 'package:units/SignInView.dart';
 import 'package:units/contracts/forgot_password_contract.dart';
+import 'AppColors.dart';
 
-import 'package:units/models/ForgotPasswordModel.dart';
 
 import 'presenters/ForgotPasswordPresenter.dart';
 import 'package:flutter/material.dart';
@@ -45,11 +45,12 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.dark,
         appBar: AppBar(
           title: Text(
             "Forgot Password",
           ),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: AppColors.primary,
         ),
         body: ListView(
           children: [
@@ -59,7 +60,10 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
                   onPressed: () {
                     runApp(SignInView());
                   },
-                  child: Text("Back to SignIn")),
+                  child: Text("Back to SignIn",
+                  style: TextStyle(
+                    color: AppColors.accent
+                  ),)),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 40, horizontal: 50),
@@ -72,17 +76,42 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
             Padding(
               padding: EdgeInsets.all(40),
               child: Text(
-                  "Enter the email connected to your account to get a password reset email"),
+                  "Enter the email connected to your account to get a password reset email",
+                  style: TextStyle(
+                    color: AppColors.accentLight
+                  ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
+                style: TextStyle(
+                    color: AppColors.accentLight
+                ),
                 controller: email,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(90.0),
+                    borderSide: BorderSide(
+                        color: AppColors.secondary
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90.0),
+                    borderSide: BorderSide(
+                        color: AppColors.secondary
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90.0),
+                    borderSide: BorderSide(
+                        color: AppColors.secondary
+                    ),
                   ),
                   labelText: 'Email',
+                  labelStyle: TextStyle(
+                    color: AppColors.accentLight
+                  )
                 ),
               ),
             ),
@@ -102,11 +131,17 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
                 },
                 child: Padding(
                   padding: EdgeInsets.all(8),
-                  child: Text("Send Password Reset Email"),
+                  child: Text("SEND PASSWORD RESET EMAIL",
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontFamily: "WorkSans",
+                    fontSize: 15
+                  ),
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
-                  backgroundColor: Colors.deepPurple,
+                  backgroundColor: AppColors.secondary,
                 ),
               ),
             ),
@@ -114,8 +149,16 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordStatefulWidget>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?"),
-                    TextButton(onPressed: (){runApp(CreateAccountPage(key: Key("")));}, child: Text("Create One"))
+                    Text("Don't have an account?",
+                    style: TextStyle(
+                      color: AppColors.accentLight
+                    ),
+                    ),
+                    TextButton(onPressed: (){runApp(CreateAccountPage(key: Key("")));}, child: Text("Create One",
+                    style: TextStyle(
+                      color: AppColors.accent
+                    ),
+                    ))
                   ],
                 ))
           ],

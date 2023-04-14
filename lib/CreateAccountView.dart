@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 import 'package:units/SignedInView.dart';
 import 'presenters/CreateAccountPresenter.dart';
 import 'contracts/create_account_contract.dart';
@@ -91,15 +92,18 @@ class _CreateAccountState extends State<CreateAccountPage>
                 appBar: AppBar(
                   title: Text('Create Account'),
                   centerTitle: true,
-                  backgroundColor: Colors.deepPurple,
+                  backgroundColor: AppColors.primary,
                 ),
-                backgroundColor: Colors.white,
+                backgroundColor: AppColors.dark,
                 body: ListView(
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.all(5.0),
                         child: TextButton(
-                          child: Text('Back to sign in'),
+                          child: Text('Back to sign in',
+                          style: TextStyle(
+                            color: AppColors.accent
+                          ),),
                           onPressed: () {
                             runApp(SignInView());
                           },
@@ -117,11 +121,33 @@ class _CreateAccountState extends State<CreateAccountPage>
                               height: 30,
                             ),
                             TextFormField(
+                                style: TextStyle(
+                                    color: AppColors.accentLight
+                                ),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                        color: AppColors.secondary
+                                      ),
                                     ),
-                                    labelText: "Name"),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    labelText: "Name",
+                                  labelStyle: TextStyle(
+                                      color: AppColors.accentLight
+                                  ),),
+
                                 onChanged: (value) {
                                   _name = value.toString();
                                 }),
@@ -129,25 +155,69 @@ class _CreateAccountState extends State<CreateAccountPage>
                               height: 20,
                             ),
                             TextField(
+                              style: TextStyle(
+                                  color: AppColors.accentLight
+                              ),
                               controller: dateinput,
                               //editing controller of this TextField
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(90.0),
+                                    borderSide: BorderSide(
+                                        color: AppColors.secondary
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(90.0),
+                                    borderSide: BorderSide(
+                                        color: AppColors.secondary
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(90.0),
+                                    borderSide: BorderSide(
+                                        color: AppColors.secondary
+                                    ),
                                   ),
                                   labelText:
-                                      "Enter Birthday" //label text of field
+                                      "Enter Birthday",
+                                labelStyle: TextStyle(
+                                    color: AppColors.accentLight
+                                ),//label text of field
                                   ),
                               readOnly: true,
                               //set it true, so that user will not able to edit text
                               onTap: () async {
                                 print("test");
                                 DateTime? pickedDate = await showDatePicker(
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data: ThemeData.light().copyWith(
+                                          primaryColor: AppColors.dark,
+                                          colorScheme: ColorScheme.light(
+                                              primary: AppColors.secondary,
+                                              onPrimary: AppColors.dark,
+                                              background: AppColors.dark,
+                                              surface: AppColors.secondary,
+                                              onSurface: AppColors.secondary,
+                                              secondary: AppColors.accent,
+                                          ),
+
+                                          dialogBackgroundColor: AppColors.dark,
+                                          buttonTheme: ButtonThemeData(
+                                              textTheme: ButtonTextTheme.primary
+                                          ),
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+
                                     context: context,
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime(1900),
                                     //DateTime.now() - not to allow to choose before today.
                                     lastDate: DateTime.now());
+
 
                                 if (pickedDate != null) {
                                   print(
@@ -172,11 +242,32 @@ class _CreateAccountState extends State<CreateAccountPage>
                               height: 20,
                             ),
                             TextFormField(
+                                style: TextStyle(
+                                    color: AppColors.accentLight
+                                ),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
                                     ),
-                                    labelText: "E-mail"),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    labelText: "E-mail",
+                                  labelStyle: TextStyle(
+                                      color: AppColors.accentLight
+                                  ),),
                                 onChanged: (value) {
                                   _email = value.toString();
                                 }),
@@ -184,11 +275,32 @@ class _CreateAccountState extends State<CreateAccountPage>
                               height: 20,
                             ),
                             TextFormField(
+                                style: TextStyle(
+                                    color: AppColors.accentLight
+                                ),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
                                     ),
-                                    labelText: "Enter password"),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    labelText: "Enter password",
+                                  labelStyle: TextStyle(
+                                      color: AppColors.accentLight
+                                  ),),
                                 onChanged: (value) {
                                   _pass1 = value.toString();
                                 },
@@ -197,11 +309,32 @@ class _CreateAccountState extends State<CreateAccountPage>
                               height: 20,
                             ),
                             TextFormField(
+                              style: TextStyle(
+                                color: AppColors.accentLight
+                              ),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
                                     ),
-                                    labelText: "Re-enter password"),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(90.0),
+                                      borderSide: BorderSide(
+                                          color: AppColors.secondary
+                                      ),
+                                    ),
+                                    labelText: "Re-enter password",
+                                  labelStyle: TextStyle(
+                                      color: AppColors.accentLight
+                                  ),),
                                 onChanged: (value) {
                                   _pass2 = value.toString();
                                 },
@@ -212,7 +345,8 @@ class _CreateAccountState extends State<CreateAccountPage>
                                   onPressed: clearPasswords,
                                   child: Text('Clear passwords'),
                                   style: OutlinedButton.styleFrom(
-                                      foregroundColor: Colors.deepPurple),
+
+                                      foregroundColor: AppColors.secondary),
                                 ),
                               ],
                             ),
@@ -223,7 +357,7 @@ class _CreateAccountState extends State<CreateAccountPage>
                               padding: const EdgeInsets.all(20),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.deepPurple,
+                                  backgroundColor: AppColors.secondary,
                                   minimumSize: const Size.fromHeight(50),
                                 ),
                                 onPressed: () {
@@ -237,6 +371,7 @@ class _CreateAccountState extends State<CreateAccountPage>
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontFamily: "WorkSans",
+                                      color: AppColors.dark
                                     ),
                                   ),
                                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import 'package:units/AppColors.dart';
 import 'package:units/models/VideosModel.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -48,11 +49,12 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
     );
 
     return Scaffold(
+      backgroundColor: AppColors.dark,
         appBar: AppBar(
           title: Text(
             "Videos",
           ),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: AppColors.primary,
         ),
         body: Column(
           children: [
@@ -116,9 +118,10 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
         },
         child:
         Card(
+          color: AppColors.dark,
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                color: Colors.black,
+                color: AppColors.secondary,
               ),
               borderRadius: BorderRadius.circular(20.0), //<-- SEE HERE
             ),
@@ -129,6 +132,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
               children: [
                 Icon(Icons.play_arrow_outlined,
                   size: 40,
+                    color: AppColors.secondary
                   ),
                 Expanded(
                   child:
@@ -138,6 +142,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
                       //color: Colors.white,
                       fontFamily: "WorkSans",
                       fontSize: 25,
+                      color: AppColors.accentLight
                     ),
                   ),
 

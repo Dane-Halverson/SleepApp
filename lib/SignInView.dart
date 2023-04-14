@@ -12,8 +12,9 @@ class SignInView extends StatelessWidget {
     return MaterialApp(
         home: Builder(
             builder: (context) => Scaffold(
+              backgroundColor: AppColors.dark,
                 appBar: AppBar(
-                    title: Text("Sign In"), backgroundColor: Colors.deepPurple),
+                    title: Text("Sign In"), backgroundColor: AppColors.primary),
                 body: Center(
                     child: ListView(children: <Widget>[
                   SizedBox(
@@ -34,11 +35,15 @@ class SignInView extends StatelessWidget {
                         SizedBox(width: 10,),
                         Text(
                           "New?",
+                          style: TextStyle(
+                            color: AppColors.accentLight
+                          ),
                         ),
                         TextButton(
                           child: Text(
                             'Create Account',
                             style: TextStyle(
+                              color: AppColors.accent,
                                 //fontFamily: "WorkSans",
                                 ),
                           ),
@@ -97,9 +102,29 @@ class SignInFormState extends State<SignInForm> {
             padding: EdgeInsets.all(16.0),
             child: TextFormField(
                 decoration: InputDecoration(
+                  fillColor: AppColors.dark,
                   labelText: "E-mail",
+                  filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(90.0),
+                      borderSide: BorderSide(
+                          color: AppColors.secondary
+                      )
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(90.0),
+                      borderSide: BorderSide(
+                          color: AppColors.secondary
+                      )
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(90.0),
+                      borderSide: BorderSide(
+                          color: AppColors.secondary
+                      )
+                  ),
+                  labelStyle: TextStyle(
+                      color: AppColors.accentLight
                   ),
                 ),
                 onChanged: (value) {
@@ -111,13 +136,35 @@ class SignInFormState extends State<SignInForm> {
             child: TextFormField(
               obscureText: passwordVis,
               decoration: InputDecoration(
+                fillColor: AppColors.dark,
+                filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(90.0),
+                  borderSide: BorderSide(
+                    color: AppColors.secondary
+                  )
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90.0),
+                    borderSide: BorderSide(
+                        color: AppColors.secondary
+                    )
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90.0),
+                    borderSide: BorderSide(
+                      width: 2,
+                        color: AppColors.accentLight
+                    )
+                ),
+                labelStyle: TextStyle(
+                  color: AppColors.accentLight
                 ),
                 labelText: "Password",
                 suffixIcon: IconButton(
                   icon: Icon(
                       passwordVis ? Icons.visibility : Icons.visibility_off),
+                  color: AppColors.secondary,
                   onPressed: () {
                     setState(
                       () {
@@ -136,7 +183,9 @@ class SignInFormState extends State<SignInForm> {
               onPressed: () {
                 runApp(ForgotPasswordView());
               },
-              child: Text("Forgot Password?")),
+              child: Text("Forgot Password?",
+              style: TextStyle(color: AppColors.accent),
+              ),),
           Text('\n' + _error, style: TextStyle(color: Colors.red[800])),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -148,7 +197,7 @@ class SignInFormState extends State<SignInForm> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.deepPurple),
+                      backgroundColor: AppColors.secondary),
                   child: Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
@@ -156,6 +205,7 @@ class SignInFormState extends State<SignInForm> {
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: "WorkSans",
+                        color: AppColors.dark
                       ),
                     ),
                   ),
@@ -166,6 +216,7 @@ class SignInFormState extends State<SignInForm> {
               ),
             ],
           ),
+
           OutlinedButton(
               style: OutlinedButton.styleFrom(foregroundColor: Colors.amber),
               child: Text('Debug sign in'),
@@ -176,6 +227,8 @@ class SignInFormState extends State<SignInForm> {
                 });
                 submitData();
               }),
+
+
         ],
       ),
     );
