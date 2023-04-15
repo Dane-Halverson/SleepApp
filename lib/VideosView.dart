@@ -54,7 +54,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
           title: Text(
             "Videos",
           ),
-          backgroundColor: AppColors.darkAccent,
+          backgroundColor: AppColors.primary,
         ),
         body: Column(
           children: [

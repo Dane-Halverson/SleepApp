@@ -1,5 +1,6 @@
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 import 'package:units/models/models.dart';
 import 'package:units/presenters/home_presenters.dart';
 import 'package:units/views/statistics.dart';
@@ -37,7 +38,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
   late final HomePresenter _presenter;
   final headingStyle = new TextStyle(
     inherit: false,
-    color: Colors.black,
+    color: AppColors.accentLight,
     fontSize: 28.0,
     letterSpacing: 0.6,
     fontFamily: 'Roboto',
@@ -52,6 +53,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
     final String? firstname = this._presenter.firstname;
     return new LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
       return  Scaffold(
+        backgroundColor: AppColors.dark,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("Home"),

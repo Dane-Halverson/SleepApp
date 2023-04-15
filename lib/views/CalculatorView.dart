@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 import '../contracts/calculator_view_contract.dart';
 import '../presenters/CalculatorPresenter.dart';
 
@@ -118,20 +119,20 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Radio<int>(
-          activeColor: Colors.deepPurpleAccent,
+          activeColor: AppColors.secondary,
           value: 0, groupValue: _value, onChanged: handleRadioValueChanged,
         ),
         Text(
           'Wake up at',
-          style: TextStyle(color: Colors.deepPurpleAccent),
+          style: TextStyle(color: AppColors.accentLight),
         ),
         Radio<int>(
-          activeColor: Colors.deepPurpleAccent,
+          activeColor: AppColors.secondary,
           value: 1, groupValue: _value, onChanged: handleRadioValueChanged,
         ),
         Text(
           'Go to bed at',
-          style: TextStyle(color: Colors.deepPurpleAccent),
+          style: TextStyle(color: AppColors.accentLight),
         ),
       ],
     );
@@ -140,36 +141,38 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Radio<int>(
-          activeColor: Colors.deepPurpleAccent,
+          activeColor: AppColors.secondary,
           value: 0, groupValue: _valueTime, onChanged: handleRadioValueChangedTime,
         ),
         Text(
           'AM',
-          style: TextStyle(color: Colors.deepPurpleAccent),
+          style: TextStyle(color: AppColors.accentLight),
         ),
         Radio<int>(
-          activeColor: Colors.deepPurpleAccent,
+          activeColor: AppColors.secondary,
           value: 1, groupValue: _valueTime, onChanged: handleRadioValueChangedTime,
         ),
         Text(
           'PM',
-          style: TextStyle(color: Colors.deepPurpleAccent),
+          style: TextStyle(color: AppColors.accentLight),
         ),
       ],
     );
 
     var _mainPartView = Container(
-      color: Colors.grey.shade300,
+      color: AppColors.secondary,
       margin: EdgeInsets.all(8.0),
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(2),
       child: Container(
+        padding: EdgeInsets.all(5),
+        color: AppColors.dark,
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
-                child: Text("I want to:",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5,)
+                child: Text("I want to:",style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.accentLight), textScaleFactor: 1.5,)
                 ,),
               _unitView,
               Row(
@@ -185,7 +188,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
               _unitViewTime,
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
-                child: Text("I want to sleep for:",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5,)
+                child: Text("I want to sleep for:",style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.accentLight), textScaleFactor: 1.5,)
                 ,),
               Row(
                 children: <Widget>[
@@ -224,6 +227,7 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
     );
 
     return Container (
+      color: AppColors.dark,
         child: Column(
           children: <Widget>[
             Padding(padding: EdgeInsets.all(5.0)),
@@ -240,19 +244,22 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
     return ElevatedButton(
       onPressed: _calculator,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurpleAccent,
-        textStyle: TextStyle(color: Colors.white70)
+        backgroundColor: AppColors.secondary,
+        textStyle: TextStyle()
       ),
       child: Text(
         'Calculate',
-        style: TextStyle(fontSize: 16.9),
+        style: TextStyle(fontSize: 16.9, color: AppColors.dark),
       ),
     );
   }
 
   TextFormField sleepMinuteFormField() {
     return TextFormField(
-      cursorColor: Colors.deepPurpleAccent,
+      style: TextStyle(
+          color: AppColors.accentLight
+      ),
+      cursorColor: AppColors.secondary,
       controller: _sleepMinuteController,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.done,
@@ -269,9 +276,12 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
         _sleepMinute = value!;
       },
       decoration: InputDecoration(
+          labelStyle: TextStyle(
+              color: AppColors.accentLight
+          ),
           hintText: 'e.g.) 40',
           labelText: 'Minute',
-          icon: Icon(Icons.assessment),
+          icon: Icon(Icons.assessment, color: AppColors.secondary,),
           fillColor: Colors.white
       ),
     );
@@ -279,7 +289,10 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   TextFormField sleepHourFormField(BuildContext context) {
     return TextFormField(
-      cursorColor: Colors.deepPurpleAccent,
+      style: TextStyle(
+          color: AppColors.accentLight
+      ),
+      cursorColor: AppColors.secondary,
       controller: _sleepHourController,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
@@ -296,9 +309,12 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
         _sleepHour = value!;
       },
       decoration: InputDecoration(
+        labelStyle: TextStyle(
+            color: AppColors.accentLight
+        ),
         hintText: "e.g.) 7",
         labelText: "Hour",
-        icon: Icon(Icons.assessment),
+        icon: Icon(Icons.assessment, color: AppColors.secondary,),
         fillColor: Colors.white,
       ),
     );
@@ -306,7 +322,10 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   TextFormField hourFormField(BuildContext context) {
     return TextFormField(
-      cursorColor: Colors.deepPurpleAccent,
+      style: TextStyle(
+          color: AppColors.accentLight
+      ),
+      cursorColor: AppColors.secondary,
       controller: _hourController,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
@@ -323,9 +342,12 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
         _hour = value!;
       },
       decoration: InputDecoration(
+        labelStyle: TextStyle(
+            color: AppColors.accentLight
+        ),
         hintText: 'e.g.) 6',
         labelText: 'Hour',
-        icon: Icon(Icons.assessment),
+        icon: Icon(Icons.assessment, color: AppColors.secondary,),
         fillColor: Colors.white,
       ),
     );
@@ -333,8 +355,12 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   TextFormField minFormField(BuildContext context) {
     return TextFormField(
-      cursorColor: Colors.deepPurpleAccent,
+      style: TextStyle(
+          color: AppColors.accentLight
+      ),
+      cursorColor: AppColors.secondary,
       controller: _minuteController,
+
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       focusNode: _minuteFocus,
@@ -352,7 +378,10 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
       decoration: InputDecoration(
         hintText: 'e.g.) 30',
         labelText: 'Minute',
-        icon: Icon(Icons.assessment),
+        labelStyle: TextStyle(
+            color: AppColors.accentLight
+        ),
+        icon: Icon(Icons.assessment, color: AppColors.secondary,),
         fillColor: Colors.white,
       ),
     );

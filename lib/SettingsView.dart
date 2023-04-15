@@ -42,7 +42,7 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
       backgroundColor: AppColors.dark,
       appBar: AppBar(
         title: Text("Settings"),
-        backgroundColor: AppColors.darkAccent,
+        backgroundColor: AppColors.primary,
       ),
       body: SettingsList(
         lightTheme: SettingsThemeData(

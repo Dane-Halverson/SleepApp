@@ -101,6 +101,9 @@ class SignInFormState extends State<SignInForm> {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextFormField(
+                style: TextStyle(
+                    color: AppColors.accentLight
+                ),
                 decoration: InputDecoration(
                   fillColor: AppColors.dark,
                   labelText: "E-mail",
@@ -134,6 +137,9 @@ class SignInFormState extends State<SignInForm> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: TextFormField(
+              style: TextStyle(
+                  color: AppColors.accentLight
+              ),
               obscureText: passwordVis,
               decoration: InputDecoration(
                 fillColor: AppColors.dark,
@@ -158,7 +164,7 @@ class SignInFormState extends State<SignInForm> {
                     )
                 ),
                 labelStyle: TextStyle(
-                  color: AppColors.accentLight
+                    color: AppColors.accentLight
                 ),
                 labelText: "Password",
                 suffixIcon: IconButton(
