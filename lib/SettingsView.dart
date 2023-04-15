@@ -1,5 +1,6 @@
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 import 'package:units/presenters/SettingsPresenter.dart';
 import 'contracts/settings_contract.dart';
 import 'Authentication.dart';
@@ -38,11 +39,19 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
     }));
     late String email = auth.getUserEmail() != null ? auth.getUserEmail()! : "";
     return Scaffold(
+      backgroundColor: AppColors.dark,
       appBar: AppBar(
         title: Text("Settings"),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.darkAccent,
       ),
       body: SettingsList(
+        lightTheme: SettingsThemeData(
+          settingsListBackground: AppColors.dark,
+          titleTextColor: AppColors.secondary,
+          settingsTileTextColor: AppColors.accentLight,
+          leadingIconsColor: AppColors.secondary,
+          tileDescriptionTextColor: AppColors.secondary
+        ),
         sections: [
           SettingsSection(
             title: Text('Account'),
