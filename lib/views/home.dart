@@ -62,7 +62,9 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
         body: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            Text('Welcome back, $firstname', style: headingStyle),
+            Padding(padding: EdgeInsets.all(5),
+            child: Text('Welcome back, $firstname', style: headingStyle),
+            ),
             Calculator(new BasicPresenter()),
             FutureBuilder<StatisticsModel>(
               future: _presenter.getStatisticsData(),
