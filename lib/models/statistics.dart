@@ -50,7 +50,7 @@ class StatisticsModel {
     final List<ChartData<DateTime>> weeklySleepQualityData = [];
     final List<ChartData<DateTime>> weeklySleepTimeData = [];
     final List<ChartData<DateTime>> weeklyTimeInBedData = [];
-    await for (final behavior in userData.getRecentBehaviors(limit: 30)) {
+    await for (final behavior in userData.getRecentSleep(limit: 30)) {
       final datetime = DateTime.fromMillisecondsSinceEpoch(behavior.date);
       number += 1;
       totalSleepTime += behavior.sleepTime;

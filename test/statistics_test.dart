@@ -32,7 +32,7 @@ void main() async {
       "description": "A Good Dream"
     }
   ];
-  model.addNewBehaviorData(
+  model.addNewSleepData(
     timeFellAsleep: now.subtract(new Duration(hours: 32)),
     riseTime: now.subtract(new Duration(hours: 24)),
     timeWentToBed: now.subtract(new Duration(hours: 33)),
@@ -40,7 +40,7 @@ void main() async {
     dreams: dreams
   );
   // this will be the model that appears in the dreams test
-  model.addNewBehaviorData(
+  model.addNewSleepData(
     timeFellAsleep: now.subtract(new Duration(hours: 8)),
     riseTime: now,
     timeWentToBed: now.subtract(new Duration(hours: 9)), 

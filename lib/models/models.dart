@@ -1,7 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:units/models/behaviors.dart';
 import './PreferencesModel.dart';
@@ -53,27 +52,12 @@ Future<List<QueryDocumentSnapshot<Object?>>> getDocsByKeyQuery(CollectionReferen
   return snapshot.docs;
 }
 
-class ModelPool {
-  late final Map<String, DocumentSnapshot<DocumentModel>> _models;
-
-  ModelPool() {
-    this._models = {};
-  }
-
-  void insertModel(String pk, DocumentSnapshot<DocumentModel> model) {
-    this._models[pk] = model;
-  }
-
-  DocumentModel? getModelData(String pk) => this._models[pk]?.data();
-
-  DocumentReference<DocumentModel>? getModelDocRef(String pk) => this._models[pk]?.reference;
-}
-
 abstract class DocumentModel {
   Map<String, dynamic> save();
 }
 
 /// UserModel the model for the user
+/// Represents the document reference for a user in the database
 class UserModel extends DocumentModel {
   late DocumentReference<UserModel> _ref;
   String? _id;
@@ -83,6 +67,7 @@ class UserModel extends DocumentModel {
   int? _age;
   late PreferencesModel _preferences;
   late CollectionReference _behaviors;
+  late CollectionReference _sleep;
 
   UserModel(DocumentReference<UserModel> ref, String? firstname, String? lastname, String? email, int? age, PreferencesModel preferences) {
     this._ref = ref;
@@ -90,7 +75,8 @@ class UserModel extends DocumentModel {
     this._lastname = lastname;
     this._email = email;
     this._age = age;
-    this._behaviors = this._ref.collection('behaviors');
+    this._sleep = this._ref.collection('behaviors');
+    this._behaviors = this._ref.collection('behavioral_data');
     this._preferences = preferences;
   }
 
@@ -101,14 +87,14 @@ class UserModel extends DocumentModel {
   int? get age => this._age;
   PreferencesModel get preferences => this._preferences;
 
-  /// Queries the user behaviors to get recent behavior data on the homepage for the last 10 days
-  Stream<BehaviorModel> getRecentBehaviors({int limit = 7}) async* {
-    final query = this._behaviors.where("date", isGreaterThan: DateTime.now().subtract(new Duration(days: 10)).millisecondsSinceEpoch)
+  /// Queries the user sleep data to get recent sleep data on the homepage for the last x days
+  Stream<SleepModel> getRecentSleep({int limit = 7}) async* {
+    final query = this._sleep.where("date", isGreaterThan: DateTime.now().subtract(new Duration(days: 30)).millisecondsSinceEpoch)
       .orderBy("date", descending: true)
       .limit(limit)
       .withConverter(
-          fromFirestore: BehaviorModel.fromDB,
-          toFirestore: ((BehaviorModel behavior, _) => behavior.save())
+          fromFirestore: SleepModel.fromDB,
+          toFirestore: ((SleepModel behavior, _) => behavior.save())
       );
     var snapshot = await query.get();
     for (var doc in snapshot.docs) {
@@ -116,19 +102,54 @@ class UserModel extends DocumentModel {
     }
   }
 
+  /// Queries the user behaviors to get recent inputted behaviors for x days
+  Stream<BehaviorsModel> getRecentBehaviors({int limit = 7}) async* {
+    final query = this._behaviors.where('date', isGreaterThan: DateTime.now().subtract(new Duration(days: 30)).millisecondsSinceEpoch)
+      .orderBy('date', descending: true)
+      .limit(limit)
+      .withConverter(
+        fromFirestore: BehaviorsModel.fromDB,
+        toFirestore: ((BehaviorsModel behaviors, _) => behaviors.save())
+      );
+      final snapshot = await query.get();
+      for (var doc in snapshot.docs) {
+        yield doc.data();
+      }
+  }
+
+  /// Returns the SleepModel data for a specific date, used in the date picker
+  Future<SleepModel?> getSleepDataForDate(DateTime date) async {
+    final query = await this._sleep.where('date', isEqualTo: date.millisecondsSinceEpoch)
+    .withConverter(
+      fromFirestore: SleepModel.fromDB,
+      toFirestore: (SleepModel behavior, _) => behavior.save()
+    )
+    .get();
+    if (query.docs.length > 0) {
+      return query.docs[0].data();
+    }
+    else {
+      return null;
+    }
+  }
+
+  /// Returns the dreams diary entry for a specific date
   Stream<DreamDiary> getDreamsForDate(DateTime date) async* {
-    final query = await this._behaviors.where('date', isEqualTo: date.millisecondsSinceEpoch).withConverter(
-      fromFirestore: BehaviorModel.fromDB,
-      toFirestore: (BehaviorModel behavior, _) => behavior.save()
+    final query = await this._sleep.where('date', isEqualTo: date.millisecondsSinceEpoch).withConverter(
+      fromFirestore: SleepModel.fromDB,
+      toFirestore: (SleepModel behavior, _) => behavior.save()
     ).get();
-    final behaviorData = query.docs[0].data();
-    await for (var dream in behaviorData.getDreams()) {
+    if (query.docs.length == 0) {
+      throw new ErrorDescription('An invalid date was queried for dream diary');
+    }
+    final sleepData = query.docs[0].data();
+    await for (var dream in sleepData.getDreams()) {
       yield dream;
     }
   }
 
   /// adds new behavior data for a day to the database
-  Future<void> addNewBehaviorData({
+  Future<void> addNewSleepData({
       required DateTime timeFellAsleep,
       required DateTime riseTime,
       required DateTime timeWentToBed,
@@ -136,7 +157,7 @@ class UserModel extends DocumentModel {
       List<Map<String, dynamic>>? dreams
     }) async {
     final id = Uuid().v1();
-    final docRef = this._behaviors.doc(id);
+    final docRef = this._sleep.doc(id);
     await docRef.set({
       "timeFellAsleep": timeFellAsleep.millisecondsSinceEpoch,
       "riseTime": riseTime.millisecondsSinceEpoch,
@@ -152,6 +173,25 @@ class UserModel extends DocumentModel {
         await collection.doc(id).set(dream);
       }
     }
+  }
+
+  Future<void> addNewBehaviorData(
+      {
+        required int activityTime,
+        required int caffeineIntake,
+        required int stressLevel,
+      }
+    ) async {
+    final now = DateTime.now();
+    final date = new DateTime(now.year, now.month, now.day);
+    final id = Uuid().v1();
+    final docRef = this._behaviors.doc(id);
+    await docRef.set({
+      "date": date.millisecondsSinceEpoch,
+      "activityTime": activityTime,
+      "caffeineIntake": caffeineIntake,
+      "stressLevel": stressLevel
+    });
   }
 
   /// updates the db for this model

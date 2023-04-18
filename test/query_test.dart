@@ -28,7 +28,7 @@ void main() async {
       "description": "A Good Dream"
     }
   ];
-  model.addNewBehaviorData(
+  await model.addNewSleepData(
     timeFellAsleep: now.subtract(new Duration(hours: 32)),
     riseTime: now.subtract(new Duration(hours: 24)),
     timeWentToBed: now.subtract(new Duration(hours: 33)),
@@ -36,18 +36,28 @@ void main() async {
     dreams: dreams
   );
   // this will be the model that appears in the dreams test
-  model.addNewBehaviorData(
+  await model.addNewSleepData(
     timeFellAsleep: now.subtract(new Duration(hours: 8)),
     riseTime: now,
     timeWentToBed: now.subtract(new Duration(hours: 9)), 
     sleepQuality: 4,
     dreams: dreams
   );
-
-  test('Gettings recent user behaviors from the db', () async {
-    await for (var value in model.getRecentBehaviors()) {
+  test('Getting recent user sleep from the db', () async {
+    await for (var value in model.getRecentSleep()) {
       final int time = value.timeFellAsleep;
       expect(value.sleepTime, 8);
+    }
+  });
+  test('Getting recent user behaviors from the db', () async {
+    await model.addNewBehaviorData(
+      activityTime: 90,
+      caffeineIntake: 1000,
+      stressLevel: 3
+    );
+    await for (var value in model.getRecentBehaviors()) {
+      final int stressLevel = value.stressLevel;
+      expect(stressLevel, 3);
     }
   });
   // need to input date in mm/dd/yyyy format from user
