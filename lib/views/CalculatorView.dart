@@ -282,7 +282,13 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
           hintText: 'e.g.) 40',
           labelText: 'Minute',
           icon: Icon(Icons.assessment, color: AppColors.secondary,),
-          fillColor: Colors.white
+          fillColor: Colors.white,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.darkAccent),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.secondary),
+        ),
       ),
     );
   }
@@ -316,6 +322,12 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
         labelText: "Hour",
         icon: Icon(Icons.assessment, color: AppColors.secondary,),
         fillColor: Colors.white,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.darkAccent),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.secondary),
+        ),
       ),
     );
   }
@@ -349,6 +361,12 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
         labelText: 'Hour',
         icon: Icon(Icons.assessment, color: AppColors.secondary,),
         fillColor: Colors.white,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.darkAccent),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.secondary),
+        ),
       ),
     );
   }
@@ -383,6 +401,12 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
         ),
         icon: Icon(Icons.assessment, color: AppColors.secondary,),
         fillColor: Colors.white,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.darkAccent),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.secondary),
+        ),
       ),
     );
   }
