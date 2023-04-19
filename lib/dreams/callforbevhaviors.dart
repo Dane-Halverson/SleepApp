@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'enterSleep.dart';
+import 'daytimeBehaviors.dart';
 
 void main() => runApp(const Behaviorwidget());
 
@@ -12,6 +13,7 @@ class Behaviorwidget extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Sleep Logging'),
+          backgroundColor: Colors.deepPurple
         ),
         body: ListView(
           scrollDirection: Axis.vertical,
@@ -19,7 +21,8 @@ class Behaviorwidget extends StatelessWidget {
             TimeforBed(),
             fellAsleep(),
             Wokeup(),
-            TextStore()
+            TextStore(),
+            DayBehavior()
           ],
         ),
       ),
