@@ -30,7 +30,7 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
 
   _SettingsStatefulWidgetState() : super() {
     presenter = new SettingsPresenter(this);
-  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +87,14 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
                   _onDeleteAccount();
                 },
               ),
+              SettingsTile(
+                leading: Icon(Icons.add_circle_outlined),
+                title: Text('Add Account'),
+                onPressed: (_) {
+                  _onResetPassword();
+                }
+                ),
+              )
             ],
           ),
         ],
@@ -111,7 +119,4 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
   toSignIn() {
     runApp(SignInView());
   }
-
-
-
 }
