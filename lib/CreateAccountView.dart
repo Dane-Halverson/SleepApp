@@ -23,6 +23,7 @@ class _CreateAccountState extends State<CreateAccountPage>
   String _pass2 = "";
   String _error = "";
   String _name = "";
+  DateTime? birthday;
   var _date;
 
   TextEditingController dateinput = TextEditingController();
@@ -82,6 +83,10 @@ class _CreateAccountState extends State<CreateAccountPage>
   @override
   void toRegister() async {
     presenter.onSubmit();
+  }
+
+  DateTime? getBirthdate() {
+    return birthday;
   }
 
   @override
@@ -221,7 +226,8 @@ class _CreateAccountState extends State<CreateAccountPage>
 
                                 if (pickedDate != null) {
                                   print(
-                                      pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                      pickedDate);
+                                  birthday = pickedDate;//pickedDate output format => 2021-03-10 00:00:00.000
                                   String formattedDate =
                                       DateFormat('MM/dd/yyyy')
                                           .format(pickedDate);
@@ -361,7 +367,7 @@ class _CreateAccountState extends State<CreateAccountPage>
                                   minimumSize: const Size.fromHeight(50),
                                 ),
                                 onPressed: () {
-                                  print("test");
+                                  print(getBirthdate());
                                   presenter.onSubmit();
                                 },
                                 child: Padding(
