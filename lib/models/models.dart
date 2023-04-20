@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:units/models/behaviors.dart';
-import './PreferencesModel.dart';
+import 'statistics.dart';
+import 'behaviors.dart';
+import 'PreferencesModel.dart';
 
 /// change to take in the auth class and get the uuid of the user for the db
 DocumentReference<UserModel> getUserDocRef(CollectionReference ref, String? userId) => ref.doc(userId).withConverter(
@@ -60,16 +61,16 @@ abstract class DocumentModel {
 /// Represents the document reference for a user in the database
 class UserModel extends DocumentModel {
   late DocumentReference<UserModel> _ref;
-  String? _id;
-  String? _firstname;
-  String? _lastname;
-  String? _email;
-  int? _age;
+  late String _id;
+  late String _firstname;
+  late String _lastname;
+  late String _email;
+  late int _age;
   late PreferencesModel _preferences;
   late CollectionReference _behaviors;
   late CollectionReference _sleep;
 
-  UserModel(DocumentReference<UserModel> ref, String? firstname, String? lastname, String? email, int? age, PreferencesModel preferences) {
+  UserModel(DocumentReference<UserModel> ref, String firstname, String lastname, String email, int age, PreferencesModel preferences) {
     this._ref = ref;
     this._firstname = firstname;
     this._lastname = lastname;
@@ -81,10 +82,10 @@ class UserModel extends DocumentModel {
   }
 
   DocumentReference<UserModel> get ref => this._ref;
-  String? get firstname => this._firstname;
-  String? get lastname => this._lastname;
-  String? get email => this._email;
-  int? get age => this._age;
+  String get firstname => this._firstname;
+  String get lastname => this._lastname;
+  String get email => this._email;
+  int get age => this._age;
   PreferencesModel get preferences => this._preferences;
 
   /// Queries the user sleep data to get recent sleep data on the homepage for the last x days
@@ -202,10 +203,10 @@ class UserModel extends DocumentModel {
   @override
   Map<String, dynamic> save() {
     return {
-      if (firstname != null) "firstname": firstname,
-      if (lastname != null) "lastname": lastname,
-      if (email != null) "email": email,
-      if (age != null) "age": age,
+      "firstname": firstname,
+      "lastname": lastname,
+      "email": email,
+      "age": age,
       "preferences": _preferences.asMap(),
     };
   }
@@ -228,6 +229,61 @@ class UserModel extends DocumentModel {
       data?['email'],
       data?['age'],
       preferencesModel
+    );
+  }
+}
+
+class SleepRecommendation {
+  late final DateTime bedTime;
+  late final DateTime wakeTime;
+  late final int sleepTime;
+  late final bool giveReducedCaffeineRecommendation;
+  late final bool giveExerciseRecommendation;
+  late final bool giveStressReductionRecommendation;
+
+  SleepRecommendation({
+    required this.bedTime,
+    required this.wakeTime,
+    required this.sleepTime,
+    required this.giveReducedCaffeineRecommendation,
+    required this.giveExerciseRecommendation,
+    required this.giveStressReductionRecommendation,
+  });
+
+  static SleepRecommendation getSleepRecommendation({
+    required UserModel userData,
+    required BehaviorStatisitcsModel behaviors,
+    required StatisticsModel statistics,
+    required int wakeUpHour,
+    int wakeUpMins = 0
+                                                    }) {
+    final now = DateTime.now();
+    double avgTimeInBedBeforeSleep = statistics.weeklyAvgTimeInBed - statistics.weeklyAvgSleepTime;
+    bool isToddler = userData.age <= 2;
+    bool isPreschool = userData.age <= 5 && userData.age >= 3;
+    bool isSchoolAge = userData.age <= 12 && userData.age >= 6;
+    bool isTeenager = userData.age <= 18 && userData.age >= 13;
+    bool isAdult = userData.age <= 60 && userData.age >= 19;
+    bool isSenior = userData.age >= 61;
+    int baseSleepTime = 0;
+    if (isToddler) baseSleepTime = 11;
+    if (isPreschool) baseSleepTime = 10;
+    if (isSchoolAge) baseSleepTime = 9;
+    if (isTeenager || isSenior) baseSleepTime = 8;
+    if (isAdult) baseSleepTime = 7;
+    bool giveExerciseRecommendation = behaviors.avgDailyActivityTime < 60 && statistics.monthlyAvgSleepQuality <= 3;
+    bool giveReducedCaffeineRecommendation = behaviors.avgCaffeineIntake > 300 && avgTimeInBedBeforeSleep > 0.5;
+    bool giveStressReductionRecommendation = behaviors.avgStressLevel >= 3;
+
+    final wakeUpTime = new DateTime(now.year, now.month, now.day+1, wakeUpHour, wakeUpMins);
+
+    return new SleepRecommendation(
+      bedTime: wakeUpTime.subtract(new Duration(hours: baseSleepTime)),
+      wakeTime: wakeUpTime,
+      sleepTime: baseSleepTime,
+      giveExerciseRecommendation: giveExerciseRecommendation,
+      giveReducedCaffeineRecommendation: giveReducedCaffeineRecommendation,
+      giveStressReductionRecommendation: giveStressReductionRecommendation
     );
   }
 }
