@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:test/test.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
@@ -32,15 +31,20 @@ void main() async {
       "description": "A Good Dream"
     }
   ];
-  model.addNewBehaviorData(
+  model.addNewSleepData(
     timeFellAsleep: now.subtract(new Duration(hours: 32)),
     riseTime: now.subtract(new Duration(hours: 24)),
     timeWentToBed: now.subtract(new Duration(hours: 33)),
     sleepQuality: 3,
     dreams: dreams
   );
-  // this will be the model that appears in the dreams test
   model.addNewBehaviorData(
+    activityTime: 60,
+    caffeineIntake: 200,
+    stressLevel: 3
+  );
+  // this will be the model that appears in the dreams test
+  model.addNewSleepData(
     timeFellAsleep: now.subtract(new Duration(hours: 8)),
     riseTime: now,
     timeWentToBed: now.subtract(new Duration(hours: 9)), 
@@ -48,6 +52,7 @@ void main() async {
     dreams: dreams
   );
   final stats = await StatisticsModel.create(model);
+  final behaviors = await BehaviorStatisitcsModel.create(model);
   test('Test the average weekly sleep time calculations', () async {
     final avg = stats.weeklyAvgSleepTime;
     expect(avg, 8);
@@ -59,6 +64,20 @@ void main() async {
   test('Test the average weekly time in bed calculations', () async {
     final avg = stats.weeklyAvgTimeInBed;
     expect(avg, 9);
+  });
+  test('Querying the inputted behaviors', () {
+    expect(behaviors.avgCaffeineIntake, 200);
+  });
+  test('Simple sleep recommendation calculation', () async {
+    final rec = SleepRecommendation.getSleepRecommendation(
+      userData: model,
+      behaviors: behaviors,
+      statistics: stats,
+      wakeUpHour: 8
+    );
+    expect(rec.sleepTime, 7);
+    expect(rec.bedTime.hour, 1);
+    expect(rec.wakeTime.hour, 8);
   });
   test('Test the cartesian chart factory', () async {
     List<List<ChartData<DateTime>>> data = [];
