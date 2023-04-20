@@ -63,9 +63,9 @@ void main() async {
   test('Test the cartesian chart factory', () async {
     List<List<ChartData<DateTime>>> data = [];
     data.add(stats.weeklySleepTimeData);
-    final chartModel = chartModelFactory<DateTime>('cartesian', 'bar', data);
+    final chartModel = chartModelFactory<DateTime>('cartesian', 'bar', data, []);
     expect(chartModel is CartesianChartModel, true);
-    final chartWidget = chartModel.createView(title: 'Test Chart', xAxis: CategoryAxis());
+    final chartWidget = chartModel.createView(title: 'Test Chart', xAxis: CategoryAxis(), legendVisible: false);
     expect(chartWidget is SfCartesianChart, true);
   });
 }

@@ -1,5 +1,6 @@
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:units/models/models.dart';
 import 'package:units/presenters/home_presenters.dart';
 import 'package:units/views/statistics.dart';
@@ -43,6 +44,14 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w300
   );
+  final h2Style = new TextStyle(
+      inherit: false,
+      color: Colors.black,
+      fontSize: 24.0,
+      letterSpacing: 0.6,
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w300
+  );
 
   HomeStatefulWidgetState(UserModel model) {
     this._presenter = new HomePresenter(this, model);
@@ -76,7 +85,12 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
                   return const CircularProgressIndicator();
                 }
               }
-            ),// FutureBuilder for stats view
+            ),
+            Text('Revisit Your Sleep Logs', style: h2Style),
+            SfDateRangePicker(
+              maxDate: DateTime.now(),
+              minDate: DateTime.now().subtract(new Duration(days: 30)),
+            )
           ]
         ),
       );
