@@ -6,8 +6,7 @@ import 'contracts/create_account_contract.dart';
 import 'SignInView.dart';
 import 'package:intl/intl.dart';
 
-import 'main.dart';
-import 'models/models.dart';
+
 
 class CreateAccountPage extends StatefulWidget {
   CreateAccountPage({required Key? key}) : super(key: key);
@@ -25,6 +24,7 @@ class _CreateAccountState extends State<CreateAccountPage>
   String _name = "";
   DateTime? birthday;
   var _date;
+
 
   TextEditingController dateinput = TextEditingController();
 

@@ -8,6 +8,7 @@ import 'package:units/views/statistics.dart';
 import '../models/statistics.dart';
 import 'package:units/presenters/CalculatorPresenter.dart';
 import 'CalculatorView.dart';
+import '../presenters/CalculatorPresenter.dart';
 
 class HomeView extends StatelessWidget {
   final UserModel userData;
@@ -65,7 +66,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
             Padding(padding: EdgeInsets.all(5),
             child: Text('Welcome back, $firstname', style: headingStyle),
             ),
-            Calculator(new BasicPresenter()),
+            Calculator(),
             FutureBuilder<StatisticsModel>(
               future: _presenter.getStatisticsData(),
               builder: (BuildContext ctx, AsyncSnapshot<StatisticsModel> snapshot) {
@@ -74,10 +75,28 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
                   if (data != null) {
                     return StatisticsView(data);
                   }
-                  else return const CircularProgressIndicator();
+                  else return Row (
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          height: 80,
+                          child: const CircularProgressIndicator(),
+                        )
+                      ]
+                  );
                 }
                 else {
-                  return const CircularProgressIndicator();
+                  return Row (
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          height: 80,
+                          child: const CircularProgressIndicator(),
+                        )
+                      ]
+                  );
                 }
               }
             ),// FutureBuilder for stats view
