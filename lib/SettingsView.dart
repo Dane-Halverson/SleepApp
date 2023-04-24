@@ -94,7 +94,6 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
                   _onResetPassword();
                 }
                 ),
-              )
             ],
           ),
         ],
