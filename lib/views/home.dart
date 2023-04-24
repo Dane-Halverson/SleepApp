@@ -66,7 +66,11 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
             Padding(padding: EdgeInsets.all(5),
             child: Text('Welcome back, $firstname', style: headingStyle),
             ),
-            Calculator(),
+            Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Calculator(),
+
+            )
+            ,
             FutureBuilder<StatisticsModel>(
               future: _presenter.getStatisticsData(),
               builder: (BuildContext ctx, AsyncSnapshot<StatisticsModel> snapshot) {
