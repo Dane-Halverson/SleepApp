@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:units/AppColors.dart';
 import 'package:units/models/VideosModel.dart';
+import 'package:units/presenters/CalculatorPresenter.dart';
+import 'package:units/views/CalculatorView.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -102,7 +104,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
                 ),
               ],
             ),
-            Expanded(child: _pages.elementAt(_value! - 1))
+            Expanded(child: _pages.elementAt(_value! - 1)),
           ],
         ));
   }
@@ -146,7 +148,7 @@ class _VideosStatefulWidgetState extends State<VideosStatefulWidget> {
                     ),
                   ),
 
-                )
+                ),
 
               ],
             ),

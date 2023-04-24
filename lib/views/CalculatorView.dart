@@ -5,15 +5,26 @@ import '../contracts/calculator_view_contract.dart';
 import '../presenters/CalculatorPresenter.dart';
 
 class Calculator extends StatefulWidget {
-  final UNITSPresenter presenter;
-
-  Calculator(this.presenter);
-
   @override
   _CalculatorState createState() => _CalculatorState();
 }
 
-class _CalculatorState extends State<Calculator> implements UNITSView {
+class CalculatorStatefulWidget extends StatefulWidget {
+  CalculatorStatefulWidget({super.key});
+
+  @override
+  State<CalculatorStatefulWidget> createState() => _CalculatorState();
+}
+
+class _CalculatorState extends State<CalculatorStatefulWidget> implements UNITSView {
+  late UNITSPresenter presenter;
+
+  @override
+  void initState() {
+    super.initState();
+    presenter = new BasicPresenter();
+    this.presenter.unitsView = this;
+  }
 
   var _sleepHourController = TextEditingController();
   var _sleepMinuteController = TextEditingController();
@@ -35,23 +46,18 @@ class _CalculatorState extends State<Calculator> implements UNITSView {
 
   var _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-    this.widget.presenter.unitsView = this;
-  }
 
   void handleRadioValueChanged(int? value) {
-    this.widget.presenter.onOptionChanged(value!, sleepHourString: _sleepHour, sleepMinuteString: _sleepMinute );
+    this.presenter.onOptionChanged(value!, sleepHourString: _sleepHour, sleepMinuteString: _sleepMinute );
   }
   void handleRadioValueChangedTime(int? value) {
-    this.widget.presenter.onTimeOptionChanged(value!);
+    this.presenter.onTimeOptionChanged(value!);
   }
 
   void _calculator() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      this.widget.presenter.onCalculateClicked(_hour, _minute, _sleepMinute, _sleepHour);
+      this.presenter.onCalculateClicked(_hour, _minute, _sleepMinute, _sleepHour);
     }
   }
 
