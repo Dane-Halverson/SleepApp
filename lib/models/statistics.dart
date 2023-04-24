@@ -107,7 +107,7 @@ class BehaviorStatisitcsModel {
         caffeineSum += data.caffeineIntake;
         stressSum += data.stressLevel;
         avgCaffeineIntake = caffeineSum ~/ counter;
-        avgStressLevel = caffeineSum ~/ counter;
+        avgStressLevel = stressSum ~/ counter;
       }
       counter++;
     }
