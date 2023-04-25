@@ -1,7 +1,7 @@
 
 abstract class ForgotPasswordViewContract {
   String getEmail();
-  String toSignIn();
+  void toSignIn();
   void showError(String error);
   void showSuccess(String message);
 }

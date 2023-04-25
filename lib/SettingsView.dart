@@ -1,9 +1,10 @@
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 import 'package:units/presenters/SettingsPresenter.dart';
 import 'contracts/settings_contract.dart';
 import 'Authentication.dart';
-import 'main.dart';
+import 'SignInView.dart';
 
 class SettingsView extends StatelessWidget {
   @override
@@ -29,7 +30,7 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
 
   _SettingsStatefulWidgetState() : super() {
     presenter = new SettingsPresenter(this);
-  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +39,19 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
     }));
     late String email = auth.getUserEmail() != null ? auth.getUserEmail()! : "";
     return Scaffold(
+      backgroundColor: AppColors.dark,
       appBar: AppBar(
         title: Text("Settings"),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primary,
       ),
       body: SettingsList(
+        lightTheme: SettingsThemeData(
+          settingsListBackground: AppColors.dark,
+          titleTextColor: AppColors.secondary,
+          settingsTileTextColor: AppColors.accentLight,
+          leadingIconsColor: AppColors.secondary,
+          tileDescriptionTextColor: AppColors.secondary
+        ),
         sections: [
           SettingsSection(
             title: Text('Account'),
@@ -78,6 +87,13 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
                   _onDeleteAccount();
                 },
               ),
+              SettingsTile(
+                leading: Icon(Icons.add_circle_outlined),
+                title: Text('Add Account'),
+                onPressed: (_) {
+                  _onResetPassword();
+                }
+                ),
             ],
           ),
         ],
@@ -100,9 +116,6 @@ class _SettingsStatefulWidgetState extends State<SettingsStatefulWidget>
 
   @override
   toSignIn() {
-    runApp(LogInPage());
+    runApp(SignInView());
   }
-
-
-
 }

@@ -7,10 +7,11 @@ import 'package:bulleted_list/bulleted_list.dart';
 
 import '../models/statistics.dart';
 import '../models/charts.dart';
+import '../AppColors.dart';
 
 final titleStyle = new TextStyle(
     inherit: false,
-    color: Color.fromRGBO(32, 32, 32, 1),
+    color: AppColors.accent,
     fontSize: 24.0,
     letterSpacing: 0.5,
     fontFamily: 'Roboto',
@@ -18,7 +19,7 @@ final titleStyle = new TextStyle(
 );
 final subtitleStyle = new TextStyle(
     inherit: false,
-    color: Colors.black,
+    color: AppColors.accentLight,
     fontSize: 18.0,
     letterSpacing: 0.2,
     fontFamily: 'Roboto',
@@ -58,13 +59,14 @@ class BehaviorsView extends StatelessWidget {
                     ),
                     CircularPercentIndicator(
                       radius: MediaQuery.of(context).size.width / 4 - 10.0,
-                      lineWidth: 10.0,
+                      lineWidth: 15.0,
                       percent: activityPercent,
                       center: new Text(
                         "Of 30 Mins",
                         style: titleStyle
                       ),
-                      progressColor: Colors.green,
+                      progressColor: AppColors.primary,
+                      backgroundColor: AppColors.darkAccent,
                     ),
                   ],
                 )
@@ -82,13 +84,14 @@ class BehaviorsView extends StatelessWidget {
                     ),
                     CircularPercentIndicator(
                       radius: MediaQuery.of(context).size.width / 4 - 10.0,
-                      lineWidth: 10.0,
+                      lineWidth: 15.0,
                       percent: _data.avgCaffeineIntake / 400,
                       center: new Text(
                         "Of 400mg",
                         style: titleStyle,
                       ),
-                      progressColor: Colors.orange,
+                      progressColor: AppColors.primary,
+                      backgroundColor: AppColors.darkAccent,
                     ),
                   ],
                 )
@@ -144,7 +147,7 @@ class RecommendationsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              color: Colors.grey,
+              color: AppColors.darkAccent,
               width: MediaQuery.of(context).size.width / 2 - 8.0,
               child: Column(
                 children: [
@@ -154,7 +157,7 @@ class RecommendationsView extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.grey,
+              color: AppColors.darkAccent,
               width: MediaQuery.of(context).size.width / 2 - 8.0,
               child: Column(
                 children: [
@@ -233,7 +236,7 @@ class StatisticsView extends StatelessWidget {
                         child: Icon(
                           Icons.access_alarms,
                           size: 50.0,
-                          color: Color.fromRGBO(153, 51, 255, 1),
+                          color: AppColors.secondary,
                         )
                       ),
                       Text(
@@ -265,7 +268,7 @@ class StatisticsView extends StatelessWidget {
                         child: Icon(
                           Icons.bed,
                           size: 50.0,
-                          color: Color.fromRGBO(153, 51, 255, 1),
+                          color: AppColors.secondary,
                         )
                     ),
                     Text(
@@ -295,7 +298,7 @@ class StatisticsView extends StatelessWidget {
                     child: Icon(
                       Icons.star,
                       size: 50.0,
-                      color: Color.fromRGBO(153, 51, 255, 1),
+                      color: AppColors.secondary,
                     )
                   ),
                   Text(

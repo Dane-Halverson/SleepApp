@@ -1,14 +1,10 @@
-import 'package:http/http.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:units/AppColors.dart';
 import 'package:units/models/behaviors.dart';
 import 'package:units/models/models.dart';
 import 'package:units/presenters/home_presenters.dart';
 import 'package:units/views/statistics.dart';
-
-import '../models/statistics.dart';
-import 'package:units/presenters/CalculatorPresenter.dart';
 import 'CalculatorView.dart';
 
 class HomeView extends StatelessWidget {
@@ -40,7 +36,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
   late final HomePresenter _presenter;
   final headingStyle = new TextStyle(
     inherit: false,
-    color: Colors.black,
+    color: AppColors.accentLight,
     fontSize: 28.0,
     letterSpacing: 0.6,
     fontFamily: 'Roboto',
@@ -48,7 +44,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
   );
   final h2Style = new TextStyle(
       inherit: false,
-      color: Colors.black,
+      color: AppColors.accentLight,
       fontSize: 24.0,
       letterSpacing: 0.6,
       fontFamily: 'Roboto',
@@ -162,6 +158,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
     final String? firstname = this._presenter.firstname;
     return new LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
       return  Scaffold(
+        backgroundColor: AppColors.dark,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("Home"),
@@ -172,7 +169,8 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
           children: <Widget>[
             Text('Welcome back, $firstname', style: headingStyle),
             sectionSep,
-            Calculator(new BasicPresenter()),
+            Calculator(),
+            sectionSep,
             FutureBuilder<AllData>(
               future: _presenter.fetchData(),
               builder: (BuildContext ctx, AsyncSnapshot<AllData> snapshot) {
@@ -237,7 +235,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
               selectionMode: DateRangePickerSelectionMode.single,
               maxDate: DateTime.now(),
               minDate: DateTime.now().subtract(new Duration(days: 30)),
-              selectionColor: Colors.purple,
+              selectionColor: AppColors.primary,
               showActionButtons: true,
               onSubmit: (Object? value) {
                 if (value is DateTime) {

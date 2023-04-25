@@ -1,5 +1,6 @@
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 
 import './statistics.dart';
 
@@ -23,10 +24,11 @@ ChartModel<SfCartesianChart, XyDataSeries> {
   SfCartesianChart createView({required String title, required ChartAxis xAxis, required bool legendVisible}) {
     return new SfCartesianChart(
       primaryXAxis: xAxis,
-      title: ChartTitle(text: title),
+      title: ChartTitle(text: title, textStyle: TextStyle(color: AppColors.accentLight, fontSize: 16)),
       series: this._series,
-      legend: Legend(isVisible: legendVisible)
-      
+      legend: Legend(isVisible: legendVisible, textStyle: TextStyle(color: AppColors.accentLight)),
+      plotAreaBorderColor: AppColors.accentLight,
+      plotAreaBackgroundColor: AppColors.darkAccent,
     );
   }
 }
@@ -34,8 +36,8 @@ ChartModel<SfCartesianChart, XyDataSeries> {
 List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(String type, List<List<ChartData<X>>> data, List<String> seriesNames) {
   int nameIdx = 0;
   final colors = <Color>[
-    Color.fromRGBO(77, 113, 255, 1),
-    Color.fromRGBO(127, 0, 255, 1),
+    AppColors.accent,
+    AppColors.primary,
     Color.fromRGBO(125, 247, 203, 1),
   ];
   switch(type) {
@@ -48,7 +50,8 @@ List<XyDataSeries<ChartData<X>, X>> _cartesianDataSeriesFactory<X>(String type, 
             dataSource: dataSeries,
             xValueMapper: (ChartData<X> data, _) => data.x,
             yValueMapper: (ChartData<X> data, _) => data.y,
-            color: colors[nameIdx]
+            color: colors[nameIdx],
+            trackColor: AppColors.accentLight
         ));
         nameIdx++;
       }
