@@ -4,9 +4,12 @@ import 'package:units/AppColors.dart';
 import '../contracts/calculator_view_contract.dart';
 import '../presenters/CalculatorPresenter.dart';
 
-class Calculator extends StatefulWidget {
+class Calculator extends StatelessWidget {
   @override
-  _CalculatorState createState() => _CalculatorState();
+  Widget build(BuildContext context) {
+    return
+      CalculatorStatefulWidget(key: super.key,);
+  }
 }
 
 class CalculatorStatefulWidget extends StatefulWidget {
