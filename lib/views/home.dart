@@ -1,3 +1,4 @@
+import 'package:bulleted_list/bulleted_list.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:units/AppColors.dart';
@@ -50,7 +51,14 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w300
   );
-
+  final bodyStyle = new TextStyle(
+      inherit: false,
+      color: AppColors.accentLight,
+      fontSize: 15.0,
+      letterSpacing: 0.1,
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400
+  );
   final Padding sectionSep = new Padding(padding: EdgeInsets.only(top: 25.0));
 
   HomeStatefulWidgetState(UserModel model) {
@@ -69,7 +77,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
     List<Widget> content;
     if (log == null) {
       content = <Widget>[
-        Text('There is no sleep data entered for this date.')
+        Text('There is no sleep data entered for this date.', style: bodyStyle)
       ];
     }
     else {
@@ -87,9 +95,9 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
       String wakeTime = '$wakeHour:$wakeMins $wakeTimeSuffix';
 
       content = <Widget>[
-        Text('You slept $sleepTime hours.'),
-        Text('You fell asleep at $bedTime and spent $totalTimeInBed hours in bed total.'),
-        Text('You woke up at $wakeTime'),
+        Text('You slept $sleepTime hours.', style: bodyStyle),
+        Text('You fell asleep at $bedTime and spent $totalTimeInBed hours in bed total.', style: bodyStyle),
+        Text('You woke up at $wakeTime', style: bodyStyle),
         Padding(
           padding: EdgeInsets.only(top: 10),
           child: Text(
@@ -100,12 +108,15 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
       ];
       final dreamsView = <Widget>[];
       await for (var dreams in log.getDreams()) {
-        final Column column = new Column(children: []);
-        if (dreams.isNightmare) {
-          column.children.add(const Text('Nightmare'));
-        }
+        final Row column = new Row(children: [], mainAxisAlignment: MainAxisAlignment.start,);
         String? description = dreams.description;
-        if (description != null) column.children.add(Text(description));
+        if (dreams.isNightmare) {
+          column.children.add(Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: const Text('Nightmare', style: TextStyle(color: AppColors.accentLight, fontSize: 15, backgroundColor: AppColors.accent))
+          ));
+        }
+        if (description != null) column.children.add(Text(description, style: bodyStyle));
         dreamsView.add(
           Padding(
             padding: EdgeInsets.only(top: 10),
@@ -115,16 +126,15 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
       }
       if (dreamsView.length > 0) {
         content.add(
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: dreamsView
+          BulletedList(
+            listItems: dreamsView,
+            bulletColor: AppColors.secondary
           )
         );
       }
       else {
         content.add(
-          Text('There were no dreams reported for this entry.')
+          Text('There were no dreams reported for this entry.', style: bodyStyle)
         );
       }
     }
@@ -134,7 +144,8 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
       builder: (BuildContext context) {
         String dateStr = date.toString().split(' ')[0];
         return AlertDialog(
-          title: Text('Sleep Log For $dateStr'),
+          title: Text('Sleep Log For $dateStr', style: TextStyle(color: AppColors.accentLight, fontSize: 22)),
+          backgroundColor: AppColors.darkAccent,
           content: SingleChildScrollView(
             child: ListBody(
               children: content
@@ -234,8 +245,11 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
             SfDateRangePicker(
               selectionMode: DateRangePickerSelectionMode.single,
               maxDate: DateTime.now(),
+              todayHighlightColor: AppColors.accent,
               minDate: DateTime.now().subtract(new Duration(days: 30)),
               selectionColor: AppColors.primary,
+              monthCellStyle: DateRangePickerMonthCellStyle(textStyle: TextStyle(color: AppColors.accentLight),),
+              selectionTextStyle: TextStyle(color: AppColors.accentLight),
               showActionButtons: true,
               onSubmit: (Object? value) {
                 if (value is DateTime) {

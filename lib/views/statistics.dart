@@ -26,6 +26,20 @@ final subtitleStyle = new TextStyle(
     fontWeight: FontWeight.w400
 );
 
+final bodyStyle = new TextStyle(
+    inherit: false,
+    color: AppColors.accentLight,
+    fontSize: 15.0,
+    letterSpacing: 0.1,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400
+);
+
+final border = BoxDecoration(
+  color: AppColors.darkAccent,
+  borderRadius: BorderRadius.circular(5.0)
+);
+
 class BehaviorsView extends StatelessWidget {
   late final BehaviorStatisitcsModel _data;
 
@@ -35,9 +49,9 @@ class BehaviorsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double activityPercent = _data.avgDailyActivityTime / 30;
+    double activityPercent = _data.avgDailyActivityTime / 60;
     activityPercent = activityPercent > 1.0 ? 1.0 : activityPercent;
-    double caffeinePercent = _data.avgCaffeineIntake / 30;
+    double caffeinePercent = _data.avgCaffeineIntake / 400;
     caffeinePercent = caffeinePercent > 1.0 ? 1.0 : caffeinePercent;
     return new Column(
       children: [
@@ -62,7 +76,7 @@ class BehaviorsView extends StatelessWidget {
                       lineWidth: 15.0,
                       percent: activityPercent,
                       center: new Text(
-                        "Of 30 Mins",
+                        "Of 60 Mins",
                         style: titleStyle
                       ),
                       progressColor: AppColors.primary,
@@ -85,7 +99,7 @@ class BehaviorsView extends StatelessWidget {
                     CircularPercentIndicator(
                       radius: MediaQuery.of(context).size.width / 4 - 10.0,
                       lineWidth: 15.0,
-                      percent: _data.avgCaffeineIntake / 400,
+                      percent: caffeinePercent,
                       center: new Text(
                         "Of 400mg",
                         style: titleStyle,
@@ -133,13 +147,13 @@ class RecommendationsView extends StatelessWidget {
     String wakeTimeStr = '$wakeHour:$wakeMins $wakeTimeSuffix';
     final recommendationMsgs = <Text>[];
     if(_recommendation.giveExerciseRecommendation) {
-      recommendationMsgs.add(const Text('To improve your quality of sleep, we recommend getting at least 30-60 minutes of activity per day'));
+      recommendationMsgs.add(Text('To improve your quality of sleep, we recommend getting at least 60 minutes of activity per day', style: bodyStyle));
     }
     if (_recommendation.giveReducedCaffeineRecommendation) {
-      recommendationMsgs.add(const Text('We have noticed it takes a while for you to fall asleep, or your sleep quality is low. Try and limit your caffeine intake to 400mg per day to prevent this.'));
+      recommendationMsgs.add(Text('We have noticed it takes a while for you to fall asleep, or your sleep quality is low. Try and limit your caffeine intake to 400mg per day to prevent this.', style: bodyStyle));
     }
     if(_recommendation.giveStressReductionRecommendation) {
-      recommendationMsgs.add(const Text('You seem to very stressed lately, managing your stress can improve your overall sleep quality'));
+      recommendationMsgs.add(Text('You seem to very stressed lately, managing your stress can improve your overall sleep quality', style: bodyStyle));
     }
     return Column(
       children: [
@@ -147,7 +161,7 @@ class RecommendationsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              color: AppColors.darkAccent,
+              decoration: border,
               width: MediaQuery.of(context).size.width / 2 - 8.0,
               child: Column(
                 children: [
@@ -157,7 +171,7 @@ class RecommendationsView extends StatelessWidget {
               ),
             ),
             Container(
-              color: AppColors.darkAccent,
+              decoration: border,
               width: MediaQuery.of(context).size.width / 2 - 8.0,
               child: Column(
                 children: [
@@ -169,7 +183,11 @@ class RecommendationsView extends StatelessWidget {
           ],
         ),
         BulletedList(
-            listItems: recommendationMsgs
+          listItems: recommendationMsgs,
+          bullet: Icon(
+            Icons.info,
+            color: AppColors.secondary
+          )
         ),
       ],
     );
