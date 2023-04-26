@@ -222,19 +222,6 @@ class SignInFormState extends State<SignInForm> {
               ),
             ],
           ),
-
-          OutlinedButton(
-              style: OutlinedButton.styleFrom(foregroundColor: Colors.amber),
-              child: Text('Debug sign in'),
-              onPressed: () {
-                setState(() {
-                  _email = 'halve564@d.umn.edu';
-                  _pass = 'TestPass1234';
-                });
-                submitData();
-              }),
-
-
         ],
       ),
     );
