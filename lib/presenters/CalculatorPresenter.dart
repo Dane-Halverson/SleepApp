@@ -95,6 +95,9 @@ class BasicPresenter implements UNITSPresenter{
     } else if (tempMessage == UnitType.WAKE) {
       _viewModel.message = "You should go to bed at";
     }
+
+    print("here");
+
     _view.updateMessage(_viewModel.message);
     _view.updateTimeString(_viewModel.timeType);
     _view.updateResultValue(_viewModel.resultInString);
@@ -121,6 +124,7 @@ class BasicPresenter implements UNITSPresenter{
 
         }
       }
+      print("changed");
       _view.updateUnit(_viewModel.value);
       _view.updateSleepHour(sleepHour: _viewModel.sleepHourInString);
       _view.updateSleepMinute(sleepMinute: _viewModel.sleepMinuteInString);

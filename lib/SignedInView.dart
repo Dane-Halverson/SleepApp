@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 
 import 'package:units/SettingsView.dart';
 import 'package:units/dreams/callforbevhaviors.dart';
@@ -9,14 +10,12 @@ import 'models/models.dart';
 import 'package:units/VideosView.dart';
 
 class SignedInView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: SignedInStatefulWidget(key: super.key),
     );
   }
-
 }
 
 class SignedInStatefulWidget extends StatefulWidget {
@@ -29,7 +28,7 @@ class SignedInStatefulWidget extends StatefulWidget {
 class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -41,40 +40,54 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
     final db = FirebaseFirestore.instance;
     final auth = FirebaseAuth.instance;
     final userId = auth.currentUser?.uid;
-    if (userId == null) 
+    if (userId == null)
       throw new ErrorDescription(
-        "The user is not signed in when the home page is rendered!"
-      );
+          "The user is not signed in when the home page is rendered!");
     final userDoc = await getUserDocRef(db.collection('users'), userId).get();
     final data = userDoc.data();
-    if (data == null) 
+    if (data == null)
       throw new ErrorDescription(
-        "The sign up page needs to store the user information in the database and it has apparently not done that!"
-      );
+          "The sign up page needs to store the user information in the database and it has apparently not done that!");
 
     return data;
   }
 
-  static const _navColor = Colors.deepPurple;
-  static const _selectedColor = Colors.amber;
+  static const _navColor = AppColors.darkAccent;
+  var _selectedColor = Colors.deepPurpleAccent.shade100;
 
   @override
   Widget build(BuildContext context) {
     UserModel model;
     List<Widget> _pages = <Widget>[
       FutureBuilder<UserModel>(
-        future: _getUserData(),
-        builder: (BuildContext ctx, AsyncSnapshot<UserModel> snapshot) {
-          if (snapshot.hasData) {
-            var data = snapshot.data;
-            if (data != null) return HomeView(userData: data);
-            else return const CircularProgressIndicator();
-          }
-          else {
-            return const CircularProgressIndicator();
-          }
-        }
-      ),
+          future: _getUserData(),
+          builder: (BuildContext ctx, AsyncSnapshot<UserModel> snapshot) {
+            if (snapshot.hasData) {
+              var data = snapshot.data;
+              if (data != null)
+                return HomeView(userData: data);
+              else
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 80,
+                        height: 80,
+                        child: const CircularProgressIndicator(),
+                      )
+                    ]);
+            } else {
+              return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: const CircularProgressIndicator(),
+                    )
+                  ]);
+            }
+          }),
       //Log page
       Behaviorwidget(),
       //Videos page
@@ -84,13 +97,16 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
     ];
     //_page = _homePage;
     return Scaffold(
-      body: Center (
+      backgroundColor: AppColors.dark,
+      body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+            ),
             label: 'Home',
             backgroundColor: _navColor,
           ),
@@ -112,6 +128,7 @@ class _SignedInStatefulWidgetState extends State<SignedInStatefulWidget> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: _selectedColor,
+        unselectedItemColor: AppColors.primary,
         onTap: _onItemTapped,
       ),
     );

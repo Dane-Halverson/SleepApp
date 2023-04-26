@@ -1,5 +1,6 @@
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:units/AppColors.dart';
 import 'package:units/models/models.dart';
 import 'package:units/presenters/home_presenters.dart';
 import 'package:units/views/statistics.dart';
@@ -7,6 +8,7 @@ import 'package:units/views/statistics.dart';
 import '../models/statistics.dart';
 import 'package:units/presenters/CalculatorPresenter.dart';
 import 'CalculatorView.dart';
+import '../presenters/CalculatorPresenter.dart';
 
 class HomeView extends StatelessWidget {
   final UserModel userData;
@@ -37,7 +39,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
   late final HomePresenter _presenter;
   final headingStyle = new TextStyle(
     inherit: false,
-    color: Colors.black,
+    color: AppColors.accentLight,
     fontSize: 28.0,
     letterSpacing: 0.6,
     fontFamily: 'Roboto',
@@ -52,6 +54,7 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
     final String? firstname = this._presenter.firstname;
     return new LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
       return  Scaffold(
+        backgroundColor: AppColors.dark,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("Home"),
@@ -60,8 +63,14 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
         body: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            Text('Welcome back, $firstname', style: headingStyle),
-            Calculator(new BasicPresenter()),
+            Padding(padding: EdgeInsets.all(5),
+            child: Text('Welcome back, $firstname', style: headingStyle),
+            ),
+            Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Calculator(),
+
+            )
+            ,
             FutureBuilder<StatisticsModel>(
               future: _presenter.getStatisticsData(),
               builder: (BuildContext ctx, AsyncSnapshot<StatisticsModel> snapshot) {
@@ -70,10 +79,28 @@ class HomeStatefulWidgetState extends State<_HomeStatefulWidget> {
                   if (data != null) {
                     return StatisticsView(data);
                   }
-                  else return const CircularProgressIndicator();
+                  else return Row (
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          height: 80,
+                          child: const CircularProgressIndicator(),
+                        )
+                      ]
+                  );
                 }
                 else {
-                  return const CircularProgressIndicator();
+                  return Row (
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          height: 80,
+                          child: const CircularProgressIndicator(),
+                        )
+                      ]
+                  );
                 }
               }
             ),// FutureBuilder for stats view
