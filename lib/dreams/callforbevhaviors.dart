@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'enterSleep.dart';
 import 'daytimeBehaviors.dart';
+import 'package:units/AppColors.dart';
+import 'package:units/TextPresets.dart';
 
 void main() => runApp(const Behaviorwidget());
 
@@ -11,6 +13,7 @@ class Behaviorwidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: AppColors.dark,
         appBar: AppBar(
           title: const Text('Sleep Logging'),
           backgroundColor: Colors.deepPurple
@@ -18,13 +21,36 @@ class Behaviorwidget extends StatelessWidget {
         body: ListView(
           scrollDirection: Axis.vertical,
           children: [
+            Padding(padding: const EdgeInsets.all(10.0),
+            child: Text('Add an entry for ' + DateTime.now().month.toString() + '/' + DateTime.now().day.toString(),
+                style: TextPresets.headingStyle),
+            ),
             TimeforBed(),
             fellAsleep(),
             Wokeup(),
             TextStore(),
-            DayBehavior()
-          ],
-        ),
+            DayBehavior(),
+            Padding(padding: const EdgeInsets.all(20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  backgroundColor: AppColors.secondary),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: "WorkSans",
+                      color: AppColors.dark
+                  ),
+                ),
+              ),
+              onPressed: () {
+                //submitData();
+              },
+            ),)
+        ]),
       ),
     );
   }
