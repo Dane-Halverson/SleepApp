@@ -10,6 +10,8 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+        debugShowCheckedModeBanner: false,
         home: Builder(
             builder: (context) => Scaffold(
               backgroundColor: AppColors.dark,

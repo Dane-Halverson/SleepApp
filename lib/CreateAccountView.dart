@@ -92,6 +92,7 @@ class _CreateAccountState extends State<CreateAccountPage>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Builder(
             builder: (context) => Scaffold(
                 appBar: AppBar(
