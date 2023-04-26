@@ -27,7 +27,7 @@ class _TextStoreState extends State<TextStore> {
                 Text('Rate Your Quality of Sleep',
                 style: TextPresets.bodyStyle),
                 Slider(
-                  activeColor: Colors.deepPurple,
+                  activeColor: AppColors.secondary,
                   secondaryActiveColor: AppColors.accent,
                   value: _currentValue,
                   min: 1,
