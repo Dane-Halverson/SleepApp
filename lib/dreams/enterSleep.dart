@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:units/AppColors.dart';
+import 'package:units/TextPresets.dart';
 
 //Widget that creates the text input for sleep quality
 class TextStore extends StatefulWidget {
@@ -22,10 +24,11 @@ class _TextStoreState extends State<TextStore> {
           child: Column(
              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Rate Your Quality of Sleep'),
+                Text('Rate Your Quality of Sleep',
+                style: TextPresets.bodyStyle),
                 Slider(
                   activeColor: Colors.deepPurple,
-                  secondaryActiveColor: Colors.deepPurpleAccent,
+                  secondaryActiveColor: AppColors.accent,
                   value: _currentValue,
                   min: 1,
                   max: 5,
@@ -60,8 +63,11 @@ class _TimeforBedState extends State<TimeforBed> {
     child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Text('What Time Did You Go To Bed?'),
+      Text('What Time Did You Go To Bed?',
+      style: TextPresets.bodyStyle),
       TimePickerSpinner(
+        normalTextStyle: TextPresets.scrollStyle,
+        highlightedTextStyle: TextPresets.headingStyle,
         spacing: 20,
         is24HourMode: false,
         minutesInterval: 15,
@@ -97,8 +103,11 @@ class _fellAsleepState extends State<fellAsleep> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('What Time Did You Fall Asleep?', textAlign: TextAlign.center),
+              Text('What Time Did You Fall Asleep?', textAlign: TextAlign.center,
+              style: TextPresets.bodyStyle),
               TimePickerSpinner(
+                normalTextStyle: TextPresets.scrollStyle,
+                highlightedTextStyle: TextPresets.headingStyle,
                 spacing: 20,
                 is24HourMode: false,
                 minutesInterval: 15,
@@ -132,8 +141,11 @@ class _WokeupState extends State<Wokeup> {
     child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Text('What Time Did You Wake Up?', textAlign: TextAlign.center),
+      Text('What Time Did You Wake Up?', textAlign: TextAlign.center,
+      style: TextPresets.bodyStyle),
       TimePickerSpinner(
+        normalTextStyle: TextPresets.scrollStyle,
+        highlightedTextStyle: TextPresets.headingStyle,
         spacing: 20,
         is24HourMode: false,
         minutesInterval: 15,
