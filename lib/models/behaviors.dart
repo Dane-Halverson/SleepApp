@@ -1,19 +1,59 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import './models.dart';
 
-class BehaviorModel extends DocumentModel {
-  DocumentReference<BehaviorModel> ref;
+class BehaviorsModel extends DocumentModel {
+    final DocumentReference<BehaviorsModel> ref;
+    final int date;
+    final int activityTime;
+    final int caffeineIntake;
+    final int stressLevel;
+
+    BehaviorsModel({
+      required this.ref,
+      required this.date,
+      this.activityTime = 0,
+      this.caffeineIntake = 0,
+      this.stressLevel = 1,
+    });
+
+    static BehaviorsModel fromDB(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
+      final data = snapshot.data();
+      if (data == null) throw new ErrorDescription('Tried to access behaviors for the wrong date!');
+      return BehaviorsModel(
+        ref: snapshot.reference.withConverter(
+          fromFirestore: BehaviorsModel.fromDB,
+          toFirestore: (BehaviorsModel behavior, _) => behavior.save()
+        ),
+        date: data['date'],
+        activityTime: data['activityTime'],
+        caffeineIntake: data['caffeineIntake'],
+        stressLevel: data['stressLevel']
+      );
+  }
+
+    @override
+    Map<String, dynamic> save() {
+      return {
+        "date": date,
+        "activityTime": activityTime,
+        "caffeineIntake": caffeineIntake,
+        "stressLevel": stressLevel
+      };
+  }
+}
+
+class SleepModel extends DocumentModel {
+  DocumentReference<SleepModel> ref;
   int riseTime;
   int timeFellAsleep;
   int date;
   int sleepQuality;
   int timeWentToBed;
-  /// TODO add the document reference to constructor and then get the dreams subcollection
 
-  BehaviorModel({
+  SleepModel({
     required this.ref,
     required this.riseTime,
     required this.timeFellAsleep,
@@ -50,12 +90,12 @@ class BehaviorModel extends DocumentModel {
     await dreamDiaries.doc(Uuid().v1()).set(data);
   }
 
-  static BehaviorModel fromDB(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
+  static SleepModel fromDB(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
     final data = snapshot.data();
-    return BehaviorModel(
+    return SleepModel(
       ref: snapshot.reference.withConverter(
-        fromFirestore: BehaviorModel.fromDB,
-        toFirestore: (BehaviorModel behavior, _) => behavior.save()
+        fromFirestore: SleepModel.fromDB,
+        toFirestore: (SleepModel behavior, _) => behavior.save()
       ),
       riseTime: data?['riseTime'],
       timeFellAsleep: data?['timeFellAsleep'],
@@ -77,9 +117,9 @@ class BehaviorModel extends DocumentModel {
   }
 }
 
-DocumentReference<BehaviorModel> getBehaviorDocRef(CollectionReference ref, String date) => ref.doc(date).withConverter(
-    fromFirestore: BehaviorModel.fromDB,
-    toFirestore: (BehaviorModel behavior, _) => behavior.save()
+DocumentReference<SleepModel> getBehaviorDocRef(CollectionReference ref, String date) => ref.doc(date).withConverter(
+    fromFirestore: SleepModel.fromDB,
+    toFirestore: (SleepModel behavior, _) => behavior.save()
 );
 
 /// Keep track of dream data for a dream entered by a user

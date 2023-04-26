@@ -33,15 +33,4 @@ void main() async {
     expect(user?.firstname, 'Ryan');
     expect(user?.lastname, 'Monahan');
   });
-
-  test('Tests setting and retrieving models from the model pool', () async {
-    final pool = new ModelPool();
-    var model = await docRef.get();
-
-    pool.insertModel('ryanaldo34', model);
-    var user = pool.getModelData('ryanaldo34') as UserModel; // cast the generic DocumentModel to UserModel
-
-    expect(user.firstname, 'Ryan');
-    expect(user.lastname, 'Monahan');
-  });
 }

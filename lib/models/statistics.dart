@@ -17,7 +17,7 @@ class StatisticsModel {
   final int monthlyAvgTimeInBed;
   final int weeklyAvgSleepTime;
   final int weeklyAvgSleepQuality;
-  final int weeklyAvgTimeInBed;
+  final double weeklyAvgTimeInBed;
   final List<ChartData<DateTime>> weeklySleepQualityData;
   final List<ChartData<DateTime>> weeklySleepTimeData;
   final List<ChartData<DateTime>> weeklyTimeInBedData;
@@ -42,7 +42,7 @@ class StatisticsModel {
     // stats vars
     int weeklyAvgSleepQuality = 0;
     int weeklyAvgSleepTime = 0;
-    int weeklyAvgTimeInBed = 0;
+    double weeklyAvgTimeInBed = 0;
     int monthlyAvgSleepQuality = 0;
     int monthlyAvgSleepTime = 0;
     int monthlyAvgTimeInBed = 0;
@@ -50,7 +50,7 @@ class StatisticsModel {
     final List<ChartData<DateTime>> weeklySleepQualityData = [];
     final List<ChartData<DateTime>> weeklySleepTimeData = [];
     final List<ChartData<DateTime>> weeklyTimeInBedData = [];
-    await for (final behavior in userData.getRecentBehaviors(limit: 30)) {
+    await for (final behavior in userData.getRecentSleep(limit: 30)) {
       final datetime = DateTime.fromMillisecondsSinceEpoch(behavior.date);
       number += 1;
       totalSleepTime += behavior.sleepTime;
@@ -59,7 +59,7 @@ class StatisticsModel {
       if (number <= 7) {
         weeklyAvgSleepTime = totalSleepTime ~/ number;
         weeklyAvgSleepQuality = totalSleepQuality ~/ number;
-        weeklyAvgTimeInBed = totalTimeInBed ~/ number;
+        weeklyAvgTimeInBed = totalTimeInBed / number;
         weeklySleepQualityData.add(new ChartData(x: datetime, y: behavior.sleepQuality));
         weeklySleepTimeData.add(new ChartData(x: datetime, y: behavior.sleepTime));
         weeklyTimeInBedData.add(new ChartData(x: datetime, y: behavior.totalTimeInBed));
@@ -78,6 +78,45 @@ class StatisticsModel {
       weeklySleepQualityData: weeklySleepQualityData,
       weeklySleepTimeData: weeklySleepTimeData,
       weeklyTimeInBedData: weeklyTimeInBedData
+    );
+  }
+}
+
+class BehaviorStatisitcsModel {
+  final int avgStressLevel;
+  final int avgCaffeineIntake;
+  final int avgDailyActivityTime;
+
+  BehaviorStatisitcsModel._create({
+    required this.avgStressLevel,
+    required this.avgCaffeineIntake,
+    required this.avgDailyActivityTime
+  });
+
+  static Future<BehaviorStatisitcsModel> create(UserModel userData) async {
+    int counter = 1;
+    int stressSum = 0;
+    int caffeineSum = 0;
+    int activitySum = 0;
+    int avgStressLevel = 0;
+    int avgCaffeineIntake = 0;
+    int avgDailyActivityTime = 0;
+    await for(final data in userData.getRecentBehaviors(limit: 30)) {
+      activitySum += data.activityTime;
+      if (counter <= 7) {
+        caffeineSum += data.caffeineIntake;
+        stressSum += data.stressLevel;
+        avgCaffeineIntake = caffeineSum ~/ counter;
+        avgStressLevel = stressSum ~/ counter;
+      }
+      counter++;
+    }
+    avgDailyActivityTime = activitySum ~/ counter;
+
+    return new BehaviorStatisitcsModel._create(
+      avgStressLevel: avgStressLevel,
+      avgCaffeineIntake: avgCaffeineIntake,
+      avgDailyActivityTime: avgDailyActivityTime
     );
   }
 }
