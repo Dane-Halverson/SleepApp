@@ -1,19 +1,8 @@
-# SweetDreams
-
-A Flutter project.
+# Sleep App
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is an android application that helps users get better sleep. It allows you to track your sleep and some habbits that may affect it and stores that data to your account. It also provides some other functions such as being able to view graphs of your sleep data or watch videos that may help you sleep better.
 
 # Acknowledgement
 
